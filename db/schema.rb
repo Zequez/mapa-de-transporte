@@ -13,8 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20120423102527) do
 
-  create_table "active_admin_comments", :id => false, :force => true do |t|
-    t.integer  "id",            :null => false
+  create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
     t.string   "resource_type", :null => false
     t.integer  "author_id"
@@ -29,8 +28,7 @@ ActiveRecord::Schema.define(:version => 20120423102527) do
   add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
-  create_table "admin_users", :id => false, :force => true do |t|
-    t.integer  "id",                                        :null => false
+  create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "",    :null => false
     t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
@@ -49,8 +47,7 @@ ActiveRecord::Schema.define(:version => 20120423102527) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "bus_groups", :id => false, :force => true do |t|
-    t.integer "id",             :null => false
+  create_table "bus_groups", :force => true do |t|
     t.string  "name"
     t.integer "city_id"
     t.integer "bus_price"
@@ -63,8 +60,7 @@ ActiveRecord::Schema.define(:version => 20120423102527) do
 
   add_index "bus_groups", ["name"], :name => "index_bus_groups_on_name"
 
-  create_table "buses", :id => false, :force => true do |t|
-    t.integer  "id",                                             :null => false
+  create_table "buses", :force => true do |t|
     t.string   "name"
     t.string   "color_1",                 :default => "#dddddd"
     t.string   "color_2",                 :default => "#222222"
@@ -84,18 +80,14 @@ ActiveRecord::Schema.define(:version => 20120423102527) do
 
   add_index "buses", ["name", "city_id", "bus_group_id"], :name => "index_buses_on_name_and_city_id_and_bus_group_id"
 
-  create_table "checkpoints", :id => false, :force => true do |t|
-    t.integer "id",                                       :null => false
-    t.decimal "latitude",  :precision => 11, :scale => 0
-    t.decimal "longitude", :precision => 11, :scale => 0
+  create_table "checkpoints", :force => true do |t|
+    t.float   "latitude"
+    t.float   "longitude"
     t.integer "route_id"
     t.integer "number"
   end
 
-  add_index "checkpoints", ["route_id"], :name => "index_checkpoints_on_target_id_and_target_type"
-
-  create_table "cities", :id => false, :force => true do |t|
-    t.integer "id",                               :null => false
+  create_table "cities", :force => true do |t|
     t.string  "name"
     t.string  "perm"
     t.boolean "use_as_default"
@@ -112,16 +104,14 @@ ActiveRecord::Schema.define(:version => 20120423102527) do
 
   add_index "cities", ["perm"], :name => "index_cities_on_perm"
 
-  create_table "domains", :id => false, :force => true do |t|
-    t.integer "id",      :null => false
+  create_table "domains", :force => true do |t|
     t.string  "name"
     t.integer "city_id"
   end
 
   add_index "domains", ["name"], :name => "index_domains_on_name"
 
-  create_table "routes", :id => false, :force => true do |t|
-    t.integer "id",               :null => false
+  create_table "routes", :force => true do |t|
     t.string  "name"
     t.text    "addresses"
     t.string  "encoded"

@@ -7,7 +7,10 @@ class AdminCity
   find_elements: ->
     @e = @element = $$('map')
     @viewport_element = $$('city_json_viewport')
-    @viewport = JSON.parse @viewport_element.val()
+    try
+      @viewport = JSON.parse @viewport_element.val()
+    catch e
+      @viewport = false
 
   build_map: ->
     @map = new Map(@e, @viewport)

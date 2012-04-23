@@ -4,14 +4,11 @@ class window.Map
     @viewport = viewport
     @g = google.maps
 
-    if not @viewport
-      @viewport = JSON.parse @e.attr('data-viewport')
-
     @build_gmap()
 
   build_gmap: ->
     @gmap = new @g.Map(@e[0], @map_settings())
-    @gmap.fitBounds @bounds
+    @gmap.fitBounds @bounds if @bounds
 
 
   map_settings: ->
@@ -24,9 +21,10 @@ class window.Map
     }
 
   make_bounds: ->
-    @sw = new @g.LatLng @viewport.southwest.lat, @viewport.southwest.lng
-    @ne = new @g.LatLng @viewport.northeast.lat, @viewport.northeast.lng
-    @bounds = new @g.LatLngBounds(@sw, @ne)
+    if @viewport
+      @sw = new @g.LatLng @viewport.southwest.lat, @viewport.southwest.lng
+      @ne = new @g.LatLng @viewport.northeast.lat, @viewport.northeast.lng
+      @bounds = new @g.LatLngBounds(@sw, @ne)
 
   get_bounds: ->
     bounds = @gmap.getBounds()

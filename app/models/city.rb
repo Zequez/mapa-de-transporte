@@ -46,7 +46,11 @@ class City < ActiveRecord::Base
   end
 
   def json_viewport=(json_viewport)
-    self.viewport = JSON.parse json_viewport
+    begin
+      self.viewport = JSON.parse json_viewport
+    rescue
+      
+    end
   end
 
   def set_shown_buses(buses)

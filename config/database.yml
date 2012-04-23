@@ -1,13 +1,4 @@
-# MySQL.  Versions 4.1 and 5.0 are recommended.
-# 
-# Install the MYSQL driver
-#   gem install mysql2
-#
-# Ensure the MySQL gem is defined in your Gemfile
-#   gem 'mysql2'
-#
-# And be sure to use new-style password hashing:
-#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+
 development:
   adapter: postgresql
   encoding: utf8
@@ -33,7 +24,7 @@ production:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: mdc_prod
+  database: mdc_production
   pool: 5
   username: postgres
   password: asd
