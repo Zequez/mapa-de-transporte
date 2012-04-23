@@ -24,7 +24,6 @@
   #map
 
   - if not @bus.new_record?
-    - L.l @bus.departure_route.checkpoints.first.latitude
     - [:departure_route, :return_route].map do |route|
       = f.inputs admin_routes_tabs, id: route.to_s, for: route do |rf|
         %li.input.boolean.optional
