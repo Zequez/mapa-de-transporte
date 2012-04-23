@@ -1,6 +1,8 @@
 class window.BusRouteMarkers
-  max_gap: 500
-  min_gap: 200
+  max_gap: 0.005 # 500m aprox
+  min_gap: 0.002 # 200m aprox
+
+  visible: null
 
   constructor: (route, arrows_images, bus_image)->
     @route = route
@@ -18,59 +20,42 @@ class window.BusRouteMarkers
 
   calculate_markers: ->
     module = google.maps.geometry.spherical
-    points = @route.points.getArray()
+    points = @route.coordinates
+    segments = @route.segments
 
     @arrows = []
     @buses_icons = []
 
     length = points.length
 
-    if length > 1
-      length -= 2
-      for i in [0..length]
-        point_from = points[i]
-        point_to = points[i+1]
+    first = true
+    
+    for segment in segments
 
-        first = (i == 0)
-        last  = (i == length)
+      if segment.distance > @max_gap
+        how_many = Math.floor(segment.distance/@max_gap)
+      else if segment.distance > @min_gap
+        how_many = 1
+      else
+        continue
 
-        x1 = point_from.lat()
-        y1 = point_from.lng()
-        x2 = point_to.lat()
-        y2 = point_to.lng()
+      for point in segment.interpolations(how_many, first, true)
+        point = $LatLng point
+        @buses_icons.push new BusImageMarker(@gmap, point, @bus_image)
+        @arrows.push new ArrowMarker(@gmap, point, segment.angle, @arrows_images)
 
-        angle = (180/Math.PI) * Math.atan2(y2-y1, x2-x1)
-        angle += 360 if angle < 0
+      first = false
 
-        distance = module.computeDistanceBetween(point_from, point_to)
-
-        first_mark = 1
-        last_mark  = -1
-        first_mark = 0 if first
-        last_mark  = 0 if last
-
-        fractions = 1
-
-        if distance > @max_gap
-          fractions += Math.floor(distance/@max_gap)
-        else if distance > @min_gap and not (first or last)
-          fractions += 1
-
-        mark_from = 0 + first_mark
-        mark_to   = fractions + last_mark
-
-        if mark_from <= mark_to
-          for j in [mark_from..mark_to]
-            point = module.interpolate(point_from, point_to, j / fractions)
-
-            @buses_icons.push new BusImageMarker(@gmap, point, @bus_image)
-            @arrows.push new ArrowMarker(@gmap, point, angle, @arrows_images)
 
 
     null
 
-  show:        -> @send_to_markers("show")
-  hide:        -> @send_to_markers("hide")
+  show: ->
+    @visible = true
+    @send_to_markers("show")
+  hide: ->
+    @visible = false
+    @send_to_markers("hide")
   highlight:   -> @send_to_markers("highlight")
 #  unhighlight: -> @send_to_markers("unhighlight")
 
