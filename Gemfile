@@ -23,7 +23,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
       :git                               => 'git://github.com/anjlab/bootstrap-rails.git'
-  gem 'compass-rails'
+  gem 'compass-rails', git: 'git://github.com/Compass/compass-rails.git'
 
   gem 'uglifier', '>= 1.0.3'
 end

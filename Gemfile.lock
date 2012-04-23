@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/Compass/compass-rails.git
+  revision: 47d889ad8dabdab1e9f44da4447f94846c089c50
+  specs:
+    compass-rails (1.0.0.rc.3)
+      compass (~> 0.12.rc.0)
+
+GIT
   remote: git://github.com/anjlab/bootstrap-rails.git
   revision: 028a81746f1f8958df59dfb068d57f2932ef767d
   specs:
@@ -82,8 +89,6 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
-    compass-rails (1.0.1)
-      compass (~> 0.12.0)
     daemons (1.1.8)
     devise (2.0.4)
       bcrypt-ruby (~> 3.0)
@@ -98,7 +103,7 @@ GEM
     fastercsv (1.5.4)
     formtastic (2.1.1)
       actionpack (~> 3.0)
-    fssm (0.2.8.1)
+    fssm (0.2.9)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -211,7 +216,7 @@ DEPENDENCIES
   anjlab-bootstrap-rails!
   babosa
   coffee-rails (~> 3.2.1)
-  compass-rails
+  compass-rails!
   haml-rails
   inherited_resources
   jquery-rails
