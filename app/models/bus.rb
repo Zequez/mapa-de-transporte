@@ -50,10 +50,10 @@ class Bus < ActiveRecord::Base
     darker_color_1 =  Color.new(color_1).darken(0.3)
     
     convert = ["convert"]
-    convert << "-size 16x8"
-    convert << "-font 'DejaVuSansMono'"
-    convert << "-pointsize 8"
-    convert << "-gravity West"
+    convert << "-size 24x12"
+    convert << "-font 'Courier-Bold'"
+    convert << "-pointsize 9"
+    convert << "-gravity South"
     convert << "-background '#{color_1}'"
     convert << "-fill '#{color_2}'"
     convert << "-bordercolor '#{darker_color_1}'"
@@ -79,7 +79,7 @@ class Bus < ActiveRecord::Base
     montage << "-frame 0"
     montage << "-label ''"
     montage << "-tile 1x"
-    montage << "-geometry '18x'"
+    montage << "-geometry '22x'"
     montage << "'#{paths}'"
     montage << "'#{CONFIG[:buses_images_sheet_path]}'"
     montage << "2>&1"

@@ -51,14 +51,18 @@ module BusesHelper
   end
 
   def schedulize(from, to)
-    times = [from, to].map do |time|
-      hour = time/100
-      minute = time-hour*100
+    if from and to
+      times = [from, to].map do |time|
+        hour = time/100
+        minute = time-hour*100
 
-      (Time.mktime(0)+hour*3600+minute*60).strftime("%l:%M%P")
+        (Time.mktime(0)+hour*3600+minute*60).strftime("%l:%M%P")
+      end
+
+      "<span title='#{times.join ' a '}'>#{times.join '<br/>'}</span>".html_safe
+    else
+      ""
     end
-
-    "<span title='#{times.join ' a '}'>#{times.join '<br/>'}</span>".html_safe
   end
 
   def city_buses_path(city = false, buses)
