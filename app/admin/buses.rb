@@ -9,7 +9,13 @@ ActiveAdmin.register Bus do
 
   controller do
     def new
-      new! {@bus.for_new}
+      @bus = Bus.for_new
+      new!
+    end
+
+    def edit
+      resource.build_routes
+      edit!
     end
   end
 

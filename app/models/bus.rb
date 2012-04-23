@@ -14,7 +14,6 @@ class Bus < ActiveRecord::Base
   scope :for_admin_index, includes(:bus_group, :city)
 
   before_save :set_routes_caches
-
   after_save :handle_bus_image
 
   def self.delegatable_attributes
@@ -22,8 +21,8 @@ class Bus < ActiveRecord::Base
   end
 
   def set_routes_caches
-    self.encoded_departure_route = departure_route.encoded
-    self.encoded_return_route    = return_route.encoded
+    self.encoded_departure_route = departure_route.encoded if departure_route
+    self.encoded_return_route    = return_route.encoded    if return_route
     #self.departure_route_addresses = departure_route.addresses
     #self.return_route_addresses = return_route.addresses
   end
@@ -129,8 +128,14 @@ class Bus < ActiveRecord::Base
   def self.for_new
     bus                 = new
     bus.city            = City.first
-    bus.return_route    = Route.new name: "Departure"
-    bus.return_route    = Route.new name: "Return"
+    #bus.return_route    = Route.new name: "Departure"
+    #bus.return_route    = Route.new name: "Return"
+    bus
+  end
+
+  def build_routes
+    build_departure_route if !departure_route
+    build_return_route if !return_route
   end
 
   #def self.for_index(all_names)

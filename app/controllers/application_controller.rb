@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter {L.l params}
-
   helper_method :city_url
 
   def city_url(city = false)

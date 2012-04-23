@@ -1,7 +1,8 @@
-:javascript
-  $(document).ready(function(){
-    new AdminBus(#{@bus.to_editor_json});
-  });
+- if not @bus.new_record?
+  :javascript
+    $(document).ready(function(){
+      new AdminBus(#{@bus.to_editor_json});
+    });
 
 = semantic_form_for [:admin, resource] do |f|
   = f.inputs do
@@ -22,16 +23,18 @@
 
   #map
 
-  - [:departure_route, :return_route].map do |route|
-    = f.inputs admin_routes_tabs, id: route.to_s, for: route do |rf|
-      %li.input.boolean.optional
-        %label
-          %input.reverse_insertion{type: :checkbox, value: false}
-          Reverse Insertion
-      = rf.input :name
-      = rf.input :addresses
-      = rf.input :encoded
-      = rf.input :json_checkpoints_attributes, as: :string
+  - if not @bus.new_record?
+    - L.l @bus.departure_route.checkpoints.first.latitude
+    - [:departure_route, :return_route].map do |route|
+      = f.inputs admin_routes_tabs, id: route.to_s, for: route do |rf|
+        %li.input.boolean.optional
+          %label
+            %input.reverse_insertion{type: :checkbox, value: false}
+            Reverse Insertion
+        = rf.input :name
+        = rf.input :addresses
+        = rf.input :encoded
+        = rf.input :json_checkpoints_attributes, as: :string
 
   = f.buttons
 
