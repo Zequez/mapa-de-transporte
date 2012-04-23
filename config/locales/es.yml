@@ -2,6 +2,9 @@ es:
   no: "No"
   yes: "Sí"
   and: "y"
+
+  error_just_me: Nope, solo yo puedo hacer esto.
+
   views:
     buses:
       delay: Demora

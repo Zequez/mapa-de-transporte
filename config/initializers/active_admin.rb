@@ -7,6 +7,12 @@ ActiveAdmin.setup do |config|
   #
   config.site_title = "Mapas de Colectivos"
 
+  config.before_filter :set_admin_locale
+
+  def set_admin_locale
+    I18n.locale = :en
+  end
+
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
