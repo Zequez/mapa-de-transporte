@@ -1,4 +1,4 @@
-class AdminCity
+class window.AdminCity
   constructor: ->
     @find_elements()
     @build_map()
