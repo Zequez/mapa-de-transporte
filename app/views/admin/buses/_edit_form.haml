@@ -1,0 +1,40 @@
+:javascript
+  $(document).ready(function(){
+    new AdminBus(#{@bus.to_editor_json});
+  });
+
+= semantic_form_for [:admin, resource] do |f|
+  = f.inputs do
+    = f.input :city
+    = f.input :bus_group
+    = f.input :name
+    = f.input :card
+    = f.input :cash
+    = f.input :delay
+    = f.input :start_time
+    = f.input :end_time
+    = f.input :color_1
+    = f.input :color_2
+    = f.input :karma
+    = f.input :encoded_departure_route
+    = f.input :encoded_return_route
+    = f.input :visible
+
+  #map
+
+  - [:departure_route, :return_route].map do |route|
+    = f.inputs admin_routes_tabs, id: route.to_s, for: route do |rf|
+      %li.input.boolean.optional
+        %label
+          %input.reverse_insertion{type: :checkbox, value: false}
+          Reverse Insertion
+      = rf.input :name
+      = rf.input :addresses
+      = rf.input :encoded
+      = rf.input :json_checkpoints_attributes, as: :string
+
+  = f.buttons
+
+#bus
+  #toolbar
+  #map{"data-viewport"        => resource.city.viewport.to_json}

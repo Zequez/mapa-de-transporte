@@ -1,0 +1,114 @@
+- content_for :head do
+  :javascript
+    $(document).ready(function(){
+      new City(#{@city.to_map_json});
+    });
+
+#map-container
+  -##bus-quick-info
+  -#  %h2= @city.name
+  -#  = render partial: "/shared/bus-data", locals: {bus: @city, light_icons: true}
+  -#  .absolute-light
+  #map
+
+    
+#toolbar
+  .padding
+    #header
+      %h1
+        %image{src: "/assets/header.png", alt: "Mapa de Colectivos"}
+
+    .separator
+
+    #buses-filter
+      #filter-circles
+        .filter-circle
+          .close ×
+          .value
+      #filter-instructions
+        %p#filter-instruction-start
+          = raw t('views.buses.filter_instructions_start')
+        %p#filter-instruction-many_zones
+          = raw t('views.buses.filter_instructions_many_zones')
+        %p#filter-instruction-remove
+          = raw t('views.buses.filter_instructions_remove')
+        %p#filter-instruction-no_buses
+          = raw t('views.buses.filter_instructions_no_buses')
+        %p#filter-instruction-suggestion
+          = raw t('views.buses.filter_instructions_suggestion')
+        %p#filter-instruction-maximum
+          = raw t('views.buses.filter_instructions_maximum')
+
+    .separator
+
+    #buses-groups
+      - @city.bus_groups.each do |bus_group|
+        .buses-group-container
+          .bus-group.slot{id: "bus-group-#{bus_group.id}"}= bus_group.name
+          .buses-container
+            - bus_group.buses_batches(7) do |buses_batch|
+              .buses-batch
+                .buses-batch-rail
+                .buses-batch-slots
+                  - buses_batch.each do |bus|
+                    - if bus
+                      = bus_link(bus) do
+                        .bus-name= bus.name
+
+    .separator
+
+    #buses-info
+      -#.bus-info-loader
+      -#  .separator
+      - @buses.each do |bus|
+        .bus-info{id: "bus-info-#{bus.id}"}
+          %h2= bus.name
+          = render partial: "/shared/bus-data", locals: {bus: bus}
+          .bus-pictures
+          .bus-routes
+            .bus-departure-route
+              %span #{t "views.buses.departure"}:
+              = bus.departure_route.addresses
+            .bus-return-route
+              %span #{t "views.buses.return"}:
+              = bus.return_route.addresses
+          .separator
+
+
+    #facebook-like-box
+      :erb
+        <div class="fb-like-box" data-href="http://mapadecolectivosmdp.com.ar" data-width="280" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
+
+    .separator
+
+    #copyright{title: "Robar es malo."}
+      %p © 2012 Mapa de Colectivos Mar del Plata.
+      %p Todos los derechos reservables reservados.
+      
+
+
+      -#.buses-group-container
+      -#  .bus-group.bus 55X
+      -#  .buses-container
+      -#    .buses-batch
+      -#      .slot.bus 550
+      -#      .slot.bus 551
+      -#      .slot.bus 552
+      -#      .slot.bus 553
+      -#      .slot.bus 554
+      -#      .slot.bus 555
+      -#      .slot.bus 556
+      -#    .buses-batch
+      -#      .slot.bus 557
+      -#      .slot.bus 558
+      -#      .slot.bus 558b
+      -#      .slot.bus
+      -#        .bus-info
+      -#          .bus-delay Demora: 10 min
+      -#          .bus-schedule Horario: 5:00am a 1:00am
+      -#          .bus-price Precio: $2.52 (Tarjeta)
+      -#        .bus-name
+      -#          559
+      -#      .slot
+      -#      .slot
+      -#      .slot

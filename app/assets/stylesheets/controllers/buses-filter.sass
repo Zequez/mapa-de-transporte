@@ -1,0 +1,59 @@
+#buses-filter
+  #filter-circles
+    +clearfix
+
+    text-align: center
+    line-height: $m*4
+
+    .filter-circle
+      display: inline-block
+      margin-right: $m
+      margin-bottom: $m
+      min-width: $m*4
+      height: $m*4
+
+      border-radius: $m*2
+
+      background-color: $blue
+      +reverse-linear-shadow(0.1)
+      +box-shadow(0px 0px 3px rgba(#000, 0.5))
+
+
+      //+transition-property("width, height")
+      //+transition-duration(0.5s)
+
+      .value
+        font-size: 1.4em
+        line-height: $m*4
+        text-align: center
+
+      .close
+        z-index: 1
+        display: none
+        position: absolute
+        top: 1px
+        right: 1px
+        
+        height: 10px
+        width: 10px
+
+        border-radius: $m/2
+        border: solid 1px darken($red, 10%)
+
+        background-color: $red
+
+        text-align: center
+        line-height: 10px
+        font-size: 10px
+        color: $white
+
+        cursor: pointer
+
+      &:hover
+        .close
+          display: block
+  // Instructions
+  #filter-instructions
+    p
+      margin-bottom: $m
+      cursor: pointer

@@ -1,0 +1,26 @@
+es:
+  no: "No"
+  yes: "Sí"
+  and: "y"
+  views:
+    buses:
+      delay: Demora
+      schedule: Horario en el que pasa
+      card: Precio pagado en tarjeta
+      cash: Precio pagado en efectivo
+      departure: Ida
+      return: Vuelta
+      show_buses_in_map:  Mostrar las líneas de colectivos %{buses} en el mapa.
+
+      filter_instructions_start: <b>Haz click en el mapa</b> para mostrar los colectivos que pasan por la zona.
+      filter_instructions_many_zones: Puedes clickear en otras zonas para mostrar colectivos que pasen <b>únicamente por esas zonas</b>.
+      filter_instructions_remove: Para <b>eliminar círculos</b> presiona click secundario sobre estos.
+      filter_instructions_no_buses:
+        Parece que ningún colectivo pasa por esa zona.
+        Puedes agrandar el área o moverla <b>arrastrando los cuadrados blancos</b> en los círculos.
+      filter_instructions_suggestion:
+        El área transparente es una <b>sugerencia</b> que se extiende hasta <b>300m</b> de las zonas marcadas.
+        Puedes cambiar este y otros valores en las opciones, cuando funcionen las opciones.
+      filter_instructions_maximum:
+        Puedes marcar hasta 3 zonas.
+        Si deseas aumentar el número podrías hacerlo desde las opciones, si no fuese porque todavía no existen.

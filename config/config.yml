@@ -1,0 +1,16 @@
+defaults: &defaults
+  country: Argentina
+  gmaps_url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyClfuk47glqCbSvFUvMOCkiHEpPkKka6w8&sensor=true&v=3.7&libraries=geometry"
+  bus_image_path: "public/buses_images/:id.png"
+  buses_images_sheet_path: "public/buses_images.png"
+  buses_images_on_save: false
+
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

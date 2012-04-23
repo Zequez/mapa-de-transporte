@@ -1,0 +1,11 @@
+=linear-shadow($strengh: 0.05)
+  +background-image(linear-gradient(color-stops(rgba(#fff, $strengh), rgba(#000, $strengh))))
+
+=reverse-linear-shadow($strengh: 0.05)
+  +background-image(linear-gradient(color-stops(rgba(#000, $strengh), rgba(#fff, $strengh))))
+  
+=text-border($color)
+  text-shadow: 0px 1px 0px $color, 1px 0px 0px $color, 0px 1px 0px $color, -1px 0px 0px $color, 0px -1px 0px $color, 1px 1px 0px $color, -1px -1px 0px $color, 1px -1px 0px $color, -1px 1px 0px $color
+
+=text-shadow($color)
+  text-shadow: 0px 1px 0px $color

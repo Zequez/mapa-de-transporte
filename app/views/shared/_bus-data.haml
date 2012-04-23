@@ -1,0 +1,21 @@
+- light_icons ||= false
+
+.bus-data{class: ("light-icons" if light_icons)}
+  .bus-data-item.bus-delay
+    .data-line
+    %span.data-icon{title: t("views.buses.delay")} #{t "views.buses.delay"}:
+    %span.data-value #{bus.delay!} min
+  .bus-data-item.bus-schedule
+    .data-line
+    %span.data-icon{title: t("views.buses.schedule")} #{t "views.buses.schedule"}:
+    %span.data-value= schedulize bus.start_time!, bus.end_time!
+  - if @city.show_bus_card
+    .bus-data-item.bus-card
+      .data-line
+      %span.data-icon{title: t("views.buses.card")} #{t "views.buses.card"}:
+      %span.data-value= bus.card! ? monetize(bus.card!) : t('no')
+  - if @city.show_bus_cash
+    .bus-data-item.bus-cash
+      .data-line
+      %span.data-icon{title: t("views.buses.cash")} #{t "views.buses.cash"}:
+      %span.data-value= bus.cash! ? monetize(bus.cash!) : t('no')

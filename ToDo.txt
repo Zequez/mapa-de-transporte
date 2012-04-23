@@ -1,0 +1,2 @@
+Opciones
+Flechas que salen desde el centro de los círculos hasta las colisiones con los puntos.

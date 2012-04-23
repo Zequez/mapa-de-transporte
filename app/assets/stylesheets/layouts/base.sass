@@ -1,0 +1,63 @@
+body, html
+  height: 100%
+  background: $black
+
+$toolbar-width: 20%
+$toolbar-padding: 10px
+//$toolbar-space: $toolbar-width - $toolbar-padding * 2
+
+h1
+  font-size: 2em
+h2
+  font-size: 1.5em
+h3
+  font-size: 1.3em
+
+#map-container
+  position: absolute
+  left: 0px
+  top: 0px
+  bottom: 0px
+  right: $toolbar-width
+
+  #map
+    width: 100%
+    height: 100%
+
+#toolbar
+  position: absolute
+  top: 0px
+  bottom: 0px
+  right: 0px
+
+  background: $blueDark url(background.png) repeat-x
+
+  //padding: 5%
+
+  //width: $toolbar-space
+  width: $toolbar-width
+  min-width: 300px
+
+  +text-shadow($black)
+
+  overflow: auto
+
+  .padding
+    margin: $m
+
+  #header
+    h1
+      font-size: 0px
+      image
+        width: 100%
+
+  #copyright
+    text-align: center
+    opacity: 0.4
+
+.separator
+  margin: 14px 0px 15px 0px
+  width: 100%
+  height: 1px
+  background-color: $black
+  +box-shadow(0px 1px 0px rgba(#fff, 0.05))

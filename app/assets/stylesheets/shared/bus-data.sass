@@ -1,0 +1,79 @@
+.bus-data
+  +box-sizing(border-box)
+  //float: left
+  //padding-right: $m
+  //width: 50%
+  margin-bottom: $m
+
+  >.bus-data-item
+    +clearfix
+    height: 30px
+    line-height: 30px
+
+    >.data-icon, >.data-value
+      background-color: $blueDark
+
+    >.data-icon
+      display: inline-block
+      float: left
+      top: 50%
+
+      margin-top: -10px
+      padding-right: 3px
+
+      width: 20px
+      height: 20px
+
+      background-image: url(bus_data_icons.png)
+      background-repeat: no-repeat
+
+      text-indent: -9999px
+
+    >.data-value
+      display: inline-block
+      float: right
+      padding-left: 5px
+
+      background-color: $blueDark
+
+      font-size: 1.4em
+
+    >.data-line
+      position: absolute
+      top: 50%
+      margin-top: -1px
+
+      width: 100%
+      height: 1px
+
+      background: $white
+      box-shadow: 0px 1px 0px $black
+
+  >.bus-delay>.data-icon
+    background-position: 0px 0px
+  >.bus-schedule
+    line-height: 15px
+    >.data-value
+      font-size: 1em
+    >.data-icon
+      background-position: 0px -20px
+  >.bus-card>.data-icon
+    background-position: 0px -40px
+  >.bus-cash>.data-icon
+    background-position: 0px -60px
+
+
+
+  &.light-icons
+    >.bus-data-item
+      >.data-icon, >.data-value
+        background-color: $blue
+
+    >.bus-delay>.data-icon
+      background-position: -20px 0px
+    >.bus-schedule>.data-icon
+      background-position: -20px -20px
+    >.bus-card>.data-icon
+      background-position: -20px -40px
+    >.bus-cash>.data-icon
+      background-position: -20px -60px

@@ -1,0 +1,136 @@
+// BREADCRUMBS
+// -----------
+
+//=bread-background($color1, $color2)
+//  +gradient-vertical($color1, $color2)
+//  & > .divider
+//    +linear-gradient(color-stops($color1, $color2), top left)
+//
+//=bread-shadow($apply: true)
+//  @if $apply
+//    & > .divider
+//      border-top: solid 1px darken(#ddd, 5%)
+//      border-right: solid 1px darken(#ddd, 10%)
+//      +box-shadow(1px -1px 2px 0px rgba(#000, 0.1))
+//  @else
+//    & > .divider
+//      border-top: solid 1px darken(#ddd, 10%)
+//      border-right: solid 1px lighten(#ddd, 20%)
+//      +box-shadow(inset -1px 1px 2px 0px rgba(#000, 0.1))
+
+$hipo: 282px
+
+=bread-gradient($color1, $color2)
+  +background-image(linear-gradient(top left, $color1 ($hipo/2 - 15px), $color2 ($hipo/2 + 15px)))
+
+.breadcrumb
+
+  font-size: 0px
+
+  overflow: hidden
+
+  li
+    float: left
+    
+    text-shadow: 0 1px 0 $white
+    text-transform: capitalize
+    font-size: $baseFontSize
+
+    // Reverse z-index (up to 10 elements)
+    @for $i from 1 through 10
+      &:nth-child(#{$i})
+        z-index: 10-$i
+
+    //&:first-child
+    //  padding-left: $gridGutterWidth
+
+    > span, > a
+      z-index: 2
+      margin-right: 15px + 7px
+      margin-left: 7px
+
+    > a
+      color: inherit
+      text-decoration: inherit
+
+    > span
+      color: lighten($textColor, 20%)
+
+    > div
+      position: absolute
+      top: 50%
+      right: 0px
+      width: 200px
+      height: 200px
+      
+      +transform-origin(100%, 0%)
+      +transform(rotate(45deg))
+
+    > div.drawdiv
+      z-index: 1
+      border-top: solid 1px lighten(#ddd, 20%)
+      border-right: solid 1px darken(#ddd, 5%)
+      border-radius: 0px 4px 0px 0px
+
+      +box-shadow(#{0px -1px 0px 0px darken(#ddd, 5%), 1px 0px 0px 0px lighten(#ddd, 20%)})
+      //+box-shadow(2px -0px 2px 0px rgba(#000, 0.1))
+
+      +bread-gradient($white, darken($white, 10%))
+
+    > div.linkdiv
+      z-index: 3
+      position: absolute
+
+      > a
+        display: block
+        height: 100%
+        width: 100%
+        font-size: 0px
+
+
+      &:hover ~ div.drawdiv
+        //border-top: solid 1px lighten(#ddd, 30%)
+        //border-right: solid 1px lighten(#ddd, 5%)
+        +bread-gradient($white, darken($white, 5%))
+
+
+    &:last-child > div.linkdiv, div.linkdiv:active
+      & ~ div.drawdiv
+        +bread-gradient($white, darken($white, 5%))
+
+    //    border-top: solid 1px darken(#ddd, 10%)
+    //    border-right: solid 1px lighten(#ddd, 20%)
+    //    +box-shadow(inset -1px 2px 2px 0px rgba(#000, 0.1))
+    //    +bread-gradient(darken($white, 15%), darken($white, 10%))
+
+
+
+
+  //.divider
+  //  position: absolute
+  //  right: -10px
+  //  top: 50%
+  //  margin-top: -11px
+  //
+  //  height: 21px
+  //  width: 21px
+  //
+  //  border-top: solid 1px #ddd
+  //  border-right: solid 1px #ddd
+  //  border-radius: 0px 4px 0px 0px
+  //
+  //  +linear-gradient(color-stops($white, $grayLighter), top left)
+  //
+  //  +transform(rotate(45deg))
+  //
+  //  z-index: 0
+  //
+  //  //& + li
+  //  //  padding-left: 22px
+  //  //  margin-left: -15px
+  //
+  //span, a
+  //  display: block
+  //  height: 100%
+  //
+  

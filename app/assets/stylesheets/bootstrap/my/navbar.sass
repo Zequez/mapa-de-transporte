@@ -1,0 +1,46 @@
+@import "../navbar"
+.navbar
+  .nav > li > a
+    padding: ($navbarHeight - 20)/2 10px (($navbarHeight - 20)/2 + 1)
+
+  .brand
+    padding: ((($navbarHeight - 20) / 2)) 20px ((($navbarHeight - 20) / 2))
+
+  .navbar-text
+    line-height: $navbarHeight
+
+
+.navbar-search 
+  position: relative
+  float: left
+  margin-top: 6px
+  margin-bottom: 0
+  .search-query 
+    padding: 4px 9px
+    color: $grayDark
+    background: #666
+    background: rgba(255,255,255,.9)
+    border: 1px solid #111
+    $shadow: inset 0 1px 2px rgba(0,0,0,.1), 0 1px 0px rgba(255,255,255,.15)
+    @include box-shadow($shadow)
+    @include transition(none)
+
+    // Placeholder text gets special styles can't be bundled together though for some reason
+    @include placeholder($grayLighter)
+
+    // Hover states
+    //&:hover
+    //  color: $white
+    //  background-color: $grayLight
+    //  background-color: rgba(255,255,255,.5)
+    
+    // Focus states (we use .focused since IE7-8 and down doesn't support :focus)
+    &:focus,
+    &.focused
+      //padding: 5px 10px
+      text-shadow: 0 1px 0 $white
+      background-color: $white
+      //border: 0
+      @include box-shadow(0 0 3px rgba(0,0,0,.15))
+      //outline: 0
+    
