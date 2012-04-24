@@ -54,12 +54,16 @@ class window.PathFinderCheckpoint extends Eventable
       if e.b.button == 0 # Left click
         @gmap.set('draggable', false)
 
-        move_listener = $G.event.addListener @gmap, "mousemove",   (e)=>
+        map_move_listener = $G.event.addListener @gmap, "mousemove",   (e)=>
+          @move_position(e.latLng)
+
+        circle_move_listener = $G.event.addListener @circle, "mousemove", (e)=>
           @move_position(e.latLng)
 
         $G.event.addListenerOnce @circle, "mouseup", (e)=>
           @gmap.set('draggable', true)
-          $G.event.removeListener move_listener
+          $G.event.removeListener map_move_listener
+          $G.event.removeListener circle_move_listener
           @set_position(e.latLng)
           @fire_event('changed')
 
