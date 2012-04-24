@@ -1,0 +1,104 @@
+class window.PathFinderCheckpoint extends Eventable
+  constructor: (map, latlng, number, element)->
+    @map     = map
+    @gmap    = map.gmap
+    @number  = number
+    @element = element
+
+    @latlng = latlng
+    @set_point()
+    @circle = null
+
+    @dragging = false
+
+    @add_circle_to_map()
+    @add_number_to_map()
+
+    @bind_circle_events()
+
+    @attach_element()
+    @bind_element_events()
+
+  set_point: ->
+    @point  = [@latlng.lat(), @latlng.lng()]
+
+  add_circle_to_map: ->
+    @circle = new google.maps.Circle @circle_options()
+
+  circle_options: ->
+    {
+      map: @gmap,
+      center: @latlng,
+      radius: 200,
+      strokeColor: "#132230",
+      fillColor: "#132230",
+      strokeOpacity: 0.6,
+      fillOpacity: 0.3,
+      strokeWeight: 1
+    }
+
+  add_number_to_map: ->
+    @number_marker = new google.maps.Marker @number_options()
+
+  number_options: ->
+    {
+      map: @gmap,
+      position: @latlng,
+      flat: true,
+      clickable: false,
+      icon: NumberIcons.get(@number)
+    }
+
+  bind_circle_events: ->
+    $G.event.addListener @circle, "mousedown", (e)=>
+      if e.b.button == 0 # Left click
+        @gmap.set('draggable', false)
+
+        move_listener = $G.event.addListener @gmap, "mousemove",   (e)=>
+          @move_position(e.latLng)
+
+        $G.event.addListenerOnce @circle, "mouseup", (e)=>
+          @gmap.set('draggable', true)
+          $G.event.removeListener move_listener
+          @set_position(e.latLng)
+          @fire_event('changed')
+
+        $G.event.addListenerOnce @gmap, "mouseup", (e)=>
+          $G.event.trigger @circle, "mouseup", e
+
+    $G.event.addListener @circle, "rightclick", (e)=>
+      @remove()
+
+  attach_element: ->
+    @element.set_value(@number)
+    @element.append()
+
+  bind_element_events: ->
+    @element.add_listener 'deleted', =>
+      @remove()
+
+  # This just sets the position of the circle
+  move_position: (latlng)->
+    @latlng = latlng
+    @circle.setCenter latlng
+
+  set_position: (latlng)->
+    @latlng = latlng if latlng
+    @move_position(@latlng)
+    @number_marker.setPosition @latlng
+    @set_point()
+
+  set_number: (number)->
+    @number = number
+    @number_marker.setIcon(NumberIcons.get(@number))
+    @element.set_value(@number)
+
+  remove: ->
+    @remove_without_callback()
+    @fire_event('removed', this)
+
+  remove_without_callback: ->
+    @circle.setMap(null)
+    @number_marker.setMap(null)
+    @element.remove()
+  

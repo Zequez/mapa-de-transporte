@@ -19,19 +19,14 @@ class window.BusRouteMarkers
       @add_saved_events()
 
   calculate_markers: ->
-    module = google.maps.geometry.spherical
-    points = @route.coordinates
     segments = @route.segments
 
     @arrows = []
     @buses_icons = []
-
-    length = points.length
-
+    
     first = true
     
     for segment in segments
-
       if segment.distance > @max_gap
         how_many = Math.floor(segment.distance/@max_gap)
       else if segment.distance > @min_gap
@@ -45,8 +40,6 @@ class window.BusRouteMarkers
         @arrows.push new ArrowMarker(@gmap, point, segment.angle, @arrows_images)
 
       first = false
-
-
 
     null
 

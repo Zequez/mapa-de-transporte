@@ -59,6 +59,14 @@ class window.Bus extends BusButton
   marker_image: ->
     BusesIcons.get(@data.id)
     
+  paths_to_checkpoints: (checkpoints)->
+    #departure_route_paths = @departure_route.paths_to_checkpoints(checkpoints)
+    return return_route_paths    = @return_route.paths_to_checkpoints(checkpoints)
+
+    if departure_route_paths.total_distance < return_route_paths.total_distance
+      departure_route_paths
+    else
+      return_route_paths
 
   pass_through_circles: (circles)->
     departure_route_match = @departure_route.pass_through_circles(circles)

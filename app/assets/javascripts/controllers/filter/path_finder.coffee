@@ -2,8 +2,9 @@ class window.PathFinder
   constructor: (map, buses)->
     @map     = map
     @buses   = buses
-    
-    @circles = []
+
+    @checkpoints = []
+    @buses_paths = []
 
     @create_filter_interface()
     @bind_map_events()
@@ -15,91 +16,103 @@ class window.PathFinder
   bind_map_events: ->
     google.maps.event.addListener @map.gmap, "click", (event)=>
       point = event.latLng
-      @add_circle(point)
+      @add_checkpoint(point)
 
-  add_circle: (point)->
-    @filter_instructions.fire_auto_hide('start')
-    @filter_instructions.fire('many_zones')
-    @filter_instructions.fire('remove')
-
-    if @circles.length >= Settings.max_path_finder_circles
-      @circles[0].remove()
-      @clean_up_circle(@circles[0], false)
-      @filter_instructions.fire('maximum')
-
-    circle = @create_circle(point)
-    @circles.push(circle)
-    @bind_circle(circle)
+  add_checkpoint: (point)->
+    if @checkpoints.length >= Settings.max_path_finder_checkpoints
+      @checkpoints[0].remove_without_callback()
+      @after_remove_checkpoint_cleanup(@checkpoints[0])
+      
+    checkpoint = new PathFinderCheckpoint(@map, point, @checkpoints.length+1, @filter_interface.create_element())
+    @checkpoints.push checkpoint
+    @bind_checkpoint(checkpoint)
     @calculate_buses()
 
-  create_circle: (point)->
-    circle = new PathFinderCircle(@map, 
-                                  point,
-                                  Settings.default_path_finders_meters,
-                                  @circles.length+1,
-                                  @filter_interface.create_element())
+  bind_checkpoint: (checkpoint)->
+    checkpoint.add_listener 'changed', => @calculate_buses()
+    checkpoint.add_listener 'removed', (checkpoint)=>
+      @after_remove_checkpoint(checkpoint)
+    
+  set_checkpoints_numbers: ->
+    for i, checkpoint of @checkpoints
+      checkpoint.set_number(parseInt(i)+1)
 
-  bind_circle: (circle)->
-    circle.add_listener 'changed', => @calculate_buses()
-    circle.add_listener 'deleted', => @clean_up_circle(circle)
+  after_remove_checkpoint_cleanup: (checkpoint)->
+    @checkpoints.splice @checkpoints.indexOf(checkpoint), 1
+    @set_checkpoints_numbers()
 
-
-
-  clean_up_circle: (circle, recalculate = true)->
-    @circles.splice @circles.indexOf(circle), 1
-    for i, circle of @circles
-      circle.set_number(parseInt(i)+1)
-    @previous_buses = false
-    @calculate_buses() if recalculate
-
-
-  hide_circles_suggestions: ->
-    for circle in @circles
-      circle.hide_suggestion()
+  after_remove_checkpoint: (checkpoint)->
+    @after_remove_checkpoint_cleanup(checkpoint)
+    @calculate_buses()
 
   calculate_buses: ->
-    if @circles.length > 0
-      buses_matches = []
-      found_buses = []
+    if @checkpoints.length > 0
+      points = (checkpoint.point for checkpoint in @checkpoints)
 
-      @hide_circles_suggestions()
-
+      buses_paths = []
       for bus in @buses
-        bus_match = bus.pass_through_circles(@circles)
-        buses_matches.push bus_match
-        if bus_match.matches()
-          found_buses.push bus
-          bus.activate()
+        bus_paths = bus.paths_to_checkpoints(points)
+        buses_paths.push bus_paths
+
+      ordered_buses_paths = buses_paths.sort (bus_paths_a, bus_paths_b)->
+        bus_paths_a.total_distance - bus_paths_b.total_distance
+
+      buses_paths_to_display = ordered_buses_paths[0..(Settings.max_buses_suggestions-1)]
+      buses_paths_to_hide    = ordered_buses_paths[Settings.max_buses_suggestions..]
+
+      bus_paths.bus.activate() for bus_paths in buses_paths_to_display
+      bus_paths.bus.deactivate() for bus_paths in buses_paths_to_hide
+
+      @display_buses_paths_lines(buses_paths_to_display)
+    else
+      @hide_buses_paths()
+
+
+  # This function create new paths or recycle the existant.
+  display_buses_paths_lines: (buses_paths)->
+    @hide_buses_paths()
+    count = 0
+    for bus_paths in buses_paths
+      for segment in bus_paths.paths
+        if @buses_paths[count]
+          @buses_paths[count].update(segment)
         else
-          bus.deactivate()
+          @buses_paths.push new BusPath(segment, @map.gmap)
+        ++count
 
-      if found_buses.length == 0
-        @calculate_suggestions(buses_matches)
+    for bus_path in @buses_paths[count..]
+      bus_path.hide()
 
-    else
-      @filter_instructions.show('start')
+  hide_buses_paths: ->
+    for bus_path in @buses_paths
+      bus_path.hide()
 
+class window.BusPath
+  constructor: (segment, gmap)->
+    @gmap = gmap
+    @segment = segment
+    @create_polyline()
 
-  calculate_suggestions: (buses_matches)->
-    filtered_matches = _.filter buses_matches, (bus_match)->
-      bus_match.total_distance_left() < Settings.max_path_finder_suggestion_extra_meters
+  create_polyline: ->
+    @poly = new $G.Polyline @polyline_options()
 
-    ordered_matches = filtered_matches.sort (bus_match_a, bus_match_b)->
-      bus_match_a.total_distance_left() - bus_match_b.total_distance_left()
+  polyline_options: ->
+    {
+      strokeWeight: 1,
+      strokeColor: 'red',
+      strokeOpacity: 1,
+      clickable: false,
+      path: @segment.path(),
+      map: @gmap
+    }
 
-    suggestions_distances = []
-    if ordered_matches
-      @filter_instructions.fire('suggestion')
-      for bus_match in ordered_matches
-        bus_match.bus.activate()
-        for i, distance of bus_match.distances_left
-          if distance > 0
-            if not suggestions_distances[i] or suggestions_distances[i] < distance
-              suggestions_distances[i] = distance
+  update: (segment)->
+    @segment = segment
+    @poly.setPath @segment.path()
+    @show()
 
+  hide: -> @poly.setVisible false
+  show: -> @poly.setVisible true
 
-      for i, circle of @circles
-        if suggestions_distances[i]
-          circle.show_suggestion(circle.radius + suggestions_distances[i])
-    else
-      @filter_instructions.fire('no_buses')
+    
+    

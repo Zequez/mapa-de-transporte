@@ -1,23 +1,13 @@
 class window.BusRouteMatch
   bus: null
 
-  constructor: (distances_left, bus)->
+  constructor: (shortest_paths, bus)->
     @bus = bus
-    @distances_left = distances_left
+    @paths = shortest_paths
 
-  matches: ->
-    return @_matches if @_matches
-    @_matches = true
+    @calculate_total_distance()
 
-    for distance in @distances_left
-      if distance > 0
-        return @_matches = false
-    @_matches
-
-
-  total_distance_left: ->
-    return @_total_distance_left if @_total_distance_left
-    @_total_distance_left = 0
-    for distance in @distances_left
-      @_total_distance_left += distance
-    @_total_distance_left
+  calculate_total_distance: ->
+    @total_distance = 0
+    for segment in @paths
+      @total_distance += segment.distance

@@ -67,106 +67,57 @@ class window.BusRoute
     @route.update_options @options.normal_route_options
 #    @route_markers.unhighlight()
 
-  get_nearest_point: (point, closest_point)->
-    # This closest point stuff is to only match if
-    # the points are going in the same direction.
-    if closest_point
-      coordinates    = @route.coordinates[closest_point.index..]
-      coordinates[0] = closest_point.point
-    else
-      coordinates = @route.coordinates[0..]
+  get_shortest_path: (point, start_index, start_point)->
+    segments = @route.segments
+    start_index ||= 0
 
-    closest_point = new RoutePointMatch point, coordinates[0], 0, coordinates[0]
 
-    length = coordinates.length
-    if length > 1
-      length -= 2
-      for i in [0..length]
-        segment_point_1 = coordinates[i]
-        segment_point_2 = coordinates[i+1]
+    if start_index
+      segments = segments[start_index..]
 
-        closest = @calculate_closest_point_from_line segment_point_1, segment_point_2, point
-        closest_point_to_line = new RoutePointMatch point, closest, i, segment_point_1
+    if start_point
+      start_segment = new Segment(start_point, segments[0].p2)
+      segments[0] = start_segment
 
-        if closest_point_to_line.pseudo_distance() < closest_point.pseudo_distance()
-          closest_point = closest_point_to_line
+    end_index     = start_index
+    shortest_path = false
 
-    closest_point
+    for i, segment of segments
+      # I get a segment between the point and the closest intersection
+      direction_segment = segment.closest_point(point)
+      if shortest_path
+        if direction_segment.distance < shortest_path.distance
+          shortest_path = direction_segment
+          end_index     = start_index + parseInt(i)
+      else
+        shortest_path = direction_segment
+
+    [shortest_path, end_index]
+
+  paths_to_checkpoints: (checkpoints)->
+    start_point = null
+    last_index = 0
+    shortest_paths = []
+
+    for point in checkpoints
+      [shortest_path, last_index] = @get_shortest_path(point, last_index, start_point)
+      shortest_paths.push shortest_path
+      start_point = shortest_path.p2
+
+    new BusRouteMatch(shortest_paths, @bus)
 
   pass_through_circles: (circles)->
-    last_nearest_point = null
-    distances_left = []
+
+  empty_markers: ->
+    for marker in @markers
+      marker.setMap(null)
+    @markers = []
     
-    for circle in circles
-      point = [circle.x, circle.y]
-      nearest_point = @get_nearest_point(point, last_nearest_point)
-      
-      distance_left = (nearest_point.real_distance() - circle.radius)
-      distances_left.push(distance_left)
-
-      last_nearest_point = nearest_point
-
-    new BusRouteMatch(distances_left, @bus)
-      
-      
-  # TODO: Refactor to not use Sylverster
-  ccalculate_closest_point_from_line: (a, b, p)->
-    a = $V a
-    b = $V b
-    p = $V p
-
-    ap = p.subtract a
-    ab = b.subtract a
-
-    ab2   = ab.e(1)*ab.e(1) + ab.e(2)*ab.e(2)
-    ap_ab = ap.e(1)*ab.e(1) + ap.e(2)*ab.e(2)
-
-
-
-    if ab2 != 0
-      t     = ap_ab / ab2
-      if t < 0
-        t = 0
-      else if t > 1
-        t = 1
-    else
-      t = 1
-
-
-    console.log "Hi", ab.multiply t
-
-    closest = a.add(ab.multiply t) # Closest
-    [closest.e(1), closest.e(2)]
-
-  # TODO: Refactor to not use Sylverster
-  calculate_closest_point_from_line: (a, b, p)->
-    ap = [p[0]-a[0], p[1]-a[1]]
-    ab = [b[0]-a[0], b[1]-a[1]]
-
-    ab2   = ab[0]*ab[0] + ab[1]*ab[1]
-    ap_ab = ap[0]*ab[0] + ap[1]*ab[1]
-
-
-    if ab2 != 0
-      t     = ap_ab / ab2
-      if t < 0
-        t = 0
-      else if t > 1
-        t = 1
-    else
-      t = 1
-
-
-
-    ab_m_t = [ab[0]*t, ab[1]*t]
-    [a[0]+ab_m_t[0], a[1]+ab_m_t[1]] # Closest
-
-
+  markers: []
   mkmarker: (p)->
     if p[0]
       p = new google.maps.LatLng p[0], p[1]
-
-    new google.maps.Marker {
+    @markers.push new google.maps.Marker {
       map: @map.gmap,
       position: p
     }
@@ -174,7 +125,7 @@ class window.BusRoute
 
 class BusRouteOptions
   constructor: (color)->
-    @color = color
+    @color = color  
 
     @normal_route_options = {
       strokeWeight: 3,

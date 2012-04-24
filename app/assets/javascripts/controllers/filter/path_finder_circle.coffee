@@ -111,3 +111,4 @@ class window.PathFinderCircle extends Eventable
 
   hide_suggestion: ->
     @suggested_circle.setVisible(false)
+
