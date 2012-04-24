@@ -76,8 +76,8 @@ class window.Bus extends BusButton
     BusesIcons.get(@data.id)
     
   paths_to_checkpoints: (checkpoints)->
-    #departure_route_paths = @departure_route.paths_to_checkpoints(checkpoints)
-    return return_route_paths    = @return_route.paths_to_checkpoints(checkpoints)
+    departure_route_paths = @departure_route.paths_to_checkpoints(checkpoints)
+    return_route_paths    = @return_route.paths_to_checkpoints(checkpoints)
 
     if departure_route_paths.total_distance < return_route_paths.total_distance
       departure_route_paths
