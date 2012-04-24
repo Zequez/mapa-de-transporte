@@ -26,6 +26,7 @@ class window.BusRouteMarker
   options: ->
     {
       map: @gmap,
+      clickable: false,
       position: @point,
       flat: true,
       icon: @image

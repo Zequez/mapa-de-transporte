@@ -32,8 +32,8 @@ class window.BusRoute
   bind_meta_events: ->
     google.maps.event.addListener @route.poly, "mouseover", => @fire_event "mouseover"
     google.maps.event.addListener @route.poly, "mouseout",  => @fire_event "mouseout"
-    @route_markers.add_listener "mouseover", => @fire_event "mouseover"
-    @route_markers.add_listener "mouseout",  => @fire_event "mouseout"
+#    @route_markers.add_listener "mouseover", => @fire_event "mouseover"
+#    @route_markers.add_listener "mouseout",  => @fire_event "mouseout"
 
   bind_events: ->
     @bind_event "mouseover", => @highlight()
@@ -140,7 +140,7 @@ class BusRouteOptions
     }
 
     @highlight_route_options = _.extend _.clone(@normal_route_options), {
-      strokeWeight: 4,
+      strokeWeight: 6,
       strokeOpacity: 1
     }
 
