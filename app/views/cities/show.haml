@@ -7,7 +7,6 @@
 #map-container
   #bus-popup-template.bus-popup
     .positioner
-      -#.bus-number-container
       %span.bus-number
       .bus-popup-arrow
 
@@ -26,26 +25,49 @@
 
     .separator
 
-    #buses-filter
-      #filter-circles
-        .filter-circle
-          .close ×
-          .value
-      #filter-instructions
-        %p#filter-instruction-start
-          = raw t('views.buses.filter_instructions_start')
-        %p#filter-instruction-many_zones
-          = raw t('views.buses.filter_instructions_many_zones')
-        %p#filter-instruction-remove
-          = raw t('views.buses.filter_instructions_remove')
-        %p#filter-instruction-no_buses
-          = raw t('views.buses.filter_instructions_no_buses')
-        %p#filter-instruction-suggestion
-          = raw t('views.buses.filter_instructions_suggestion')
-        %p#filter-instruction-maximum
-          = raw t('views.buses.filter_instructions_maximum')
+    #tooltips
+      
 
-    .separator
+    #buses-paths
+      #buses-paths-legend
+        .bus-name{title: "Nombre de la línea"}
+          .path-legend-background Nombre de la línea
+        .bus-path-walk-distance{title: "Distancia total que deberías caminar"}
+          .path-legend-background Distancia total que deberías caminar
+        .bus-path-bus-distance{title: "Distancia total que recorrerías en colectivo"}
+          .path-legend-background Distancia total que recorrerías en colectivo
+      #list-of-paths
+        #bus-paths-template.bus-paths
+          .bus-name 555
+          .bus-path-walk-distance
+            %span> 964
+            m
+          .bus-path-bus-distance
+            %span> 4.5
+            km
+
+      .separator
+
+    -##buses-filter
+    -#  #filter-circles
+    -#    .filter-circle
+    -#      .close ×
+    -#      .value
+    -#  #filter-instructions
+    -#    %p#filter-instruction-start
+    -#      = raw t('views.buses.filter_instructions_start')
+    -#    %p#filter-instruction-many_zones
+    -#      = raw t('views.buses.filter_instructions_many_zones')
+    -#    %p#filter-instruction-remove
+    -#      = raw t('views.buses.filter_instructions_remove')
+    -#    %p#filter-instruction-no_buses
+    -#      = raw t('views.buses.filter_instructions_no_buses')
+    -#    %p#filter-instruction-suggestion
+    -#      = raw t('views.buses.filter_instructions_suggestion')
+    -#    %p#filter-instruction-maximum
+    -#      = raw t('views.buses.filter_instructions_maximum')
+    -#
+    -#.separator
 
     #buses-groups
       - @city.bus_groups.each do |bus_group|

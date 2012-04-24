@@ -1,6 +1,6 @@
 default_settings = {
   max_buses_suggestions: 1
-  max_path_finder_checkpoints: 3
+  max_path_finder_checkpoints: 2
 
   map_background_color: "#141414"
   default_path_finders_meters: 400

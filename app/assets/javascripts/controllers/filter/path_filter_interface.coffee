@@ -5,8 +5,8 @@ class window.PathFilterInterface extends Eventable
   find_elements: ->
     @circles = $("#filter-circles")
     @template = @circles.find(".filter-circle")
-    @template.remove()
-    @template.hide()
+#    @template.remove()
+#    @template.hide()
 
   create_element: ->
     new PathFilterIcon(@template.clone(), @circles)
