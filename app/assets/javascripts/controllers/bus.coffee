@@ -19,10 +19,10 @@ class window.Bus extends BusButton
     @return_route    = new BusRoute(@data.encoded_return_route,    this, false)
 
   bind_routes_events: ->
-    @departure_route.bind_event "mouseover", => @highlight()
-    @departure_route.bind_event "mouseout", => @unhighlight()
-    @return_route.bind_event "mouseover", => @highlight()
-    @return_route.bind_event "mouseout", => @unhighlight()
+    @departure_route.add_listener "mouseover", => @highlight()
+    @departure_route.add_listener "mouseout", => @unhighlight()
+    @return_route.add_listener "mouseover", => @highlight()
+    @return_route.add_listener "mouseout", => @unhighlight()
 
   build_info: ->
     #@bus_info = new BusInfo(@data.id)
@@ -56,8 +56,8 @@ class window.Bus extends BusButton
     @departure_route.show()
     @return_route.show()
 
-  marker_image: ->
-    BusesIcons.get(@data.id)
+#  marker_image: ->
+#    BusesIcons.get(@data.id)
     
   paths_to_checkpoints: (checkpoints)->
     #departure_route_paths = @departure_route.paths_to_checkpoints(checkpoints)

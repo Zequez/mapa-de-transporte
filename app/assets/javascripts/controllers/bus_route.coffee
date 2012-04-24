@@ -1,4 +1,4 @@
-class window.BusRoute
+class window.BusRoute extends Eventable
   onmouseover: ->
   onmouseout: ->
 
@@ -23,8 +23,8 @@ class window.BusRoute
 
   build_route_markers: ->
     arrows_images  = ArrowIcons[if @is_departure then 0 else 1]
-    bus_image      = @bus.marker_image()
-    @route_markers = new BusRouteMarkers @route, arrows_images, bus_image
+    #bus_image      = @bus.marker_image()
+    @route_markers = new BusRouteMarkers @route, arrows_images #, bus_image
 
   build_route_arrows: ->
     @route_arrows = new RouteArrows(@route, (if @is_departure then 0 else 1))
@@ -36,17 +36,8 @@ class window.BusRoute
 #    @route_markers.add_listener "mouseout",  => @fire_event "mouseout"
 
   bind_events: ->
-    @bind_event "mouseover", => @highlight()
-    @bind_event "mouseout",  => @unhighlight()
-
-  bind_event: (event, callback)->
-    @events[event] ||= []
-    @events[event].push callback
-
-  fire_event: (event)->
-    if @events[event]
-      for callback in @events[event]
-        callback()
+    @add_listener "mouseover", => @highlight()
+    @add_listener "mouseout",  => @unhighlight()
 
   decode_points: ->
     @points = google.maps.geometry.encoding.decodePath @encoded
@@ -61,7 +52,7 @@ class window.BusRoute
 
   highlight: ->
     @route.update_options @options.get_highlight_route_options()
-    @route_markers.highlight()
+#    @route_markers.highlight()
 
   unhighlight: ->
     @route.update_options @options.normal_route_options

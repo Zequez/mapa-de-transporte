@@ -5,11 +5,11 @@ class window.BusRouteMarkers
   base_zoom: 14
   zoom: 0
 
-  constructor: (route, arrows_images, bus_image)->
+  constructor: (route, arrows_images)-> #, bus_image)->
     @route = route
     @gmap  = @route.gmap
     @arrows_images = arrows_images
-    @bus_image = bus_image
+#    @bus_image = bus_image
 
     @zoom = 0
 
