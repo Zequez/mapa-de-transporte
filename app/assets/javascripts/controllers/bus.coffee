@@ -8,7 +8,8 @@ class window.Bus extends BusButton
     @build_routes()
     @bind_routes_events()
 
-    @build_info()
+    @build_popup()
+
 
     super("bus-#{@data.id}")
     @bind_element_events()
@@ -19,12 +20,21 @@ class window.Bus extends BusButton
     @return_route    = new BusRoute(@data.encoded_return_route,    this, false)
 
   bind_routes_events: ->
-    @departure_route.add_listener "mouseover", => @highlight()
-    @departure_route.add_listener "mouseout", => @unhighlight()
-    @return_route.add_listener "mouseover", => @highlight()
-    @return_route.add_listener "mouseout", => @unhighlight()
+    @departure_route.add_listener "mouseover", => @on_route_hover()
+    @departure_route.add_listener "mouseout", => @on_route_out()
+    @return_route.add_listener "mouseover", => @on_route_hover()
+    @return_route.add_listener "mouseout", => @on_route_out()
 
-  build_info: ->
+  on_route_hover: ->
+    @highlight()
+    @popup.show()
+
+  on_route_out: ->
+    @unhighlight()
+    @popup.hide()
+
+  build_popup: ->
+    @popup = new BusPopup(@data.name)
     #@bus_info = new BusInfo(@data.id)
 
   bind_element_events: ->

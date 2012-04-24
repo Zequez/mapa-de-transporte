@@ -5,6 +5,12 @@
     });
 
 #map-container
+  #bus-popup-template.bus-popup
+    .positioner
+      -#.bus-number-container
+      %span.bus-number
+      .bus-popup-arrow
+
   -##bus-quick-info
   -#  %h2= @city.name
   -#  = render partial: "/shared/bus-data", locals: {bus: @city, light_icons: true}
