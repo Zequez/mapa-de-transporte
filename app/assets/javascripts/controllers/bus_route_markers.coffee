@@ -15,24 +15,24 @@ class window.BusRouteMarkers
 
     @events = {}
 
-    @bind_map()
+#    @bind_map()
+#
+#  bind_map: ->
+#    $G.event.addListener @gmap, "zoom_changed", =>
+#      @zoom = @gmap.getZoom()
+#      if @visible
+#        @show()
 
-  bind_map: ->
-    $G.event.addListener @gmap, "zoom_changed", =>
-      @zoom = @gmap.getZoom()
-      if @visible
-        @show()
 
 
-
-  recalculate_markers_based_on_zoom: ->
+#  recalculate_markers_based_on_zoom: ->
     
 
   ensure_markers: ->
     if !@markers
       @calculate_markers()
       @markers = @buses_icons.concat @arrows
-      @add_saved_events()
+#      @add_saved_events()
 
   calculate_markers: ->
     segments = @route.segments
@@ -71,18 +71,18 @@ class window.BusRouteMarkers
     for marker in @markers
       marker[action]()
 
-  add_listener: (event, callback)->
-    if @markers
-      if @events
-        @add_saved_events()
-
+#  add_listener: (event, callback)->
+#    if @markers
+#      if @events
+#        @add_saved_events()
+#
 #      for marker in @markers
 #        marker.add_listener event, callback
-    else
-      @events[event] = callback
+#    else
+#      @events[event] = callback
 
-  add_saved_events: ->
-    events = @events
-    @events = false
+#  add_saved_events: ->
+#    events = @events
+#    @events = false
 #    for event, callback of events
 #      @add_listener(event, callback)
