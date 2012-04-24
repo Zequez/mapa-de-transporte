@@ -1,0 +1,30 @@
+#tooltips
+  > div
+    margin-bottom: $m
+    
+    > .close
+      display: none
+      position: absolute
+      right: 0
+      top: 0
+
+      width: $m + $m/2
+      height: $m + $m/2
+
+      border-radius: 8px
+      border: solid 1px darken($red, 20%)
+
+      background-color: $red
+
+      line-height: $m + $m/2 - 1
+      text-align: center
+
+      opacity: 0.5
+      cursor: pointer
+
+      &:hover
+        opacity: 1
+
+    &:hover
+      > .close
+        display: block

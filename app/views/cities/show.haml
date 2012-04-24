@@ -26,7 +26,13 @@
     .separator
 
     #tooltips
-      
+      - %w{map_click many_clicks remove_checkpoint move_checkpoint more_buses}.each do |tooltip|
+        %div{id: "tooltip-#{tooltip}"}
+          = raw t("views.buses.tooltips.#{tooltip}")
+          .close &times;
+
+    .separator
+
 
     #buses-paths
       #buses-paths-legend
@@ -45,6 +51,10 @@
           .bus-path-bus-distance
             %span> 4.5
             km
+
+      #add-buses-paths
+        %span.plus> +
+        %span.minus -
 
       .separator
 
@@ -90,9 +100,9 @@
       -#  .separator
       - @buses.each do |bus|
         .bus-info{id: "bus-info-#{bus.id}"}
-          %h2= bus.name
-          = render partial: "/shared/bus-data", locals: {bus: bus}
-          .bus-pictures
+          %h2{title: "Línea #{bus.name}"}= bus.name
+          -#= render partial: "/shared/bus-data", locals: {bus: bus}
+          -#.bus-pictures
           .bus-routes
             .bus-departure-route
               %span #{t "views.buses.departure"}:

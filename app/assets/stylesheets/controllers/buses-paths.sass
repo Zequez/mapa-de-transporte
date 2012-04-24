@@ -1,3 +1,15 @@
+.base-button
+  border-radius: 2px
+
+  background: $blue
+  +box-shadow(#{0px 0px 3px rgba($black, 0.5), inset 0px 0px 5px rgba(#000, 0.2)})
+  +linear-shadow(0.1)
+
+  cursor: pointer
+
+  &:hover
+    background-color: lighten($blue, 5%)
+
 #buses-paths
   >#buses-paths-legend
     +clearfix
@@ -57,3 +69,29 @@
 
       .bus-path-bus-distance
         border-radius: 0px 2px 2px 0px
+
+  >#add-buses-paths
+    margin-top: $m
+    text-align: center
+    
+    span
+      @extend .base-button
+      display: inline-block
+      //padding: 0px $m
+
+      width: 16.666%
+
+      font-size: 1.5em
+      line-height: 1.5em
+
+      &.plus
+        border-radius: 2px 0px 0px 2px
+
+      &.minus
+        border-radius: 0px 2px 2px 0px
+
+      &.disabled
+        display: none
+
+      &.solo
+        border-radius: 2px
