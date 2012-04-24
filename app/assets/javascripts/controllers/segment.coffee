@@ -41,6 +41,8 @@ class window.Segment
 
     points
 
+  middle_point: -> @interpolate(0.5)
+
   closest_point: (p)->
     a = @p1
     b = @p2

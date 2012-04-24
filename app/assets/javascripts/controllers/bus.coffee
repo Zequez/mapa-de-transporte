@@ -46,14 +46,20 @@ class window.Bus extends BusButton
     @element.bind "mouseover", =>
       #@bus_info.hover_show()
       if @activated
-        @departure_route.highlight()
-        @return_route.highlight()
+        @highlight_routes()
 
     @element.bind "mouseout", =>
       #@bus_info.hover_hide()
       if @activated
-        @departure_route.unhighlight()
-        @return_route.unhighlight()
+        @unhighlight_routes()
+
+  highlight_routes: ->
+    @departure_route.highlight()
+    @return_route.highlight()
+
+  unhighlight_routes: ->
+    @departure_route.unhighlight()
+    @return_route.unhighlight()
 
   after_deactivate: ->
     #@bus_info.hide()
@@ -66,8 +72,8 @@ class window.Bus extends BusButton
     @departure_route.show()
     @return_route.show()
 
-#  marker_image: ->
-#    BusesIcons.get(@data.id)
+  marker_image: ->
+    BusesIcons.get(@data.id)
     
   paths_to_checkpoints: (checkpoints)->
     #departure_route_paths = @departure_route.paths_to_checkpoints(checkpoints)

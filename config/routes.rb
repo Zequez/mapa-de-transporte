@@ -39,7 +39,7 @@ Mdc::Application.routes.draw do
   #end
   
   match "/404" => "errors#not_found"
-  #get "/buses_images.png" => "buses_images_generator#show"
+  get "/buses_images.png" => "buses_images_generator#show"
 
   scope '/', defaults: {domain_city: true}, constraints: (lambda { |r| Domain.registered?(r.host)}) do
     get '/'           => 'cities#show'
