@@ -4,13 +4,11 @@ class window.CheckpointsManager extends Eventable
   # - checkpoint_removed
   # - checkpoint_replaced
   # - checkpoint_changed
-  # - checkpoint_direction_mouseover
-  # - checkpoint_direction_mouseout
 
   constructor: (map)->
     @map = map
     @checkpoints = []
-    @checkpoints_directions = []
+#    @checkpoints_directions = []
 
     @bind_map_events()
 
@@ -29,18 +27,18 @@ class window.CheckpointsManager extends Eventable
     @checkpoints.push checkpoint
     @bind_checkpoint(checkpoint)
 
-    @remove_directions()
     @fire_event('checkpoint_added')
 
 
   bind_checkpoint: (checkpoint)->
     checkpoint.add_listener 'closed', =>
       @remove_checkpoint checkpoint
-      @remove_directions()
       @fire_event('checkpoint_removed', checkpoint)
     checkpoint.add_listener 'changed', =>
-      @remove_directions()
       @fire_event('checkpoint_changed', checkpoint)
+    checkpoint.add_listener 'middleclick', =>
+      @invert_checkpoints()
+      @fire_event('checkpoint_changed')
   
   remove_checkpoint: (checkpoint)->
     index = @checkpoints.indexOf(checkpoint)
@@ -51,6 +49,10 @@ class window.CheckpointsManager extends Eventable
       @update_checkpoints_numbers()
 
     checkpoint.remove()
+
+  invert_checkpoints: ->
+    @checkpoints.reverse()
+    @update_checkpoints_numbers()
 
   update_checkpoints_numbers: ->
     for i, checkpoint of @checkpoints
@@ -80,8 +82,8 @@ class window.CheckpointsManager extends Eventable
 
 
   # Called each times there is a change on the checkpoints
-  remove_directions: ->
-    for checkpoint_direction in @checkpoints_directions
-      checkpoint_direction.remove()
-    @checkpoints_directions = []
+#  remove_directions: ->
+#    for checkpoint_direction in @checkpoints_directions
+#      checkpoint_direction.remove()
+#    @checkpoints_directions = []
     
