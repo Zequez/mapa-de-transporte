@@ -67,17 +67,17 @@ class window.CheckpointsManager extends Eventable
   count: ->
     @checkpoints.length
 
-  set_directions: (checkpoints_directions)->
-    @checkpoints_directions = checkpoints_directions
-    @bind_checkpoints_directions()
+#  set_directions: (routes_directions)->
+#    @routes_directions = routes_directions
+#    @bind_routes_directions()
+#
+#  bind_routes_directions: ->
+#    for route_direction in @routes_directions
+#      route_direction.add_listener 'mouseover', =>
+#        @fire_event('checkpoint_direction_mouseover', checkpoint_direction)
+#      route_direction.add_listener 'mouseout', =>
+#        @fire_event('checkpoint_direction_mouseout', checkpoint_direction)
 
-  bind_checkpoints_directions: ->
-    for checkpoint_direction in @checkpoints_directions
-      checkpoint_direction.add_listener 'mouseover', =>
-        @fire_event('checkpoint_direction_mouseover', checkpoint_direction)
-      checkpoint_direction.add_listener 'mouseout', =>
-        @fire_event('checkpoint_direction_mouseout', checkpoint_direction)
-        
 
   # Called each times there is a change on the checkpoints
   remove_directions: ->

@@ -50,6 +50,15 @@ class window.CheckpointDirection extends Eventable
   remove: ->
     @poly.setMap null
     @marker.setMap null
+    @delete_events()
+
+  hide: ->
+    @poly.setVisible false
+    @marker.setVisible false
+
+  show: ->
+    @poly.setVisible true
+    @marker.setVisible true
 
 #  update: (bus, segment)->
 #    [@bus, bus] = [bus, @bus]
@@ -68,9 +77,3 @@ class window.CheckpointDirection extends Eventable
 #    @marker.setPosition($LatLng @segment.middle_point())
 #    @bind_marker()
 #
-#  hide: ->
-#    @poly.setVisible false
-#    @marker.setVisible false
-#  show: ->
-#    @poly.setVisible true
-#    @marker.setVisible true

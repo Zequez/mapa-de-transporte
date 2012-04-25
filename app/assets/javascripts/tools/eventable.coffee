@@ -10,6 +10,8 @@ class window.Eventable
       if @events[event_name].indexOf(fn) == -1
         @events[event_name].push fn
 
+    fn
+
   remove_listener: (event_name, fn)->
     @remove_listeners(event_name.split(' '), fn)
 
@@ -22,6 +24,9 @@ class window.Eventable
     @_ensure_event(event_name)
     for fn in @events[event_name]
       fn(event_object)
+
+  delete_events: ->
+    delete @events
 
   _ensure_event: (event_name)->
     @events = {} if !@events

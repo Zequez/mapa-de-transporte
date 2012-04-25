@@ -3,11 +3,11 @@ class window.PathFinder
     @map     = map
     @buses   = buses
 
-    @checkpoints = []
-    @buses_paths = []
+    @directions  = []
 
     @create_checkpoints_manager()
     @bind_checkpoints_manager()
+    @create_directions_interface()
 #    @create_filter_interface()
 #    @create_bus_paths_interface()
 
@@ -26,13 +26,12 @@ class window.PathFinder
     @checkpoints_manager.add_listener 'checkpoint_added checkpoint_removed checkpoint_changed', =>
       @calculate_buses()
 
-    @checkpoints_manager.add_listener 'checkpoint_direction_mouseover', (checkpoint_direction)=>
-      checkpoint_direction.route_bus.on_direction_over checkpoint_direction.route
-
-    @checkpoints_manager.add_listener 'checkpoint_direction_mouseout', (checkpoint_direction)=>
-      checkpoint_direction.route_bus.on_direction_out checkpoint_direction.route
+  create_directions_interface: ->
+    
 
   calculate_buses: ->
+    @remove_directions()
+    
     if @checkpoints_manager.count() > 0
       routes_directions = []
       
@@ -49,13 +48,27 @@ class window.PathFinder
       @handle_directions routes_directions_to_display, routes_directions_to_hide
 
 
-  handle_directions: (to_display, to_hide)->
+  handle_directions: (to_display, to_not_display)->
+    @directions = to_display
+    
+    for direction in to_not_display
+      direction.route_bus.remove_direction()
+      direction.route_bus.deactivate()
+
     for direction in to_display
       direction.route_bus.activate()
-      @checkpoints_manager.set_directions direction.checkpoints_directions()
+      direction.route_bus.set_direction(direction)
+      direction.show()
+      
+    @update_directions_interface()
 
-    for direction in to_hide
-      direction.route_bus.deactivate()
+  remove_directions: ->
+    for direction in @directions
+      direction.remove()
+    @directions = []
+    
+  update_directions_interface: ->
+    
 
     
 

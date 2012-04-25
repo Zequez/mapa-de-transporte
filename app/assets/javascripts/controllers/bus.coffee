@@ -4,6 +4,7 @@ class window.Bus extends BusButton
   constructor: (data, bus_group)->
     @data = data
     @bus_group = bus_group
+    @direction = null
 
     @build_routes()
     @bind_routes_events()
@@ -43,8 +44,6 @@ class window.Bus extends BusButton
     if @activated
       @unhighlight_routes()
 
-  # This onees are called from PathFinder.
-  # TODO: I should refactor this or something into something less invasive.
   on_direction_over: (route)->
     @on_route_hover(route)
 
@@ -79,15 +78,15 @@ class window.Bus extends BusButton
       @return_route.unhighlight()
 
   after_deactivate: ->
-    #@bus_info.hide()
     @bus_group.deactivate()
     @departure_route.hide()
     @return_route.hide()
+    @direction.hide() if @direction
 
   after_activate: ->
-    #@bus_info.show()
     @departure_route.show()
     @return_route.show()
+    @direction.show() if @direction
 
   marker_image: ->
     BusesIcons.get(@data.id)
@@ -100,3 +99,18 @@ class window.Bus extends BusButton
       departure_route_direction
     else
       return_route_direction
+
+  # Set from path_finder#handle_directions
+  # TODO: I don't believe this is the best way to do this.
+  set_direction: (direction)->
+    @direction = direction
+    @bind_direction()
+    
+  remove_direction: ->
+    @direction = null
+
+  bind_direction: ->
+    @direction.add_listener 'mouseover', => @on_direction_over(@direction.route)
+    @direction.add_listener 'mouseout', => @on_direction_out(@direction.route)
+
+      
