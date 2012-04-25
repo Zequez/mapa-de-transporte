@@ -1,30 +1,29 @@
-class window.PathFinderCheckpoint extends Eventable
-  constructor: (map, latlng, number, element)->
+class window.Checkpoint extends Eventable
+  # Events
+  # - closed
+  # - changed
+  # - removed
+
+  constructor: (map, latlng, number)->
     @map     = map
     @gmap    = map.gmap
     @number  = number
-    @element = element
 
     @latlng = latlng
     @set_point()
     @circle = null
-
-    @dragging = false
 
     @add_circle_to_map()
     @add_number_to_map()
 
     @bind_circle_events()
 
-    @attach_element()
-    @bind_element_events()
-
   set_point: ->
     @point  = [@latlng.lat(), @latlng.lng()]
 
   add_circle_to_map: ->
     @circle = new google.maps.Circle @circle_options()
-
+  
   circle_options: ->
     {
       map: @gmap,
@@ -71,15 +70,7 @@ class window.PathFinderCheckpoint extends Eventable
           $G.event.trigger @circle, "mouseup", e
 
     $G.event.addListener @circle, "rightclick", (e)=>
-      @remove()
-
-  attach_element: ->
-    @element.set_value(@number)
-    @element.append()
-
-  bind_element_events: ->
-    @element.add_listener 'deleted', =>
-      @remove()
+      @fire_event('closed')
 
   # This just sets the position of the circle
   move_position: (latlng)->
@@ -95,14 +86,9 @@ class window.PathFinderCheckpoint extends Eventable
   set_number: (number)->
     @number = number
     @number_marker.setIcon(NumberIcons.get(@number))
-    @element.set_value(@number)
+#    @element.set_value(@number)
 
   remove: ->
-    @remove_without_callback()
-    @fire_event('removed', this)
-
-  remove_without_callback: ->
     @circle.setMap(null)
     @number_marker.setMap(null)
-    @element.remove()
-  
+    @fire_event('removed')

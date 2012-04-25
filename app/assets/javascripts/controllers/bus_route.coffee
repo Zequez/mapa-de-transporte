@@ -36,8 +36,8 @@ class window.BusRoute extends Eventable
 #    @route_markers.add_listener "mouseout",  => @fire_event "mouseout"
 
   bind_events: ->
-    @add_listener "mouseover", => @highlight()
-    @add_listener "mouseout",  => @unhighlight()
+#    @add_listener "mouseover", => @highlight()
+#    @add_listener "mouseout",  => @unhighlight()
 
   decode_points: ->
     @points = google.maps.geometry.encoding.decodePath @encoded
@@ -85,17 +85,17 @@ class window.BusRoute extends Eventable
 
     [shortest_path, end_index]
 
-  paths_to_checkpoints: (checkpoints)->
+  direction_to_checkpoints: (checkpoints)->
     start_point = null
     last_index = 0
     shortest_paths = []
 
-    for point in checkpoints
-      [shortest_path, last_index] = @get_shortest_path(point, last_index, start_point)
+    for checkpoint in checkpoints
+      [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, start_point)
       shortest_paths.push shortest_path
       start_point = shortest_path.p2
 
-    new BusRouteMatch(shortest_paths, @bus)
+    new RouteDirection(this, shortest_paths)
 
   pass_through_circles: (circles)->
 

@@ -34,7 +34,7 @@
     .separator
 
 
-    #buses-paths
+    #buses-directions
       #buses-paths-legend
         .bus-name{title: "Nombre de la línea"}
           .path-legend-background Nombre de la línea
@@ -53,8 +53,8 @@
             km
 
       #add-buses-paths
-        %span.plus> +
-        %span.minus -
+        %span.plus{title: "Mostrar otra ruta"}> +
+        %span.minus{title: "Mostrar una ruta menos"} -
 
       .separator
 
@@ -105,10 +105,10 @@
           -#.bus-pictures
           .bus-routes
             .bus-departure-route
-              %span #{t "views.buses.departure"}:
+              %span{title: "Recorrido de ida"} #{t "views.buses.departure"}:
               = bus.departure_route.addresses
             .bus-return-route
-              %span #{t "views.buses.return"}:
+              %span{title: "Recorrido de vuelta"} #{t "views.buses.return"}:
               = bus.return_route.addresses
           .separator
 

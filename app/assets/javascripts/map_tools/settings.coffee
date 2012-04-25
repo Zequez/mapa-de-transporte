@@ -3,9 +3,6 @@ default_settings = {
   max_path_finder_checkpoints: 2
 
   map_background_color: "#141414"
-  default_path_finders_meters: 400
-  max_path_finder_suggestion_extra_meters: 300
-  max_path_finder_circles: 3
 
 
   help_tips: true
@@ -25,7 +22,7 @@ class PersistantSettings
     @settings = default_settings
 
   load: ->
-    user_settings = $.cookie('settings')
+    user_settings = {} #$.cookie('settings')
     try
       @settings = _.extend @settings, JSON.parse user_settings
     @settings

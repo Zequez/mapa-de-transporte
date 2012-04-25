@@ -6,85 +6,57 @@ class window.PathFinder
     @checkpoints = []
     @buses_paths = []
 
-    @create_filter_interface()
-    @bind_map_events()
+    @create_checkpoints_manager()
+    @bind_checkpoints_manager()
+#    @create_filter_interface()
+#    @create_bus_paths_interface()
 
-  create_filter_interface: ->
-    @filter_interface = new PathFilterInterface
-    @filter_instructions = new PathFilterInstructions
+#  create_bus_directions_interface: ->
+#    @bus_directions_interface = new BusDirectionsInterface
 
-  bind_map_events: ->
-    google.maps.event.addListener @map.gmap, "click", (event)=>
-      point = event.latLng
-      @add_checkpoint(point)
+#  create_filter_interface: ->
+#    @filter_interface = new PathFilterInterface
+#    @filter_instructions = new PathFilterInstructions
 
-  add_checkpoint: (point)->
-    if @checkpoints.length >= Settings.max_path_finder_checkpoints
-      @checkpoints[0].remove_without_callback()
-      @after_remove_checkpoint_cleanup(@checkpoints[0])
-      
-    checkpoint = new PathFinderCheckpoint(@map, point, @checkpoints.length+1, @filter_interface.create_element())
-    @checkpoints.push checkpoint
-    @bind_checkpoint(checkpoint)
-    @calculate_buses()
 
-  bind_checkpoint: (checkpoint)->
-    checkpoint.add_listener 'changed', => @calculate_buses()
-    checkpoint.add_listener 'removed', (checkpoint)=>
-      @after_remove_checkpoint(checkpoint)
-    
-  set_checkpoints_numbers: ->
-    for i, checkpoint of @checkpoints
-      checkpoint.set_number(parseInt(i)+1)
+  create_checkpoints_manager: ->
+    @checkpoints_manager = new CheckpointsManager(@map)
 
-  after_remove_checkpoint_cleanup: (checkpoint)->
-    @checkpoints.splice @checkpoints.indexOf(checkpoint), 1
-    @set_checkpoints_numbers()
+  bind_checkpoints_manager: ->
+    @checkpoints_manager.add_listener 'checkpoint_added checkpoint_removed checkpoint_changed', =>
+      @calculate_buses()
 
-  after_remove_checkpoint: (checkpoint)->
-    @after_remove_checkpoint_cleanup(checkpoint)
-    @calculate_buses()
+    @checkpoints_manager.add_listener 'checkpoint_direction_mouseover', (checkpoint_direction)=>
+      checkpoint_direction.route_bus.on_direction_over checkpoint_direction.route
+
+    @checkpoints_manager.add_listener 'checkpoint_direction_mouseout', (checkpoint_direction)=>
+      checkpoint_direction.route_bus.on_direction_out checkpoint_direction.route
 
   calculate_buses: ->
-    if @checkpoints.length > 0
-      points = (checkpoint.point for checkpoint in @checkpoints)
-
-      buses_paths = []
+    if @checkpoints_manager.count() > 0
+      routes_directions = []
+      
       for bus in @buses
-        bus_paths = bus.paths_to_checkpoints(points)
-        buses_paths.push bus_paths
+        route_direction = bus.direction_to_checkpoints(@checkpoints_manager.checkpoints)
+        routes_directions.push route_direction
 
-      ordered_buses_paths = buses_paths.sort (bus_paths_a, bus_paths_b)->
-        bus_paths_a.total_distance - bus_paths_b.total_distance
+      ordered_buses_directions = routes_directions.sort (bus_direction_a, bus_direction_b)->
+        bus_direction_a.total_walking_distance - bus_direction_b.total_walking_distance
 
-      buses_paths_to_display = ordered_buses_paths[0..(Settings.max_buses_suggestions-1)]
-      buses_paths_to_hide    = ordered_buses_paths[Settings.max_buses_suggestions..]
+      routes_directions_to_display = ordered_buses_directions[0..(Settings.max_buses_suggestions-1)]
+      routes_directions_to_hide    = ordered_buses_directions[Settings.max_buses_suggestions..]
 
-      bus_paths.bus.activate() for bus_paths in buses_paths_to_display
-      bus_paths.bus.deactivate() for bus_paths in buses_paths_to_hide
-
-      @display_buses_paths_lines(buses_paths_to_display)
-    else
-      @hide_buses_paths()
+      @handle_directions routes_directions_to_display, routes_directions_to_hide
 
 
-  # This function create new paths or recycle the existant.
-  display_buses_paths_lines: (buses_paths)->
-    @hide_buses_paths()
-    count = 0
-    for bus_paths in buses_paths
-      for segment in bus_paths.paths
-        if @buses_paths[count]
-          @buses_paths[count].update(bus_paths.bus, segment)
-        else
-          @buses_paths.push new BusPath(bus_paths.bus, segment, @map.gmap)
-        ++count
+  handle_directions: (to_display, to_hide)->
+    for direction in to_display
+      direction.route_bus.activate()
+      @checkpoints_manager.set_directions direction.checkpoints_directions()
 
-    for bus_path in @buses_paths[count..]
-      bus_path.hide()
+    for direction in to_hide
+      direction.route_bus.deactivate()
 
-  hide_buses_paths: ->
-    for bus_path in @buses_paths
-      bus_path.hide()
     
-    
+
+  

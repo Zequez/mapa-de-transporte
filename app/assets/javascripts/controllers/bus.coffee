@@ -20,46 +20,63 @@ class window.Bus extends BusButton
     @return_route    = new BusRoute(@data.encoded_return_route,    this, false)
 
   bind_routes_events: ->
-    @departure_route.add_listener "mouseover", => @on_route_hover()
-    @departure_route.add_listener "mouseout", => @on_route_out()
-    @return_route.add_listener "mouseover", => @on_route_hover()
-    @return_route.add_listener "mouseout", => @on_route_out()
+    @departure_route.add_listener "mouseover", => @on_route_hover(@departure_route)
+    @departure_route.add_listener "mouseout", => @on_route_out(@departure_route)
+    @return_route.add_listener "mouseover", => @on_route_hover(@return_route)
+    @return_route.add_listener "mouseout", => @on_route_out(@return_route)
 
-  on_route_hover: ->
+  on_route_hover: (route)->
+    @highlight_routes(route)
     @highlight()
     @popup.show()
 
-  on_route_out: ->
+  on_route_out: (route)->
+    @unhighlight_routes(route)
     @unhighlight()
     @popup.hide()
 
+  on_button_over: ->
+    if @activated
+      @highlight_routes()
+
+  on_button_out: ->
+    if @activated
+      @unhighlight_routes()
+
+  # This onees are called from PathFinder.
+  # TODO: I should refactor this or something into something less invasive.
+  on_direction_over: (route)->
+    @on_route_hover(route)
+
+  on_direction_out: (route)->
+    @on_route_out(route)
+
   build_popup: ->
     @popup = new BusPopup(@data.name)
-    #@bus_info = new BusInfo(@data.id)
 
   bind_element_events: ->
     @element.removeAttr('title')
-
     @element.bind "click", (e)->
       e.preventDefault()
 
-    @element.bind "mouseover", =>
-      #@bus_info.hover_show()
-      if @activated
-        @highlight_routes()
+    @element.bind "mouseover", => @on_button_over()
+    @element.bind "mouseout", => @on_button_out()
 
-    @element.bind "mouseout", =>
-      #@bus_info.hover_hide()
-      if @activated
-        @unhighlight_routes()
 
-  highlight_routes: ->
-    @departure_route.highlight()
-    @return_route.highlight()
+  highlight_routes: (route)->
+    if route # We assume is one of our routes...
+      route.highlight()
 
-  unhighlight_routes: ->
-    @departure_route.unhighlight()
-    @return_route.unhighlight()
+    else
+      @departure_route.highlight()
+      @return_route.highlight()
+
+  unhighlight_routes: (route)->
+    if route # We assume is one of our routes...
+      route.unhighlight()
+    else
+      @departure_route.unhighlight()
+      @return_route.unhighlight()
 
   after_deactivate: ->
     #@bus_info.hide()
@@ -75,23 +92,11 @@ class window.Bus extends BusButton
   marker_image: ->
     BusesIcons.get(@data.id)
     
-  paths_to_checkpoints: (checkpoints)->
-    departure_route_paths = @departure_route.paths_to_checkpoints(checkpoints)
-    return_route_paths    = @return_route.paths_to_checkpoints(checkpoints)
+  direction_to_checkpoints: (checkpoints)->
+    departure_route_direction = @departure_route.direction_to_checkpoints(checkpoints)
+    return_route_direction    = @return_route.direction_to_checkpoints(checkpoints)
 
-    if departure_route_paths.total_distance < return_route_paths.total_distance
-      departure_route_paths
+    if departure_route_direction.total_walking_distance < return_route_direction.total_walking_distance
+      departure_route_direction
     else
-      return_route_paths
-
-  pass_through_circles: (circles)->
-    departure_route_match = @departure_route.pass_through_circles(circles)
-    return departure_route_match  if departure_route_match.matches()
-
-    return_route_match = @return_route.pass_through_circles(circles)
-    return return_route_match if return_route_match.matches()
-
-    if departure_route_match.total_distance_left() < return_route_match.total_distance_left()
-      departure_route_match
-    else
-      return_route_match
+      return_route_direction
