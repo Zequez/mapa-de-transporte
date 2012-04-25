@@ -1,0 +1,56 @@
+#header-bar
+  +clearfix
+  margin-top: $m
+  margin-bottom: - $m / 2
+  height: 28px
+
+  > *
+    height: 28px
+    opacity: 0.3
+
+    &:hover
+      opacity: 0.6
+
+    &.toggled,
+      opacity: 1
+
+  #toggle-help
+    float: left
+    width: 18px
+    height: 100%
+    background: url(header-toggles.png) -146px 0px
+    text-indent: -9999px
+    cursor: pointer
+
+  #city-bus-price
+    float: right
+
+    vertical-align: middle
+
+    opacity: 1
+
+    .icon
+      float: right
+      margin-right: $m / 2
+      width: 9px
+      height: 100%
+      background: url(header-toggles.png) -168px 0px
+      text-indent: -9999px
+
+    .bus-price-money
+      float: right
+      margin-top: 4px
+      padding: 3px
+
+      height: 14px
+      
+      background: $black
+      background: rgba($black, 0.5)
+
+      border-radius: 2px
+
+      +box-shadow(#{inset 0px 0px 5px rgba(#000, 0.8), inset 0px 1px 0px #000, 0px 1px 0px rgba(#fff, 0.1)})
+      +linear-shadow(0.1)
+
+      font-size: 14px
+

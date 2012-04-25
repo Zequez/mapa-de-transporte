@@ -23,15 +23,23 @@
       %h1
         %image{src: "/assets/header.png", alt: "Mapa de Colectivos"}
 
+    #header-bar
+      #toggle-help{title: "Ayuda", class: ('toggled' if show_help_tips?)} Ayuda
+      #city-bus-price{title: "Precio del boleto"}
+        %span.bus-price-money= monetize @city.bus_card
+        %span.icon Precio del boleto:
+
     .separator
 
-    #tooltips
-      - %w{map_click many_clicks remove_checkpoint move_checkpoint more_buses}.each do |tooltip|
+    
+
+    #tooltips{class: ('hidden' if !show_help_tips?)}
+      - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses}.each do |tooltip|
         %div{id: "tooltip-#{tooltip}"}
           = raw t("views.buses.tooltips.#{tooltip}")
-          .close &times;
+      .close &times;
 
-    .separator
+      .separator
 
 
     #buses-directions
@@ -43,15 +51,15 @@
         .route-distance{title: "Distancia total que recorrerías en colectivo"}
           .direction-legend-background Distancia total que recorrerías en colectivo
       #buses-directions-tooltip
-        Haz click en el mapa para descubrir las rutas más cercanas.
+        Haz click en el mapa para calcular las rutas más cercanas.
       #list-of-directions
         #bus-direction-template.bus-direction
-          .bus-name.bus-name-value 555
+          .bus-name.bus-name-value
           .walking-distance
-            %span.walking-distance-value> 964
+            %span.walking-distance-value>
             m
           .route-distance
-            %span.route-distance-value> 4.5
+            %span.route-distance-value>
             km
 
       #add-remove-buses-directions
@@ -60,26 +68,6 @@
 
       .separator
 
-    -##buses-filter
-    -#  #filter-circles
-    -#    .filter-circle
-    -#      .close ×
-    -#      .value
-    -#  #filter-instructions
-    -#    %p#filter-instruction-start
-    -#      = raw t('views.buses.filter_instructions_start')
-    -#    %p#filter-instruction-many_zones
-    -#      = raw t('views.buses.filter_instructions_many_zones')
-    -#    %p#filter-instruction-remove
-    -#      = raw t('views.buses.filter_instructions_remove')
-    -#    %p#filter-instruction-no_buses
-    -#      = raw t('views.buses.filter_instructions_no_buses')
-    -#    %p#filter-instruction-suggestion
-    -#      = raw t('views.buses.filter_instructions_suggestion')
-    -#    %p#filter-instruction-maximum
-    -#      = raw t('views.buses.filter_instructions_maximum')
-    -#
-    -#.separator
 
     #buses-groups
       - @city.bus_groups.each do |bus_group|
@@ -100,7 +88,7 @@
     #buses-info
       -#.bus-info-loader
       -#  .separator
-      - @buses.each do |bus|
+      - @buses[0..0].each do |bus|
         .bus-info{id: "bus-info-#{bus.id}"}
           %h2{title: "Línea #{bus.name}"}= bus.name
           -#= render partial: "/shared/bus-data", locals: {bus: bus}
@@ -124,31 +112,3 @@
     #copyright{title: "Robar es malo."}
       %p © 2012 Mapa de Colectivos Mar del Plata.
       %p Todos los derechos reservables reservados.
-      
-
-
-      -#.buses-group-container
-      -#  .bus-group.bus 55X
-      -#  .buses-container
-      -#    .buses-batch
-      -#      .slot.bus 550
-      -#      .slot.bus 551
-      -#      .slot.bus 552
-      -#      .slot.bus 553
-      -#      .slot.bus 554
-      -#      .slot.bus 555
-      -#      .slot.bus 556
-      -#    .buses-batch
-      -#      .slot.bus 557
-      -#      .slot.bus 558
-      -#      .slot.bus 558b
-      -#      .slot.bus
-      -#        .bus-info
-      -#          .bus-delay Demora: 10 min
-      -#          .bus-schedule Horario: 5:00am a 1:00am
-      -#          .bus-price Precio: $2.52 (Tarjeta)
-      -#        .bus-name
-      -#          559
-      -#      .slot
-      -#      .slot
-      -#      .slot

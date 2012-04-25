@@ -9,6 +9,7 @@ class window.City
     @build_bus_groups()
     @build_path_finder()
     @build_buses_url_rewriter()
+    @build_help_bar()
 
   find_element: ->
     @element = @e = $$('map')
@@ -27,6 +28,9 @@ class window.City
 
   build_buses_url_rewriter: ->
     @buses_url_rewriter = new BusesUrlRewrite(@buses)
+
+  build_help_bar: ->
+    @help_bar = new HelpBar
 
     
 
