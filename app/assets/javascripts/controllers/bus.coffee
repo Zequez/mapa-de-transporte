@@ -50,6 +50,14 @@ class window.Bus extends BusButton
   on_direction_out: (route)->
     @on_route_out(route)
 
+  on_direction_interface_over: (route)->
+    @highlight_routes(route)
+    @highlight()
+
+  on_direction_interface_out: (route)->
+    @unhighlight_routes(route)
+    @unhighlight()
+
   build_popup: ->
     @popup = new BusPopup(@data.name)
 
@@ -95,7 +103,7 @@ class window.Bus extends BusButton
     departure_route_direction = @departure_route.direction_to_checkpoints(checkpoints)
     return_route_direction    = @return_route.direction_to_checkpoints(checkpoints)
 
-    if departure_route_direction.total_walking_distance < return_route_direction.total_walking_distance
+    if departure_route_direction.walking_distance < return_route_direction.walking_distance
       departure_route_direction
     else
       return_route_direction
@@ -111,6 +119,8 @@ class window.Bus extends BusButton
 
   bind_direction: ->
     @direction.add_listener 'mouseover', => @on_direction_over(@direction.route)
-    @direction.add_listener 'mouseout', => @on_direction_out(@direction.route)
+    @direction.add_listener 'interface_mouseover', => @on_direction_interface_over(@direction.route)
+    @direction.add_listener 'mouseout',  => @on_direction_out(@direction.route)
+    @direction.add_listener 'interface_mouseout',  => @on_direction_interface_out(@direction.route)
 
       

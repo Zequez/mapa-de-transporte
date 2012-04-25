@@ -1,5 +1,5 @@
 default_settings = {
-  max_buses_suggestions: 1
+  max_buses_suggestions: 2
   max_path_finder_checkpoints: 2
 
   map_background_color: "#141414"

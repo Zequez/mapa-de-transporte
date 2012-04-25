@@ -35,24 +35,24 @@
 
 
     #buses-directions
-      #buses-paths-legend
+      #buses-directions-legend
         .bus-name{title: "Nombre de la línea"}
-          .path-legend-background Nombre de la línea
-        .bus-path-walk-distance{title: "Distancia total que deberías caminar"}
-          .path-legend-background Distancia total que deberías caminar
-        .bus-path-bus-distance{title: "Distancia total que recorrerías en colectivo"}
-          .path-legend-background Distancia total que recorrerías en colectivo
-      #list-of-paths
-        #bus-paths-template.bus-paths
-          .bus-name 555
-          .bus-path-walk-distance
-            %span> 964
+          .direction-legend-background Nombre de la línea
+        .walking-distance{title: "Distancia total que deberías caminar"}
+          .direction-legend-background Distancia total que deberías caminar
+        .route-distance{title: "Distancia total que recorrerías en colectivo"}
+          .direction-legend-background Distancia total que recorrerías en colectivo
+      #list-of-directions
+        #bus-direction-template.bus-direction
+          .bus-name.bus-name-value 555
+          .walking-distance
+            %span.walking-distance-value> 964
             m
-          .bus-path-bus-distance
-            %span> 4.5
+          .route-distance
+            %span.route-distance-value> 4.5
             km
 
-      #add-buses-paths
+      #add-remove-buses-directions
         %span.plus{title: "Mostrar otra ruta"}> +
         %span.minus{title: "Mostrar una ruta menos"} -
 

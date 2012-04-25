@@ -27,7 +27,7 @@ class window.PathFinder
       @calculate_buses()
 
   create_directions_interface: ->
-    
+    @directions_interface = new DirectionsInterface
 
   calculate_buses: ->
     @remove_directions()
@@ -40,7 +40,7 @@ class window.PathFinder
         routes_directions.push route_direction
 
       ordered_buses_directions = routes_directions.sort (bus_direction_a, bus_direction_b)->
-        bus_direction_a.total_walking_distance - bus_direction_b.total_walking_distance
+        bus_direction_a.walking_distance - bus_direction_b.walking_distance
 
       routes_directions_to_display = ordered_buses_directions[0..(Settings.max_buses_suggestions-1)]
       routes_directions_to_hide    = ordered_buses_directions[Settings.max_buses_suggestions..]
@@ -68,7 +68,7 @@ class window.PathFinder
     @directions = []
     
   update_directions_interface: ->
-    
+    @directions_interface.set_directions @directions
 
     
 

@@ -11,7 +11,7 @@
     background-color: lighten($blue, 5%)
 
 #buses-directions
-  >#buses-paths-legend
+  >#buses-directions-legend
     +clearfix
     margin-top: -$m
     margin-bottom: $m / 2
@@ -22,23 +22,24 @@
       height: 40
       text-align: center
 
-    .path-legend-background
+    .direction-legend-background
       display: inline-block
       width: 40px
       height: 40px
-      background-image: url(path_icons.png)
+      background-image: url(direction_icons.png)
       text-indent: -9999px
 
-    .bus-name>.path-legend-background
+    .bus-name>.direction-legend-background
       background-position: 0px 0px
-    .bus-path-walk-distance>.path-legend-background
+    .walking-distance>.direction-legend-background
       background-position: -40px 0px
-    .bus-path-bus-distance>.path-legend-background
+    .route-distance>.direction-legend-background
       background-position: -80px 0px
 
-  >#list-of-paths
-    >.bus-paths
+  >#list-of-directions
+    >.bus-direction
       +clearfix
+      margin-bottom: $m
 
       border-radius: 2px
 
@@ -64,13 +65,13 @@
       .bus-name
         border-radius: 2px 0px 0px 2px
 
-      .bus-path-walk-distance
+      .walking-distance
 
 
-      .bus-path-bus-distance
+      .route-distance
         border-radius: 0px 2px 2px 0px
 
-  >#add-buses-paths
+  >#add-remove-buses-directions
     margin-top: $m
     text-align: center
     
@@ -90,7 +91,7 @@
       &.minus
         border-radius: 0px 2px 2px 0px
 
-      &.disabled
+      &.hidden
         display: none
 
       &.solo
