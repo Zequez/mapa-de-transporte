@@ -1,6 +1,6 @@
-Opciones
-Flechas que salen desde el centro de los círculos hasta las colisiones con los puntos.
 Cache
-Refactor the displaying of icons in the routes paths in the map Something with mouseover and zoom levels should do fine.
-
 Buses non visibles are still visibles
+
+Disable zoom animation
+
+The Checkpoint should resize with zoom level changes

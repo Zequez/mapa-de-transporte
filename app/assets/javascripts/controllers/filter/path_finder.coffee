@@ -4,10 +4,14 @@ class window.PathFinder
     @buses   = buses
 
     @directions  = []
+    @shown_directions  = []
+    @hidden_directions  = []
 
     @create_checkpoints_manager()
     @bind_checkpoints_manager()
+
     @create_directions_interface()
+    @bind_directions_interface()
 #    @create_filter_interface()
 #    @create_bus_paths_interface()
 
@@ -29,6 +33,10 @@ class window.PathFinder
   create_directions_interface: ->
     @directions_interface = new DirectionsInterface
 
+  bind_directions_interface: ->
+    @directions_interface.add_listener 'options_updated', =>
+      @handle_directions()
+
   calculate_buses: ->
     @remove_directions()
     
@@ -39,36 +47,39 @@ class window.PathFinder
         route_direction = bus.direction_to_checkpoints(@checkpoints_manager.checkpoints)
         routes_directions.push route_direction
 
-      ordered_buses_directions = routes_directions.sort (bus_direction_a, bus_direction_b)->
+      @directions = routes_directions.sort (bus_direction_a, bus_direction_b)->
         bus_direction_a.walking_distance - bus_direction_b.walking_distance
 
-      routes_directions_to_display = ordered_buses_directions[0..(Settings.max_buses_suggestions-1)]
-      routes_directions_to_hide    = ordered_buses_directions[Settings.max_buses_suggestions..]
+      @handle_directions()
+    else
+      @update_directions_interface()
 
-      @handle_directions routes_directions_to_display, routes_directions_to_hide
 
-
-  handle_directions: (to_display, to_not_display)->
-    @directions = to_display
+  handle_directions: ->
+    @shown_directions  = to_display  = @directions[0..(Settings.max_routes_suggestions-1)]
+    @hidden_directions = to_not_display  = @directions[Settings.max_routes_suggestions..]
     
-    for direction in to_not_display
-      direction.route_bus.remove_direction()
+    for direction in @hidden_directions
       direction.route_bus.deactivate()
+      direction.route_bus.hide_direction()
 
-    for direction in to_display
+    for direction in @shown_directions
       direction.route_bus.activate()
       direction.route_bus.set_direction(direction)
-      direction.show()
-      
+
     @update_directions_interface()
 
   remove_directions: ->
     for direction in @directions
+      direction.route_bus.remove_direction()
       direction.remove()
+      
     @directions = []
+    @shown_directions = []
+    @hidden_directions = []
     
   update_directions_interface: ->
-    @directions_interface.set_directions @directions
+    @directions_interface.set_directions @shown_directions, @directions.length
 
     
 

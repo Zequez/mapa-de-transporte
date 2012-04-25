@@ -45,12 +45,16 @@ class window.DirectionsInterface extends Eventable
   constructor: ->
     @elements = []
     @directions = []
+    @max_directions = 0
 
     @find_elements()
     @setup_template()
 
+    @create_alternatives_control()
+
   find_elements: ->
     @container   = $$('buses-directions')
+    @tooltip     = $$('buses-directions-tooltip')
     @template_e  = $$('bus-direction-template')
     @list        = $$('list-of-directions')
 
@@ -60,9 +64,14 @@ class window.DirectionsInterface extends Eventable
     @template_e.show()
     @template    = new DirectionsInterfaceElementTemplate(@template_e)
 
+  create_alternatives_control: ->
+    @alternatives_control = new DirectionsInterfaceAlternativesControl
+    @inherit_listener @alternatives_control, 'options_updated'
+
   # Called from PathFinder
-  set_directions: (directions)->
+  set_directions: (directions, max_directions)->
     @directions = directions
+    @max_directions = max_directions
     @create_elements()
 
   create_elements: ->
@@ -74,6 +83,67 @@ class window.DirectionsInterface extends Eventable
       element = new DirectionsInterfaceElement(direction, @template, @list)
       direction.set_interface_element element
       @elements.push element
+
+    @alternatives_control.show @directions.length, @max_directions
+
+    if @directions.length == 0
+      @show_tooltip()
+    else
+      @hide_tooltip()
+
+  show_tooltip: ->
+    @tooltip.show()
+
+  hide_tooltip: ->
+    @tooltip.hide()
+
+class DirectionsInterfaceAlternativesControl extends Eventable
+  constructor: ->
+    @find_elements()
+    @bind_elements()
+
+  find_elements: ->
+    @container = $$('add-remove-buses-directions')
+    @plus = @container.find('.plus')
+    @minus = @container.find('.minus')
+
+  bind_elements: ->
+    @plus.click =>
+      ++Settings.max_routes_suggestions
+      SaveSettings()
+      @fire_event('options_updated')
+      
+    @minus.click =>
+      --Settings.max_routes_suggestions
+      SaveSettings()
+      @fire_event('options_updated')
+
+     
+  show: (ammount, maximum)->
+    if ammount == 0
+      @container.hide()
+    else
+      @container.show()
+
+      minus = plus = false
+      
+      if ammount == 1
+        @minus.hide()
+      else
+        @minus.show()
+        minus = true
+
+      if ammount >= maximum
+        @plus.hide()
+      else
+        @plus.show()
+        minus = true
+
+      if plus != minus
+        @container.addClass 'solo'
+      else
+        @container.removeClass 'solo'
+
 
 class DirectionsInterfaceElementTemplate
   constructor: (element)->

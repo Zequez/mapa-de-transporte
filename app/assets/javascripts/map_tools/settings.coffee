@@ -1,5 +1,5 @@
 default_settings = {
-  max_buses_suggestions: 2
+  max_routes_suggestions: 1
   max_path_finder_checkpoints: 2
 
   map_background_color: "#141414"
@@ -22,7 +22,7 @@ class PersistantSettings
     @settings = default_settings
 
   load: ->
-    user_settings = {} #$.cookie('settings')
+    user_settings = $.cookie('settings')
     try
       @settings = _.extend @settings, JSON.parse user_settings
     @settings

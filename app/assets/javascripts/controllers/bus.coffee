@@ -4,7 +4,9 @@ class window.Bus extends BusButton
   constructor: (data, bus_group)->
     @data = data
     @bus_group = bus_group
+    
     @direction = null
+    @direction_visible = true
 
     @build_routes()
     @bind_routes_events()
@@ -94,7 +96,7 @@ class window.Bus extends BusButton
   after_activate: ->
     @departure_route.show()
     @return_route.show()
-    @direction.show() if @direction
+    @direction.show() if @direction and @direction_visible
 
   marker_image: ->
     BusesIcons.get(@data.id)
@@ -111,16 +113,31 @@ class window.Bus extends BusButton
   # Set from path_finder#handle_directions
   # TODO: I don't believe this is the best way to do this.
   set_direction: (direction)->
-    @direction = direction
-    @bind_direction()
+    if @direction != direction
+      @direction = direction
+      @bind_direction()
+    @show_direction()
+
+  show_direction: ->
+    @direction_visible = true
+    if @direction and @activated
+      @direction.show()
+      
+  hide_direction: ->
+    @direction_visible = false
+    @direction.hide() if @direction
     
   remove_direction: ->
     @direction = null
 
   bind_direction: ->
-    @direction.add_listener 'mouseover', => @on_direction_over(@direction.route)
-    @direction.add_listener 'interface_mouseover', => @on_direction_interface_over(@direction.route)
-    @direction.add_listener 'mouseout',  => @on_direction_out(@direction.route)
-    @direction.add_listener 'interface_mouseout',  => @on_direction_interface_out(@direction.route)
+    @direction.add_listener 'mouseover', =>
+      @on_direction_over(@direction.route) if @direction
+    @direction.add_listener 'interface_mouseover', =>
+      @on_direction_interface_over(@direction.route) if @direction
+    @direction.add_listener 'mouseout',  =>
+      @on_direction_out(@direction.route) if @direction
+    @direction.add_listener 'interface_mouseout',  =>
+      @on_direction_interface_out(@direction.route) if @direction
 
       

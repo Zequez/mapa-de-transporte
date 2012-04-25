@@ -21,7 +21,7 @@ class window.CheckpointDirection extends Eventable
   polyline_options: ->
     {
       strokeWeight: 1,
-      strokeColor: 'red',
+      strokeColor: @route_bus.color,
       strokeOpacity: 1,
       clickable: false,
       path: @segment.path(),

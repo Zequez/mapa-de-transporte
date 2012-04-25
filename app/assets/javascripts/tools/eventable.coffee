@@ -4,6 +4,9 @@ class window.Eventable
   add_listener: (event_name, fn)->
     @add_listeners(event_name.split(' '), fn)
 
+  inherit_listener: (object, event_name)->
+    object.add_listener event_name, => @fire_event(event_name)
+
   add_listeners: (events_names, fn)->
     for event_name in events_names
       @_ensure_event(event_name)

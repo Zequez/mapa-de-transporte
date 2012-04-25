@@ -36,6 +36,9 @@
     .route-distance>.direction-legend-background
       background-position: -80px 0px
 
+  >#buses-directions-tooltip
+    text-align: center
+
   >#list-of-directions
     >.bus-direction
       +clearfix
@@ -72,9 +75,10 @@
         border-radius: 0px 2px 2px 0px
 
   >#add-remove-buses-directions
+    display: none
     margin-top: $m
     text-align: center
-    
+
     span
       @extend .base-button
       display: inline-block
@@ -85,14 +89,13 @@
       font-size: 1.5em
       line-height: 1.5em
 
-      &.plus
-        border-radius: 2px 0px 0px 2px
+    .plus
+      border-radius: 2px 0px 0px 2px
 
-      &.minus
-        border-radius: 0px 2px 2px 0px
+    .minus
+      border-radius: 0px 2px 2px 0px
 
-      &.hidden
-        display: none
+    &.solo > span
+      border-radius: 2px
 
-      &.solo
-        border-radius: 2px
+
