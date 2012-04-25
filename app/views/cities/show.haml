@@ -34,7 +34,7 @@
     
 
     #tooltips{class: ('hidden' if !show_help_tips?)}
-      - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses}.each do |tooltip|
+      - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses close_help}.each do |tooltip|
         %div{id: "tooltip-#{tooltip}"}
           = raw t("views.buses.tooltips.#{tooltip}")
       .close &times;
