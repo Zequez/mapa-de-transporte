@@ -175,7 +175,7 @@ class window.DirectionsInterfaceElement extends Eventable
   create_element: ->
     @element = @template.create(@direction.bus_name,
                                 @direction.real_walking_distance,
-                                parseInt(@direction.real_route_distance / 10) / 100) # We get the distance in meters
+                                parseInt(@direction.real_route_distance / 100) / 10) # We get the distance in meters
 
   bind_element_events: ->
     @element.mouseover => @fire_event('mouseover')

@@ -25,7 +25,8 @@ class window.CheckpointDirection extends Eventable
       strokeOpacity: 1,
       clickable: false,
       path: @segment.path(),
-      map: @gmap
+      map: @gmap,
+      zIndex: 10
     }
 
   create_marker: ->
@@ -37,6 +38,7 @@ class window.CheckpointDirection extends Eventable
       position: $LatLng(@segment.middle_point()),
       icon: @bus_marker,
       zIndex: 9999,
+      flat: true,
       cursor: "default"
     }
 

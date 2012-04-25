@@ -62,6 +62,7 @@ class window.RouteDirection extends Eventable
   prepare_for_displaying: ->
     @create_checkpoints_directions()
     @calculate_real_walking_distance()
+    @calculate_real_route_distance()
     @set_bus_name()
     @ready_to_display = true
 
@@ -72,7 +73,9 @@ class window.RouteDirection extends Eventable
       @real_walking_distance += segment.distance_in_meters()
 
     @real_walking_distance = parseInt(@real_walking_distance)
-      
+
+  calculate_real_route_distance: ->
+    @real_route_distance = 50
 
   set_bus_name: ->
     @bus_name = @route_bus.data.name

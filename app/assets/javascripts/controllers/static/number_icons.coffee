@@ -1,20 +1,20 @@
 class NumberIcons
-  url: "/assets/number_icons.png"
+  url: "/assets/checkpoints.png"
 
   images: {}
   
   shape: {
-    type: "rect",
-    coords: [0, 0, 27, 27]
+    type: "circle",
+    coords: [25, 25, 25]
   }
 
   constructor: ->
-    @size   = new google.maps.Size(27, 27)
-    @anchor = new google.maps.Point(14, 40)
+    @size   = new google.maps.Size(50, 50)
+    @anchor = new google.maps.Point(25, 25)
 
   get: (i)->
     return @images[i] if @images[i]
-    origin = new google.maps.Point(0, (i-1)*27)
+    origin = new google.maps.Point(0, (i-1)*50)
     @images[i] = new google.maps.MarkerImage @url, @size, origin, @anchor
 
 
