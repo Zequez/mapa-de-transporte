@@ -62,13 +62,14 @@ class window.BusRoute extends Eventable
     segments = @route.segments
     start_index ||= 0
 
-
     if start_index
       segments = segments[start_index..]
 
     if start_point
       start_segment = new Segment(start_point, segments[0].p2)
       segments[0] = start_segment
+    else
+      start_segment = false
 
     end_index     = start_index
     shortest_path = false
@@ -86,16 +87,40 @@ class window.BusRoute extends Eventable
     [shortest_path, end_index]
 
   direction_to_checkpoints: (checkpoints)->
-    start_point = null
+    walking_segments = []
+    route_segments = []
+
+    first_index = false
+    first_point = null
     last_index = 0
-    shortest_paths = []
+    last_point = null
 
     for checkpoint in checkpoints
-      [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, start_point)
-      shortest_paths.push shortest_path
-      start_point = shortest_path.p2
+      [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, last_point)
+      walking_segments.push shortest_path
+      last_point = shortest_path.p2
 
-    new RouteDirection(this, shortest_paths)
+      first_index = last_index if first_index == false
+      first_point = last_point if first_point == null
+
+    asd =  @bus.departure_route == this and @bus.data.name == '552'
+
+
+
+    if checkpoints.length > 1
+
+      if first_index == last_index
+        route_segments = [new Segment(first_point, last_point)]
+      else
+        route_segments = @route.segments[first_index..last_index]
+
+        first_segment = new Segment(first_point, route_segments[0].p2)
+        last_segment  = new Segment(route_segments.pop().p1, last_point)
+
+        route_segments[0] = first_segment
+        route_segments.push last_segment
+      
+    new RouteDirection(this, walking_segments, route_segments)
 
   pass_through_circles: (circles)->
 

@@ -4,3 +4,9 @@ Buses non visibles are still visibles
 Disable zoom animation
 
 The Checkpoint should resize with zoom level changes
+
+Trigger checkpoints invertion with middle click
+
+Cuando le paso el mouse por encima el ícono en el punto medio de la dirección a caminar debería subir el zIndex al máximo.
+
+Calcular distance entre los puntos iniciales de cada una de las direcciones, y así mostrar automáticamente los recorridos similares.

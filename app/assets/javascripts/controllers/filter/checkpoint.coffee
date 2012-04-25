@@ -3,6 +3,7 @@ class window.Checkpoint extends Eventable
   # - closed
   # - changed
   # - removed
+  # - invert
 
   constructor: (map, latlng, number)->
     @map     = map
@@ -82,6 +83,10 @@ class window.Checkpoint extends Eventable
       
     $G.event.addListener @number_marker, 'rightclick', =>
       @fire_event('closed')
+
+    $G.event.addListener @number_marker, 'click', (e)=>
+      if e.b.button == 1
+        @fire_event('middleclick')
 
   # This just sets the position of the circle
 #  move_position: (latlng)->

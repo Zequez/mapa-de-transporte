@@ -1,3 +1,7 @@
+class window.RouteDirectionProcessor
+  constructor: (route, walking_segments, route_segments)->
+    
+
 class window.RouteDirection extends Eventable
   # Events
   # - mouseover
@@ -9,20 +13,24 @@ class window.RouteDirection extends Eventable
   route_distance: 0
   real_walking_distance: 0
   real_route_distance: 0
+
+  # A lot of things don't get calculated unless we are
+  # going to display the RouteDirection in the map.
   ready_to_display: false
 
-  constructor: (route, paths)->
+  constructor: (route, walking_segments, route_segments)->
     @route = route
     @route_bus = route.bus
     @map = route.map
-    @paths = paths
+    @walking_segments = walking_segments
+    @route_segments = route_segments
     @directions = []
 
     @calculate_walking_distance()
 
   calculate_walking_distance: ->
     @walking_distance = 0
-    for segment in @paths
+    for segment in @walking_segments
       @walking_distance += segment.distance
 
   # We actually never need this, yet.
@@ -36,7 +44,7 @@ class window.RouteDirection extends Eventable
   create_checkpoints_directions: ->
     if @directions.length == 0
       @directions = []
-      for path in @paths
+      for path in @walking_segments
         @directions.push new CheckpointDirection(path, @route)
       @bind_checkpoints_directions()
       @directions
@@ -69,13 +77,18 @@ class window.RouteDirection extends Eventable
   calculate_real_walking_distance: ->
     @real_walking_distance = 0
     
-    for segment in @paths
+    for segment in @walking_segments
       @real_walking_distance += segment.distance_in_meters()
 
     @real_walking_distance = parseInt(@real_walking_distance)
 
   calculate_real_route_distance: ->
-    @real_route_distance = 50
+    @real_route_distance = 0
+
+    for segment in @route_segments
+      @real_route_distance += segment.distance_in_meters()
+
+    @real_route_distance = parseInt(@real_route_distance)
 
   set_bus_name: ->
     @bus_name = @route_bus.data.name
