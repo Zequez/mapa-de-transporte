@@ -31,7 +31,9 @@
 
     .separator
 
-    
+    - if @buses.size == 1
+      = render partial: 'shared/bus_info', locals: {bus: @buses[0]}
+
 
     #tooltips{class: ('hidden' if !show_help_tips?)}
       - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses close_help}.each do |tooltip|
@@ -71,37 +73,19 @@
 
     #buses-groups
       - @city.bus_groups.each do |bus_group|
-        .buses-group-container
-          .bus-group.slot{id: "bus-group-#{bus_group.id}"}= bus_group.name
-          .buses-container
-            - bus_group.buses_batches(7) do |buses_batch|
-              .buses-batch
-                .buses-batch-rail
-                .buses-batch-slots
-                  - buses_batch.each do |bus|
-                    - if bus
-                      = bus_link(bus) do
-                        .bus-name= bus.name
+        - if bus_group.visible_buses?
+          .buses-group-container
+            .bus-group.slot{id: "bus-group-#{bus_group.id}"}= bus_group.name
+            .buses-container
+              - bus_group.buses_batches(7) do |buses_batch|
+                .buses-batch
+                  .buses-batch-rail
+                  .buses-batch-slots
+                    - buses_batch.each do |bus|
+                      - if bus
+                        = bus_link(bus)
 
     .separator
-
-    #buses-info
-      -#.bus-info-loader
-      -#  .separator
-      - @buses[0..0].each do |bus|
-        .bus-info{id: "bus-info-#{bus.id}"}
-          %h2{title: "Línea #{bus.name}"}= bus.name
-          -#= render partial: "/shared/bus-data", locals: {bus: bus}
-          -#.bus-pictures
-          .bus-routes
-            .bus-departure-route
-              %span{title: "Recorrido de ida"} #{t "views.buses.departure"}:
-              = bus.departure_route.addresses
-            .bus-return-route
-              %span{title: "Recorrido de vuelta"} #{t "views.buses.return"}:
-              = bus.return_route.addresses
-          .separator
-
 
     #facebook-like-box
       :erb

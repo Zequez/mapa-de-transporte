@@ -12,10 +12,17 @@ class Bus < ActiveRecord::Base
   scope :visible, where(visible: true)
   scope :ordered, order("bus_groups.name ASC, buses.name ASC")
   scope :for_admin_index, includes(:bus_group, :city)
+  scope :from_buses_names, lambda{|buses, groups|
+    joins(:bus_group)
+    .ordered
+    .where("buses.name IN (?) OR bus_groups.name IN (?)", buses, groups)
+  }
+  scope :select_ids, select('buses.id')
 
   before_save :set_routes_caches
   after_save :handle_bus_image
 
+  # These will be delegated to groups and to city
   def self.delegatable_attributes
     %w{delay price card cash start_time end_time}
   end
@@ -27,103 +34,47 @@ class Bus < ActiveRecord::Base
     #self.return_route_addresses = return_route.addresses
   end
 
-  ### Buses Images ###
-  ####################
+  include BusesImages
 
-  def handle_bus_image
-    if CONFIG[:buses_images_on_save]
-      generate_bus_image
-      Bus.generate_buses_images_sheet
-    else
-      Bus.delete_buses_images_sheet
+  ### From names search ###
+  #########################
+
+  def self.from_names(all_names)
+    names, groups_names = parse_names all_names
+
+    if names.size > 0 or groups_names.size > 0
+      from_buses_names(names, groups_names)
     end
   end
 
-  def self.handle_buses_images_sheet
-    all.each(&:generate_bus_image)
-    generate_buses_images_sheet
-  end
+  def self.ids_from_names(all_names)
+    names, groups_names = parse_names all_names
 
-
-  def generate_bus_image
-    path = image_path
-    darker_color_1 =  Color.new(color_1).darken(0.3)
-
-    convert = ["convert"]
-    convert << "-size 24x12"
-    convert << "-font 'Courier-Bold'"
-    convert << "-pointsize 9"
-    convert << "-gravity South"
-    convert << "-background '#{color_1}'"
-    convert << "-fill '#{color_2}'"
-    convert << "-bordercolor '#{darker_color_1}'"
-    convert << "-border 1"
-    convert << "label:#{name}"
-    convert << "'#{path}'"
-    convert << "2>&1"
-
-    r = `#{convert.join ' '}`
-
-    raise "Error creating image" if not $?.success?
-  end
-
-  def self.delete_buses_images_sheet
-    FileUtils.rm CONFIG[:buses_images_sheet_path] if File.exists?(CONFIG[:buses_images_sheet_path])
-  end
-
-  def self.generate_buses_images_sheet
-    paths = images_paths
-
-    montage = ["montage"]
-    montage << "-border 0"
-    montage << "-frame 0"
-    montage << "-label ''"
-    montage << "-tile 1x"
-    montage << "-geometry '22x'"
-    montage << "'#{paths}'"
-    montage << "'#{CONFIG[:buses_images_sheet_path]}'"
-    montage << "2>&1"
-
-    r = `#{montage.join ' '}`
-
-    raise "Error creating the montaged image" if not $?.success?
-  end
-
-  def self.rebuild_buses_images
-    all.each(&:generate_bus_image)
-    generate_buses_images_sheet
-  end
-
-  def image_path
-    Bus.images_paths(id)
-  end
-
-  def self.images_paths(id = '*')
-    (Rails.root + CONFIG[:bus_image_path]).to_s.sub(':id', id.to_s)
-  end
-
-  ### Stuff ###
-  #############
-
-  def self.from_names(all_names)
-    all_names = all_names.to_s.split('+') unless all_names.is_a? Array
-    names        = []
-    groups_names = []
-
-    all_names = all_names.reject(&:blank?).map(&:to_s)
-
-    scope = joins(:bus_group).ordered
-
-    if not all_names.empty?
-      all_names.each do |name|
-        (name['X'].nil? ? names : groups_names) << name
-      end
-
-      scope.where("buses.name IN (?) OR bus_groups.name IN (?)", names, groups_names)
+    if names.size > 0 or groups_names.size > 0
+      query_result = ActiveRecord::Base.connection.execute from_buses_names(names, groups_names).select_ids.to_sql
+      query_result.to_a.map{|b|b['id'].to_i}
     else
       []
     end
   end
+
+  def self.parse_names(all_names)
+
+    all_names = all_names.to_s.split('+') unless all_names.is_a? Array
+    all_names.delete_if(&:blank?)
+
+    names = []
+    groups_names = []
+
+    all_names.each do |name|
+      (name['X'].nil? ? names : groups_names) << name
+    end
+
+    [names, groups_names]
+  end
+
+  ### Buildup of new buses ###
+  ############################
 
   def self.for_new
     bus                 = new

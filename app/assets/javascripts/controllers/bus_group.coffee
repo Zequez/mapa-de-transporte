@@ -7,7 +7,7 @@ class window.BusGroup extends BusButton
     @build_buses()
 
   build_buses: ->
-    @buses = for bus in @data.buses
+    @buses = for bus in @data.visible_buses
       new Bus bus, this
 
   after_toggle: ->

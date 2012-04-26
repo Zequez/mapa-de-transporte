@@ -20,7 +20,15 @@ class BusGroup < ActiveRecord::Base
   #end
 
   def buses_batches(*args, &block)
-    buses.in_groups_of *args, &block
+    visible_buses.in_groups_of *args, &block
+  end
+
+  def visible_buses
+    @visible_buses ||= buses.visible.all
+  end
+
+  def visible_buses?
+    visible_buses.size > 0
   end
 
   def json_data

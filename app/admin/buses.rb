@@ -34,6 +34,7 @@ ActiveAdmin.register Bus do
     column :color_2 do |bus|
       color_column bus.color_2
     end
+    column :visible
     default_actions
   end
 

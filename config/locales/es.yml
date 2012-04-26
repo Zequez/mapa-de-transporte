@@ -13,7 +13,7 @@ es:
       cash: Precio pagado en efectivo
       departure: Ida
       return: Vuelta
-      show_buses_in_map:  Mostrar las líneas de colectivos %{buses} en el mapa.
+      show_bus_in_map:  Mostrar el recorrido de la línea %{bus} en el mapa.
 
       tooltips:
         map_click: <b>Haz click en el mapa</b> para mostrar los colectivos más cercanos.

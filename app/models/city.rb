@@ -12,7 +12,7 @@ class City < ActiveRecord::Base
 
   serialize :viewport
 
-  scope :for_show, includes(bus_groups: [buses: [:departure_route, :return_route]])
+  scope :for_show, includes(bus_groups: [:buses])#: [:departure_route, :return_route]])
 
   scope :domain, lambda{|domain|}
   
@@ -54,10 +54,12 @@ class City < ActiveRecord::Base
   end
 
   def set_shown_buses(buses)
+    buses = Bus.ids_from_names buses
+
     new_buses_array = []
     bus_groups.each do |bus_group|
-      bus_group.buses.each do |bus|
-        i = buses.index(bus)
+      bus_group.visible_buses.each do |bus|
+        i = buses.index(bus.id)
         if i
           bus.is_shown = true
           #bus.include_routes_from(buses[i])
@@ -77,7 +79,7 @@ class City < ActiveRecord::Base
               bus_groups: {
                 only: [:id, :name],
                 include: {
-                  buses: { only: [:id, :name, :encoded_departure_route, :encoded_return_route, :is_shown] }
+                  visible_buses: { only: [:id, :name, :encoded_departure_route, :encoded_return_route, :is_shown] }
                 }
               },
             }).html_safe

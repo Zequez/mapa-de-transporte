@@ -12,8 +12,9 @@ class CitiesController < InheritedResources::Base
   #end
 
   def show
-    buses = Bus.from_names(params[:buses])
-    @buses = resource.set_shown_buses(buses)
+    #buses = Bus.from_names(params[:buses])
+    #@buses = resource.set_shown_buses(buses)
+    @buses = resource.set_shown_buses(params[:buses])
     show!
   end
 

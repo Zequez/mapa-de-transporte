@@ -80,11 +80,9 @@ module BusesHelper
     city_buses_path(buses)
   end
 
-  def bus_link(bus, &block)
-    buses = (bus.is_shown? ? @buses - [bus] : @buses + [bus]).sort_by(&:name).map(&:name)
-    
-    href  = city_buses_path(buses.join('+'))
-    title = I18n.t('views.buses.show_buses_in_map', buses: buses.semantic_join)
+  def bus_link(bus)
+    href  = city_buses_path([bus])
+    title = I18n.t('views.buses.show_bus_in_map', bus: bus.name)
   
     active = ("active" if bus.is_shown?)
 

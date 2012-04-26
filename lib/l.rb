@@ -35,7 +35,7 @@ class L
 		def first_time(file_name)
       if not @@first.include? file_name
         @@first << file_name
-        log_to "##----------------------------------------------------------------##", file_name
+        log_to "##----------------------------------------------------------------##\s", file_name
       end
     end
 
