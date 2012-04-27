@@ -4,6 +4,7 @@ defaults: &defaults
   bus_image_path: "public/buses_images/:id.png"
   buses_images_sheet_path: "public/buses_images.png"
   buses_images_on_save: false
+  facebook_page_url: https://www.facebook.com/pages/MapaDeColectivosMarDelPlata/211856755596258
 
 
 development:
