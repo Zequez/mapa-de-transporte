@@ -15,6 +15,21 @@ es:
       return: Vuelta
       show_bus_in_map:  Mostrar el recorrido de la línea %{bus} en el mapa.
 
+      header:
+        logo_title: "Mapa de Colectivos %{city}"
+
+      header_bar:
+        help: Ayuda
+        ticket_price: Precio del boleto en %{city}
+
+      bus_info:
+        line: Línea %{bus}
+        departure: Ida
+        return: Vuelta
+        departure_route: Recorrido de ida
+        return_route: Return de ida
+
+
       tooltips:
         map_click: <b>Haz click en el mapa</b> para mostrar los colectivos más cercanos.
         many_clicks: Haz <b>click en otro destino</b> para mostrar los recorridos más cortos entre los dos puntos.
@@ -23,3 +38,15 @@ es:
         invert_checkpoints: Puedes <b>invertir los destinos</b> clickeándolos con el botón del medio.
         more_buses: Por defacto se busca la ruta más corta. Haz click en el signo <b>+ para mostrar rutas alternativas</b>.
         close_help: Haz click en la cruz roja en la esquina superior para <b>ocultar esta ayuda</b>.
+
+      directions:
+        line_name: Nombre de la línea
+        walking_distance: Distancia total que deberías caminar
+        route_distance: Distancia total que recorrerías en colectivo
+        show_another_route: Mostrar otra ruta
+        show_one_less_route: Mostrar una ruta menos
+
+      copyright:
+        title: Robar es malo
+        first_line: © 2012 Mapa de Colectivos Mar del Plata.
+        second_line: Todos los derechos reservables reservados.

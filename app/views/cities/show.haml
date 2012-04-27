@@ -21,11 +21,11 @@
   .padding
     #header
       %h1
-        %image{src: "/assets/header.png", alt: "Mapa de Colectivos"}
+        %image{src: "/assets/header.png", alt: t('views.buses.header.logo_title', city: @city.name)}
 
     #header-bar
-      #toggle-help{title: "Ayuda", class: ('toggled' if show_help_tips?)} Ayuda
-      #city-bus-price{title: "Precio del boleto"}
+      #toggle-help{title: t('views.buses.header_bar.help'), class: ('toggled' if show_help_tips?)} Ayuda
+      #city-bus-price{title: t('views.buses.header_bar.ticket_price', city: @city.name)}
         %span.bus-price-icon Precio del boleto:
         %span.bus-price-money= monetize @city.bus_card
 
@@ -46,11 +46,11 @@
 
     #buses-directions
       #buses-directions-legend
-        .bus-name{title: "Nombre de la línea"}
+        .bus-name{title: t('views.buses.directions.line_name')}
           .direction-legend-background Nombre de la línea
-        .walking-distance{title: "Distancia total que deberías caminar"}
+        .walking-distance{title: t('views.buses.directions.walking_distance')}
           .direction-legend-background Distancia total que deberías caminar
-        .route-distance{title: "Distancia total que recorrerías en colectivo"}
+        .route-distance{title: t('views.buses.directions.route_distance')}
           .direction-legend-background Distancia total que recorrerías en colectivo
       #buses-directions-tooltip
         Haz click en el mapa para calcular las rutas más cercanas.
@@ -65,8 +65,8 @@
             km
 
       #add-remove-buses-directions
-        %span.plus{title: "Mostrar otra ruta"}> +
-        %span.minus{title: "Mostrar una ruta menos"} -
+        %span.plus{title: t('views.buses.directions.show_another_route')}> +
+        %span.minus{title: t('views.buses.directions.show_one_less_route')} -
 
       .separator
 
@@ -93,6 +93,6 @@
 
     .separator
 
-    #copyright{title: "Robar es malo."}
-      %p © 2012 Mapa de Colectivos Mar del Plata.
-      %p Todos los derechos reservables reservados.
+    #copyright{title: t('views.buses.copyright.title')}
+      %p= t('views.buses.copyright.first_line')
+      %p= t('views.buses.copyright.second_line')

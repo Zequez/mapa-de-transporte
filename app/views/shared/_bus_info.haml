@@ -1,13 +1,13 @@
 #buses-info
   .bus-info{id: "bus-info-#{bus.id}"}
-    %h2{title: "Línea #{bus.name}"}= bus.name
+    %h2{title: t("views.buses.bus_info.line", bus: bus.name)}= bus.name
     -#= render partial: "/shared/bus-data", locals: {bus: bus}
     -#.bus-pictures
     .bus-routes
       .bus-departure-route
-        %span{title: "Recorrido de ida"} #{t "views.buses.departure"}:
+        %span{title: t("views.buses.bus_info.departure_route")} #{t "views.buses.bus_info.departure"}:
         = bus.departure_route.addresses
       .bus-return-route
-        %span{title: "Recorrido de vuelta"} #{t "views.buses.return"}:
+        %span{title: t("views.buses.bus_info.return_route")} #{t "views.buses.bus_info.return"}:
         = bus.return_route.addresses
     .separator
