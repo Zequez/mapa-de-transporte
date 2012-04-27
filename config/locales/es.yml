@@ -20,6 +20,6 @@ es:
         many_clicks: Haz <b>click en otro destino</b> para mostrar los recorridos más cortos entre los dos puntos.
         remove_checkpoint: Para <b>eliminar un destino</b> haz click secundario sobre este.
         move_checkpoint: Puedes <b>mover un destino</b> arrastrándolo.
-        invert_checkpoints: Puedes <b>invertir los destino</b> clickeándolos con el botón del medio.
+        invert_checkpoints: Puedes <b>invertir los destinos</b> clickeándolos con el botón del medio.
         more_buses: Por defacto se busca la ruta más corta. Haz click en el signo <b>+ para mostrar rutas alternativas</b>.
         close_help: Haz click en la cruz roja en la esquina superior para <b>ocultar esta ayuda</b>.
