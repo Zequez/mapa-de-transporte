@@ -1,4 +1,5 @@
 - if not @bus.new_record?
+  - L.l @bus.to_editor_json
   :javascript
     $(document).ready(function(){
       new AdminBus(#{@bus.to_editor_json});

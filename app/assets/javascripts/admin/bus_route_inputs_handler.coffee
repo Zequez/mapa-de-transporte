@@ -18,7 +18,6 @@ class window.BusRouteInputsHandler
 
   bind_events: ->
     google.maps.event.addListener @map.gmap, "mouseout", =>
-      console.log 'OUT!'
       @write_checkpoints()
 
   write_checkpoints: ->

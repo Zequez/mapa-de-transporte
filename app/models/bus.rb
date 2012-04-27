@@ -107,7 +107,7 @@ class Bus < ActiveRecord::Base
     to_json only: [],
             include: {departure_route: {only: []},
                        return_route: {only: []},
-                       city: {only: [:viewport]}}
+                       city: {only: [:viewport, :name, :country, :region_tag]}}
   end
 
   def is_shown?

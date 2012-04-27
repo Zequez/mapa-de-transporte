@@ -1,12 +1,15 @@
 class window.AdminRoute extends Eventable
-  constructor: (map, data, element_name, color)->
-    @map  = map
+  constructor: (city, data, element_name, color)->
+    @city = city
+    @map  = @city.map
     @color = color
     @data = data
     @name = element_name
     @find_elements()
     @bind_elements()
     @build_route()
+
+    @build_addresses_manager()
 
   find_elements: ->
     @e    = $$(@name)
@@ -27,6 +30,9 @@ class window.AdminRoute extends Eventable
   build_route: ->
     @route = new BusRouteInputsHandler(@map, @e, {strokeColor: @color})
 
+  build_addresses_manager: ->
+    @addresses_manager = new RouteAddressesManager(@city, @e)
+
   edit: ->
     @show_tab()
     @route.start_editing()
@@ -40,4 +46,8 @@ class window.AdminRoute extends Eventable
 
   show_tab: ->
     @e.show()
+
+
+
+
 

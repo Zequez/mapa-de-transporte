@@ -72,9 +72,9 @@ class City < ActiveRecord::Base
 
     new_buses_array
   end
-
+  
   def to_map_json
-    to_json(only: [:viewport],
+    to_json(only: [:viewport, :name, :country, :region_tag],
             include: {
               bus_groups: {
                 only: [:id, :name],

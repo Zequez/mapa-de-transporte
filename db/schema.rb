@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120423131457) do
+ActiveRecord::Schema.define(:version => 20120427040611) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -98,8 +98,10 @@ ActiveRecord::Schema.define(:version => 20120423131457) do
     t.integer "bus_end_time"
     t.integer "bus_card"
     t.integer "bus_cash"
-    t.boolean "show_bus_card",  :default => true, :null => false
-    t.boolean "show_bus_cash",  :default => true, :null => false
+    t.boolean "show_bus_card",  :default => true,        :null => false
+    t.boolean "show_bus_cash",  :default => true,        :null => false
+    t.string  "country",        :default => "Argentina"
+    t.string  "region_tag",     :default => "AR"
   end
 
   add_index "cities", ["perm"], :name => "index_cities_on_perm"

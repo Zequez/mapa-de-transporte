@@ -19,6 +19,9 @@ class window.AdminCity
     google.maps.event.addListener @map.gmap, 'bounds_changed', =>
       @set_viewport @map.get_bounds()
 
-
   set_viewport: (viewport)->
     @viewport_element.val JSON.stringify(viewport)
+
+
+
+

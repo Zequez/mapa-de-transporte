@@ -12,11 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require underscore
-//= require jquery/cookie
+//= require_directory ./jquery
 //= require_directory ./tools
 //= require_directory ./map_tools
-//= require_directory ./controls
 //= require ./controllers/bus_button
 //= require_directory ./controllers/static
 //= require_directory ./controllers/filter
