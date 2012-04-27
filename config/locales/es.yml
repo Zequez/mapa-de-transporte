@@ -45,6 +45,8 @@ es:
         route_distance: Distancia total que recorrerías en colectivo
         show_another_route: Mostrar otra ruta
         show_one_less_route: Mostrar una ruta menos
+        help: Haz click en el mapa para calcular las rutas más cercanas.
+
 
       copyright:
         title: Robar es malo

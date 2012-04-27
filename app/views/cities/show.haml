@@ -47,13 +47,13 @@
     #buses-directions
       #buses-directions-legend
         .bus-name{title: t('views.buses.directions.line_name')}
-          .direction-legend-background Nombre de la línea
+          .direction-legend-background= t('views.buses.directions.line_name')
         .walking-distance{title: t('views.buses.directions.walking_distance')}
-          .direction-legend-background Distancia total que deberías caminar
+          .direction-legend-background= t('views.buses.directions.walking_distance')
         .route-distance{title: t('views.buses.directions.route_distance')}
-          .direction-legend-background Distancia total que recorrerías en colectivo
+          .direction-legend-backgroundo= t('views.buses.directions.walking_distance')
       #buses-directions-tooltip
-        Haz click en el mapa para calcular las rutas más cercanas.
+        = t('views.buses.directions.help')
       #list-of-directions
         #bus-direction-template.bus-direction
           .bus-name.bus-name-value
