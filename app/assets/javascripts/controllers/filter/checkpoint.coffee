@@ -84,7 +84,7 @@ class window.Checkpoint extends Eventable
     $G.event.addListener @number_marker, 'rightclick', =>
       @fire_event('closed')
 
-    $G.event.addListener @number_marker, 'click', (e)=>
+    $G.event.addListener @number_marker, 'mouseup', (e)=>
       if e.b.button == 1
         @fire_event('middleclick')
 
