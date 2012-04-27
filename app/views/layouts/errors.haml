@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title= t('views.head.title')
+    =stylesheet_link_tag    "errors", media: "all"
+    =csrf_meta_tags
+    %link{rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico"}
+
+  %body
+    = yield

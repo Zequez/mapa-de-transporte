@@ -1,7 +1,10 @@
 !!!
 %html
   %head
-    %title Mapa de Colectivos de Mar del Plata
+    - if @city
+      %title= t('views.head.title_city', @city.name)
+    - else
+      %title= t('views.head.title')
     =stylesheet_link_tag    "application", media: "all"
     =javascript_include_tag CONFIG[:gmaps_url]
     =javascript_include_tag "application"

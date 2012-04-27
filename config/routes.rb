@@ -37,8 +37,11 @@ Mdc::Application.routes.draw do
   #
   #  #resources :buses, path: ":names", only: :index, defaults: {names: ""}
   #end
-  
-  match "/404" => "errors#not_found"
+
+
+  match "/error_404" => "errors#not_found"
+  match "/error_500" => "errors#server_error"
+
 
   get "/buses_images.png" => "buses_images_generator#show"
 

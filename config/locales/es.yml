@@ -6,6 +6,10 @@ es:
   error_just_me: Nope, solo yo puedo hacer esto.
 
   views:
+    head:
+      title: Mapas de Colectivos
+      title_city: Mapa de Colectivos %{city}
+
     buses:
       delay: Demora
       schedule: Horario en el que pasa
