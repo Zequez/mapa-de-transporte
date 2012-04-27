@@ -5,15 +5,10 @@ Disable zoom animation
 
 Cuando le paso el mouse por encima el ícono en el punto medio de la dirección a caminar debería subir el zIndex al máximo.
 
-The background of the bus price is kind of dark, don't you think?
-Use the card icon for the price, we don't need a new icon.
-
 Calculate that the distance between buses pickup points are below ~100m so we can say that the buses are similar and display them all.
 And do the same for buses with differential distances of more than ~100m and display them as alternative routes.
 
 When displaying a bus destination the bus route should have less opacity, and the part of the route that you have to ride should have more opacity
 and when hovering the route it should only highlight that part.
-
-Favicon should be a bus icon.
 
 It should load a systematically the overral Google Maps direction route to walk.
