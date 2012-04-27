@@ -6,6 +6,9 @@
 
   > *
     height: 28px
+
+    background-image: url(sprites.png)
+
     opacity: 0.3
 
     &:hover
@@ -14,32 +17,44 @@
     &.toggled,
       opacity: 1
 
+  $sprite_x: -61px
+  $sprite_y: 0px
+
   #toggle-help
     float: left
     width: 18px
     height: 100%
-    background: url(header-toggles.png) -146px 0px
+    background-position: -146px+$sprite_x 0px+$sprite_y
     text-indent: -9999px
     cursor: pointer
 
   #city-bus-price
     float: right
 
-    vertical-align: middle
+    background: transparent
+
+    line-height: 28px
 
     opacity: 1
 
-    .icon
-      float: right
-      margin-right: $m / 2
-      width: 9px
-      height: 100%
-      background: url(header-toggles.png) -168px 0px
+    .bus-price-icon
+      display: inline-block
+
+      $sprite_x: -252px
+      $sprite_y: 0px
+
+      width: 20px
+      height: 20px
+
+      background-image: url(sprites.png)
+      background-position: 0px+$sprite_x -40px+$sprite_y
+      
+      line-height: 20px
       text-indent: -9999px
 
     .bus-price-money
-      float: right
-      margin-top: 4px
+      display: inline-block
+      //margin-top: 4px
       padding: 3px
 
       height: 14px
@@ -52,4 +67,5 @@
       +linear-shadow(0.1)
 
       font-size: 14px
+      line-height: 14px
 

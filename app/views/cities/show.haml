@@ -26,8 +26,8 @@
     #header-bar
       #toggle-help{title: "Ayuda", class: ('toggled' if show_help_tips?)} Ayuda
       #city-bus-price{title: "Precio del boleto"}
+        %span.bus-price-icon Precio del boleto:
         %span.bus-price-money= monetize @city.bus_card
-        %span.icon Precio del boleto:
 
     .separator
 

@@ -1,5 +1,5 @@
 class NumberIcons
-  url: "/assets/checkpoints.png"
+  url: "/assets/sprites.png"
 
   images: {}
   

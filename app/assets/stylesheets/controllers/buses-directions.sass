@@ -26,15 +26,19 @@
       display: inline-block
       width: 40px
       height: 40px
-      background-image: url(direction_icons.png)
+      background-image: url(sprites.png)
       text-indent: -9999px
 
+    $sprite_x: -61px
+    $sprite_y: -39px
+
+
     .bus-name>.direction-legend-background
-      background-position: 0px 0px
+      background-position: 0px+$sprite_x 0px+$sprite_y
     .walking-distance>.direction-legend-background
-      background-position: -40px 0px
+      background-position: -40px+$sprite_x 0px+$sprite_y
     .route-distance>.direction-legend-background
-      background-position: -80px 0px
+      background-position: -80px+$sprite_x 0px+$sprite_y
 
   >#buses-directions-tooltip
     text-align: center

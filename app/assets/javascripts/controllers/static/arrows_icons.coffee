@@ -1,11 +1,14 @@
 class ArrowIcons
   images: {}
 
+  sprite_x: 303,
+  sprite_y: 0,
+
   colors: [0, 1]
 
   angles: [0, 45, 90, 135, 180, 225, 270, 315]
 
-  url: "/assets/arrows.png"
+  url: "/assets/sprites.png"
 
   width: 9
 
@@ -19,8 +22,8 @@ class ArrowIcons
     for color in @colors
       @images[color] = {}
       for angle, angle_position in @angles
-        x = @width*color
-        y = @width*angle_position
+        x = @width*color + @sprite_x
+        y = @width*angle_position + @sprite_y
 
         origin = new google.maps.Point(x, y)
 
