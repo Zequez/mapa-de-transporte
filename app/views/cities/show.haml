@@ -31,8 +31,8 @@
 
     .separator
 
-    - if @buses.size == 1
-      = render partial: 'shared/bus_info', locals: {bus: @buses[0]}
+    - if @bus
+      = render partial: 'shared/bus_info', locals: {bus: @bus}
 
 
     #tooltips{class: ('hidden' if !show_help_tips?)}

@@ -1,8 +1,10 @@
 !!!
 %html
   %head
-    - if @city
-      %title= t('views.head.title_city', @city.name)
+    - if @bus
+      %title= t('views.head.title_bus', bus: @bus.name, city: @city.name)
+    - elsif @city
+      %title= t('views.head.title_city', city: @city.name)
     - else
       %title= t('views.head.title')
     =stylesheet_link_tag    "application", media: "all"

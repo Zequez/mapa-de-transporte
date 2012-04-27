@@ -1,9 +1,9 @@
 class Domain < ActiveRecord::Base
   belongs_to :city
 
-  def self.registered?(name)
-    #Rails.cache.delete "Domain.registered?"
+  after_save { Rails.cache.delete "Domain.registered?" }
 
+  def self.registered?(name)
     Rails.cache.fetch("Domain.registered?"){
       domains = {}
       Domain.all.each do |d|
@@ -12,5 +12,5 @@ class Domain < ActiveRecord::Base
       domains
     }[name]
   end
-  after_save { Rails.cache.delete "Domain.exists?" }
+
 end

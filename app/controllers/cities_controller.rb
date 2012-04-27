@@ -15,6 +15,7 @@ class CitiesController < InheritedResources::Base
     #buses = Bus.from_names(params[:buses])
     #@buses = resource.set_shown_buses(buses)
     @buses = resource.set_shown_buses(params[:buses])
+    @bus = (@buses.size == 1) ? @buses[0] : nil
     show!
   end
 

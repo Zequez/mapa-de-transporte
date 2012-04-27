@@ -9,6 +9,7 @@ es:
     head:
       title: Mapas de Colectivos
       title_city: Mapa de Colectivos %{city}
+      title_bus: Mapa del Recorrido del %{bus} %{city}
 
     buses:
       delay: Demora
