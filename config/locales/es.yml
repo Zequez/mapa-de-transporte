@@ -10,7 +10,17 @@ es:
       title: Mapas de Colectivos
       title_city: Mapa de Colectivos %{city}
       title_bus: Mapa del Recorrido del %{bus} %{city}
-
+      
+      description:
+        Mapas de Colectivos es un sitio web que te permite ver los recorridos de los
+        colectivos en un mapa y descubrir automáticamente las rutas más cortas para llegar a tu
+        destino.
+      description_city:
+        Mapa de Colectivos %{city} es un sitio web que te permite ver los recorridos de los
+        colectivos de %{city} en un mapa y descubrir automáticamente las rutas más cortas para llegar a tu
+        destino.
+      description_bus:
+        Mapa dinámico del recorrido del colectivo %{bus} de %{city}.
     buses:
       delay: Demora
       schedule: Horario en el que pasa

@@ -1,12 +1,7 @@
 !!!
 %html
   %head
-    - if @bus
-      %title= t('views.head.title_bus', bus: @bus.name, city: @city.name)
-    - elsif @city
-      %title= t('views.head.title_city', city: @city.name)
-    - else
-      %title= t('views.head.title')
+    %title= title
     =stylesheet_link_tag    "application", media: "all"
     =javascript_include_tag CONFIG[:gmaps_url]
     =javascript_include_tag "application"
@@ -14,7 +9,17 @@
     - if content_for? :head
       = content_for :head
     %link{rel: "shortcut icon", type: "image/x-icon", href: "/favicon.ico"}
-    
+    %meta{name: "description", content: description}
+
+    %meta{property: "og:title", content: title}
+    %meta{property: "og:type", content: "website"}
+    %meta{property: "og:url", content: "http://#{request.host}"}
+    %meta{property: "og:image", content: "http://#{request.host}/logo.png"}
+    %meta{property: "og:image:type", content: "image/png"}
+    %meta{property: "og:image:width", content: "150"}
+    %meta{property: "og:title:height", content: "150"}
+    %meta{property: "og:description", content: description}
+
   %body
     :erb
       <div id="fb-root"></div>
