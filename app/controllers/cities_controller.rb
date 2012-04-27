@@ -1,4 +1,5 @@
 class CitiesController < InheritedResources::Base
+  respond_to :qps
   actions :index, :show
   
   before_filter :redirect_to_user_city, only: :index
@@ -14,9 +15,16 @@ class CitiesController < InheritedResources::Base
   def show
     #buses = Bus.from_names(params[:buses])
     #@buses = resource.set_shown_buses(buses)
-    @buses = resource.set_shown_buses(params[:buses])
-    @bus = (@buses.size == 1) ? @buses[0] : nil
-    show!
+    L.l params
+    if params[:format] != 'qps'
+      @buses = resource.set_shown_buses(params[:buses])
+      @bus = (@buses.size == 1) ? @buses[0] : nil
+    end
+
+    show! do |r|
+      r.html
+      r.qps{render 'show.qps', layout: false}
+    end
   end
 
   private

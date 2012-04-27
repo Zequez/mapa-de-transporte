@@ -46,7 +46,7 @@ Mdc::Application.routes.draw do
   get "/buses_images.png" => "buses_images_generator#show"
 
   scope '/', defaults: {domain_city: true}, constraints: (lambda { |r| Domain.registered?(r.host)}) do
-    get '/'           => 'cities#show'
+    get '/(.:format)' => 'cities#show'
     get '/:buses'     => 'cities#show'
   end
   
@@ -56,7 +56,7 @@ Mdc::Application.routes.draw do
   get '/:id/:buses' => 'cities#show'
 
 
-  root to: "cities#index", redirect: true
+  get '/(.:format)', to: "cities#index", redirect: true, as: 'root'
   
   match "*a" => "errors#not_found"
 end

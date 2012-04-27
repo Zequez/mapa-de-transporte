@@ -85,6 +85,10 @@ class City < ActiveRecord::Base
             }).html_safe
   end
 
+  def to_qps
+    to_map_json
+  end
+
   # This is for the view to be able to render the city like a bus.
 
   Bus.delegatable_attributes.each do |method|

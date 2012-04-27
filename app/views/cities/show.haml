@@ -1,9 +1,3 @@
-- content_for :head do
-  :javascript
-    $(document).ready(function(){
-      new City(#{@city.to_map_json});
-    });
-
 #map-container
   #bus-popup-template.bus-popup
     .positioner
@@ -56,7 +50,7 @@
         = t('views.buses.directions.help')
       #list-of-directions
         #bus-direction-template.bus-direction
-          .bus-name.bus-name-value
+          .bus-name.bus-name-value! &nbsp;
           .walking-distance
             %span.walking-distance-value>
             m
