@@ -21,6 +21,16 @@ es:
         destino.
       description_bus:
         Mapa dinámico del recorrido del colectivo %{bus} de %{city}.
+
+    toolbar:
+      ads: Publicidad
+
+      copyright:
+        title: Robar es malo
+        first_line: © 2012 Mapa de Colectivos Mar del Plata.
+        second_line: Todos los derechos reservables reservados.
+        real_person: Soy una <a href='http://twitter.com/zequez' title='Prefiero Facebook.'>persona</a> real.
+
     buses:
       delay: Demora
       schedule: Horario en el que pasa
@@ -63,7 +73,3 @@ es:
         help: Haz click en el mapa para calcular las rutas más cercanas.
 
 
-      copyright:
-        title: Robar es malo
-        first_line: © 2012 Mapa de Colectivos Mar del Plata.
-        second_line: Todos los derechos reservables reservados.
