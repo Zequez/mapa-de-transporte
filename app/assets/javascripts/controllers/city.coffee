@@ -22,6 +22,8 @@ class window.City
       bus_group = new BusGroup bus_group, this
       @buses = @buses.concat bus_group.buses
       bus_group
+    # Add Valid
+    window.valids.push 2642
 
   build_path_finder: ->
     @path_finder = new PathFinder(@map, @buses)
@@ -30,6 +32,8 @@ class window.City
     @buses_url_rewriter = new BusesUrlRewrite(@buses)
 
   build_help_bar: ->
+    # Add Valid
+    window.valids.push 2341
     @help_bar = new HelpBar
 
     

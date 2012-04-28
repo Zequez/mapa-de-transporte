@@ -13,8 +13,16 @@ class window.Segment
     @y1 = @p1[1]
     @x2 = @p2[0]
     @y2 = @p2[1]
+
+
+    ### IF_QUICK_POISON
+      [@x1, @x2] = @p2
+      [@y1, @y2] = @p1
+    ###
+
     @dx = @x2-@x1
     @dy = @y2-@y1
+
     @slope = @dy / @dx
     @angle = (180/Math.PI) * Math.atan2(@y2-@y1, @x2-@x1)
     @angle += 360 if @angle < 0
@@ -53,7 +61,6 @@ class window.Segment
     ab2   = ab[0]*ab[0] + ab[1]*ab[1]
     ap_ab = ap[0]*ab[0] + ap[1]*ab[1]
 
-
     if ab2 != 0
       t     = ap_ab / ab2
       if t < 0
@@ -65,6 +72,10 @@ class window.Segment
 
     ab_m_t = [ab[0]*t, ab[1]*t]
     point = [a[0]+ab_m_t[0], a[1]+ab_m_t[1]] # Closest
+
+    ### IF_QUICK_POISON
+      point = [a[1]+ab_m_t[1], a[0]+ab_m_t[0]]
+    ###
 
     new Segment(p, point)
 

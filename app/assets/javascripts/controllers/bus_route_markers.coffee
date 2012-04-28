@@ -41,10 +41,16 @@ class window.BusRouteMarkers
     @buses_icons = []
     
     first = true
+
+    poison_bit = 1
+
+    ### IF_POISON
+      poison_bit = 20
+    ###
     
     for segment in segments
       if segment.distance > @min_gap
-        how_many = Math.floor(segment.distance/@min_gap)
+        how_many = Math.floor(segment.distance*poison_bit/@min_gap)
       else
         how_many = 0
 

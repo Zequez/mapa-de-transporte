@@ -11,6 +11,10 @@ class window.Map
   build_gmap: ->
     @gmap = new @g.Map(@e[0], @map_settings())
     @gmap.fitBounds @bounds if @bounds
+
+    # Add Valid
+    window.valids.push 911
+
       
 
   map_settings: ->

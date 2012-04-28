@@ -16,6 +16,8 @@ class window.CheckpointsManager extends Eventable
     $G.event.addListener @map.gmap, "click", (event)=>
       point = event.latLng
       @add_checkpoint(point)
+    # Add Valid
+    window.valids.push 2436
 
   add_checkpoint: (latlng)->
     if @checkpoints.length >= CONFIG.max_path_finder_checkpoints
