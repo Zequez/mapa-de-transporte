@@ -28,15 +28,19 @@ class window.HelpBar
     else
       @show()
 
+    @set_cookie()
+
   show: ->
     @visible = true
     @tooltips.show()
     @toggle_element.addClass 'toggled'
-    SETTINGS.set('help_tips', true)
 
 
   hide: ->
     @visible = false
     @tooltips.hide()
     @toggle_element.removeClass 'toggled'
-    SETTINGS.set('help_tips', false)
+
+
+  set_cookie: ->
+    SETTINGS.set('help_tips', @visible)

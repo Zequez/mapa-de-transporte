@@ -61,7 +61,6 @@ class window.DirectionsInterface extends Eventable
   setup_template: ->
     @template_e.remove()
     @template_e.removeAttr('id')
-    @template_e.show()
     @template    = new DirectionsInterfaceElementTemplate(@template_e)
 
   create_alternatives_control: ->

@@ -36,7 +36,6 @@ class UserSettings
     
 
   set: (setting_name, value)->
-    console.log setting_name, value
     @settings[setting_name] = value
     @save()
 

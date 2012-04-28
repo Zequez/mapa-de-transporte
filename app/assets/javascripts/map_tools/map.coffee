@@ -15,6 +15,7 @@ class window.Map
   map_settings: ->
     @make_bounds()
     {
+      scrollwheel: false,
       zoom: 12,
       center: @center,
       mapTypeId: @g.MapTypeId.ROADMAP,
