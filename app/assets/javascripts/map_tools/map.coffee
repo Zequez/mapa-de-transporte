@@ -18,7 +18,7 @@ class window.Map
       zoom: 12,
       center: @center,
       mapTypeId: @g.MapTypeId.ROADMAP,
-      backgroundColor: if window.Settings then Settings.map_background_color else null
+      backgroundColor: if window.CONFIG then CONFIG.map_background_color else null
     }
 
   make_bounds: ->

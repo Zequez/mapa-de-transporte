@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :city_url
 
   before_filter :set_locale
+  before_filter :set_user_settings
 
   def set_locale
     I18n.locale = :es
@@ -19,5 +20,13 @@ class ApplicationController < ActionController::Base
     end
 
     "/#{param}"
+  end
+
+  def set_user_settings
+    begin
+      @user_settings ||= HashWithIndifferentAccess.new ActiveSupport::JSON.decode(cookies[:settings])
+    rescue
+      @user_settings ||= {}
+    end
   end
 end

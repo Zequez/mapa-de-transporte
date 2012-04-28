@@ -56,8 +56,8 @@ class window.PathFinder
 
 
   handle_directions: ->
-    @shown_directions  = to_display  = @directions[0..(Settings.max_routes_suggestions-1)]
-    @hidden_directions = to_not_display  = @directions[Settings.max_routes_suggestions..]
+    @shown_directions  = to_display  = @directions[0..(SETTINGS.read.max_routes_suggestions-1)]
+    @hidden_directions = to_not_display  = @directions[SETTINGS.read.max_routes_suggestions..]
     
     for direction in @hidden_directions
       direction.route_bus.deactivate()

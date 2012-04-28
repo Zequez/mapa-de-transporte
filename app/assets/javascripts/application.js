@@ -19,3 +19,4 @@
 //= require_directory ./controllers/static
 //= require_directory ./controllers/filter
 //= require_directory ./controllers
+//= require ./controllers/city_init

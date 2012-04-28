@@ -14,8 +14,28 @@
 
   +text-shadow($black)
 
-  overflow: auto
+  overflow-y: visible
   overflow-x: hidden
+
+  &::-webkit-scrollbar
+    width: 10px
+
+  &::-webkit-scrollbar-track
+    background: darken($blueDark, 5%)
+    +box-shadow(inset 0px 0px 5px rgba(0,0,0,0.5))
+
+  &::-webkit-scrollbar-thumb
+    border-radius: 5px
+    background-color: $blue
+    +box-shadow(0px 0px 3px rgba($black, 0.5))
+    +linear-shadow(0.1)
+    //+box-shadow(inset 0px 0px 5px rgba(#fff, 0.1))
+  //::-webkit-scrollbar-button       { /* 2 */ }
+  //::-webkit-scrollbar-track        { /* 3 */ }
+  //::-webkit-scrollbar-track-piece  { /* 4 */ }
+  //::-webkit-scrollbar-thumb        { /* 5 */ }
+  //::-webkit-scrollbar-corner       { /* 6 */ }
+  //::-webkit-resizer                { /* 7 */ }
 
   .padding
     margin: $m

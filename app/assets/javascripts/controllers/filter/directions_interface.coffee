@@ -99,8 +99,10 @@ class window.DirectionsInterface extends Eventable
 
 class DirectionsInterfaceAlternativesControl extends Eventable
   constructor: ->
+    @max_routes = SETTINGS.read.max_routes_suggestions || 1
     @find_elements()
     @bind_elements()
+
 
   find_elements: ->
     @container = $$('add-remove-buses-directions')
@@ -109,13 +111,11 @@ class DirectionsInterfaceAlternativesControl extends Eventable
 
   bind_elements: ->
     @plus.click =>
-      ++Settings.max_routes_suggestions
-      SaveSettings()
+      SETTINGS.set('max_routes_suggestions', ++@max_routes)
       @fire_event('options_updated')
       
     @minus.click =>
-      --Settings.max_routes_suggestions
-      SaveSettings()
+      SETTINGS.set('max_routes_suggestions', --@max_routes)
       @fire_event('options_updated')
 
      

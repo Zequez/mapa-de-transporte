@@ -1,35 +1,49 @@
-default_settings = {
-  max_routes_suggestions: 1
+window.CONFIG = {
   max_path_finder_checkpoints: 2
 
+  similar_routes_distance: 100 # Meters
+
   map_background_color: "#141414"
-
-
-  help_tips: true
-
-  filter_instructions: {
-    start: true,
-    many_zones: true,
-    remove: true,
-    no_buses: true,
-    suggestion: true,
-    maximum: true
-  }
 }
 
-class PersistantSettings
-  constructor: ->
-    @settings = default_settings
+user_settings = {
+  help_tips: true,
+  max_walking_distance: 500,
+  max_routes_suggestions: 1
+}
+
+class UserSettings
+  default: {},
+  user_settings: {},
+  settings: {}
+  read: {}
+
+  constructor: (defaults)->
+    @defaults      = defaults
+    @settings      = @default
+    
+    @load()
 
   load: ->
     user_settings = $.cookie('settings')
+
     try
-      @settings = _.extend @settings, JSON.parse user_settings
-    @settings
+      @settings = _.extend @defaults, JSON.parse user_settings
+
+    @read = @settings
+
+  get: (setting_name)-> @settings[setting_name]
+    
+
+  set: (setting_name, value)->
+    console.log setting_name, value
+    @settings[setting_name] = value
+    @save()
 
   save: ->
+    $.cookie 'settings', null
     $.cookie 'settings', JSON.stringify(@settings), {expires: 365, path: '/'}
+    @read = @settings
 
-persistant_settings = new PersistantSettings
-window.Settings      = persistant_settings.load()
-window.SaveSettings  = -> persistant_settings.save()
+
+window.SETTINGS = new UserSettings(user_settings)

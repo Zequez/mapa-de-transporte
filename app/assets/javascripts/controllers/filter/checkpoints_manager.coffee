@@ -18,7 +18,7 @@ class window.CheckpointsManager extends Eventable
       @add_checkpoint(point)
 
   add_checkpoint: (latlng)->
-    if @checkpoints.length >= Settings.max_path_finder_checkpoints
+    if @checkpoints.length >= CONFIG.max_path_finder_checkpoints
       @fire_event('checkpoint_replaced', @checkpoints[0])
       @remove_checkpoint @checkpoints[0]
 
