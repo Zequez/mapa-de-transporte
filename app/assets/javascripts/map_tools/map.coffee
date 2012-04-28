@@ -11,11 +11,11 @@ class window.Map
   build_gmap: ->
     @gmap = new @g.Map(@e[0], @map_settings())
     @gmap.fitBounds @bounds if @bounds
+      
 
   map_settings: ->
     @make_bounds()
     {
-      scrollwheel: false,
       zoom: 12,
       center: @center,
       mapTypeId: @g.MapTypeId.ROADMAP,
