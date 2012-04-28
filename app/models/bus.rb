@@ -114,6 +114,14 @@ class Bus < ActiveRecord::Base
     is_shown
   end
 
+  def variation
+    @variation ||= name[3] if name
+  end
+
+  def cropped_name
+    name[0..2]
+  end
+
   # Hackity Hack
   #def include_routes_from(bus)
   #  self.departure_route = bus.departure_route

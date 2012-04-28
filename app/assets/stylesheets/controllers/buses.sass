@@ -96,9 +96,21 @@
           background: darken($blueDark, 5%)
           +box-shadow(inset 0px 0px 5px rgba(0,0,0,0.5))
 
+
         .slot
           float: left
           width: 100% / $buses-batch-number
+
+          .bus-variation
+            display: block
+            position: absolute
+            bottom: 0px
+            right: 0px
+
+            text-transform: uppercase
+            color: $white
+            font-size: 0.6em
+            font-weight: normal
 
         .slot:first-child
           border-top-left-radius: 2px
