@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427040611) do
+ActiveRecord::Schema.define(:version => 20120428093820) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(:version => 20120427040611) do
   create_table "domains", :force => true do |t|
     t.string  "name"
     t.integer "city_id"
+    t.string  "google_analytics_id"
   end
 
   add_index "domains", ["name"], :name => "index_domains_on_name"

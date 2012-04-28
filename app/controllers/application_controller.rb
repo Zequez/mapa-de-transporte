@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :set_user_settings
+  before_filter :set_domain
 
   def set_locale
     I18n.locale = :es
@@ -28,5 +29,9 @@ class ApplicationController < ActionController::Base
     rescue
       @user_settings ||= {}
     end
+  end
+
+  def set_domain
+    @current_domain ||= Domain.find_by_name(request.host)
   end
 end
