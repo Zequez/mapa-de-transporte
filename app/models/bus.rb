@@ -20,7 +20,7 @@ class Bus < ActiveRecord::Base
   scope :select_ids, select('buses.id')
 
   before_save :set_routes_caches
-  after_save :handle_bus_image
+  after_save :handle_sprite_generation
 
   # These will be delegated to groups and to city
   def self.delegatable_attributes
@@ -34,7 +34,7 @@ class Bus < ActiveRecord::Base
     #self.return_route_addresses = return_route.addresses
   end
 
-  include BusesImages
+  include BusesImages::BusInclude
 
   ### From names search ###
   #########################

@@ -1,7 +1,7 @@
 class BusesImagesGeneratorController < ApplicationController
   def show
-    Bus.rebuild_buses_images
-    data = File.open(CONFIG[:buses_images_sheet_path], 'rb').read
+    Bus.rebuild_sprite
+    data = File.open(Bus.sprite_path, 'rb').read
     send_data(data, type: 'image/png', disposition: 'inline')
   end
 end
@@ -11,7 +11,6 @@ end
 #Content-Type:image/png
 #Last-Modified:Wed, 18 Apr 2012 16:25:20 GMT
 #Server:thin 1.3.1 codename Triple Espresso
-
 
 #Cache-Control:private
 #Connection:keep-alive

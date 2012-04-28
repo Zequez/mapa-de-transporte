@@ -1,73 +1,62 @@
 module BusesImages
-  def self.included(base)
-    base.extend ClassMethods
-  end
+  ICONS_PATH = "#{File.dirname(__FILE__)}/buses_images/icons/"
+  FIXED_TEXT_COLOR = "#000000"
 
-  def handle_bus_image
-    if CONFIG[:buses_images_on_save]
-      generate_bus_image
-      self.class.generate_buses_images_sheet
-    else
-      self.class.delete_buses_images_sheet
+  module BusInclude
+    def self.included(base)
+      base.extend ClassMethods
+    end
+
+    def handle_sprite_generation
+      if CONFIG[:build_buses_sprite_on_demand]
+        Bus.delete_sprite
+      else
+        generate_icon
+        Bus.generate_sprite
+      end
+    end
+
+    def generate_icon
+      if not BusesImages::Icon.new(name, color_1, color_2).save(icon_path)
+        raise "Error creating image" if not $?.success?
+      end
+      true
+    end
+
+    def icon_path
+      (Rails.root + CONFIG[:bus_icon_path]).to_s.sub(':id', id.to_s)
+    end
+
+    module ClassMethods
+      def rebuild_sprite
+        all.each(&:generate_icon)
+        generate_sprite
+      end
+
+      def generate_sprite
+        if not BusesImages::Sprite.new(icons_path).save(sprite_path)
+          raise "Error creating the montaged image" if not $?.success?
+        end
+        true
+      end
+
+      def delete_sprite
+        FileUtils.rm sprite_path if File.exists?(sprite_path)
+      end
+
+      def icons_path
+        (Rails.root + CONFIG[:bus_icons_path]).to_s
+      end
+
+      def sprite_path
+        CONFIG[:buses_sprite_path]
+      end
     end
   end
 
-  def generate_bus_image
-    path = image_path
-    darker_color_1 =  Color.new(color_1).darken(0.3)
+  extend ActiveSupport::Autoload
 
-    convert = ["convert"]
-    convert << "-size 24x12"
-    convert << "-font 'Courier-Bold'"
-    convert << "-pointsize 9"
-    convert << "-gravity South"
-    convert << "-background '#{color_1}'"
-    convert << "-fill '#{color_2}'"
-    convert << "-bordercolor '#{darker_color_1}'"
-    convert << "-border 1"
-    convert << "label:#{name}"
-    convert << "'#{path}'"
-    convert << "2>&1"
-
-    r = `#{convert.join ' '}`
-
-    raise "Error creating image" if not $?.success?
-  end
-
-  def image_path
-    self.class.images_paths(id)
-  end
-
-  module ClassMethods
-    def rebuild_buses_images
-      all.each(&:generate_bus_image)
-      generate_buses_images_sheet
-    end
-
-    def generate_buses_images_sheet
-      paths = images_paths
-
-      montage = ["montage"]
-      montage << "-border 0"
-      montage << "-frame 0"
-      montage << "-label ''"
-      montage << "-tile 1x"
-      montage << "-geometry '22x'"
-      montage << "'#{paths}'"
-      montage << "'#{CONFIG[:buses_images_sheet_path]}'"
-      montage << "2>&1"
-
-      r = `#{montage.join ' '}`
-
-      raise "Error creating the montaged image" if not $?.success?
-    end
-
-    def delete_buses_images_sheet
-      FileUtils.rm CONFIG[:buses_images_sheet_path] if File.exists?(CONFIG[:buses_images_sheet_path])
-    end
-
-    def images_paths(id = '*')
-      (Rails.root + CONFIG[:bus_image_path]).to_s.sub(':id', id.to_s)
-    end
-  end
+  autoload :BaseImageMagick
+  autoload :Icon
+  autoload :Sprite
 end

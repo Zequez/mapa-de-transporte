@@ -1,9 +1,11 @@
 defaults: &defaults
   country: Argentina
   gmaps_url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyBuaeRl4SDBP2M3QNhtwhMFGnKkfX6nIyk&sensor=true&v=3.7&libraries=geometry"
-  bus_image_path: "public/buses_images/:id.png"
-  buses_images_sheet_path: "public/buses_images.png"
-  buses_images_on_save: false
+
+  bus_icon_path: "public/buses_images/:id.png"
+  bus_icons_path: "public/buses_images/"
+  buses_sprite_path: "public/buses_images.png"
+  build_buses_sprite_on_demand: true
   facebook_page_url: https://www.facebook.com/pages/MapaDeColectivosMarDelPlata/211856755596258
 
 
