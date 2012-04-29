@@ -1,3 +1,4 @@
+
 #class window.BusEditor
 #  constructor: (form)->
 #    @form = form
@@ -86,3 +87,5 @@
 ##    form.submit (e)->
 ##      route.write_checkpoints()
 ##      e.preventDefault()
+
+window.BusEditor = {}
