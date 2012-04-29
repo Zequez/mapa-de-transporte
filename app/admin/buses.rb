@@ -28,11 +28,11 @@ ActiveAdmin.register Bus do
     column :delay
     column :start_time
     column :end_time
-    column :color_1 do |bus|
-      color_column(bus.color_1)
+    column :background_color do |bus|
+      color_column(bus.background_color)
     end
-    column :color_2 do |bus|
-      color_column bus.color_2
+    column :text_color do |bus|
+      color_column bus.text_color
     end
     column :visible
     default_actions

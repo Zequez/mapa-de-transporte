@@ -17,7 +17,7 @@ module BusesImages
     end
 
     def generate_icon
-      if not BusesImages::Icon.new(name, color_1, color_2).save(icon_path)
+      if not BusesImages::Icon.new(name, background_color, text_color).save(icon_path)
         raise "Error creating image" if not $?.success?
       end
       true

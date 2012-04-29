@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428093820) do
+ActiveRecord::Schema.define(:version => 20120429061938) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(:version => 20120428093820) do
   create_table "bus_groups", :force => true do |t|
     t.string  "name"
     t.integer "city_id"
-    t.integer "bus_price"
     t.integer "bus_delay"
     t.integer "bus_start_time"
     t.integer "bus_end_time"
@@ -62,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20120428093820) do
 
   create_table "buses", :force => true do |t|
     t.string   "name"
-    t.string   "color_1",                 :default => "#dddddd"
-    t.string   "color_2",                 :default => "#222222"
+    t.string   "background_color",        :default => "#dddddd"
+    t.string   "text_color",              :default => "#222222"
     t.integer  "karma",                   :default => 0,         :null => false
     t.integer  "city_id"
     t.integer  "bus_group_id"
@@ -92,7 +91,6 @@ ActiveRecord::Schema.define(:version => 20120428093820) do
     t.string  "perm"
     t.boolean "use_as_default"
     t.string  "viewport"
-    t.integer "bus_price"
     t.integer "bus_delay"
     t.integer "bus_start_time"
     t.integer "bus_end_time"
@@ -120,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20120428093820) do
     t.string  "encoded"
     t.integer "departure_bus_id"
     t.integer "return_bus_id"
+    t.text    "formatted_addresses"
   end
 
 end

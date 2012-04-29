@@ -127,4 +127,22 @@ class Bus < ActiveRecord::Base
   #  self.departure_route = bus.departure_route
   #  self.return_route = bus.return_route
   #end
+
+  def color_1=(val)
+    Rails.logger.warn 'Bus#color_1= is deprecated, use Bus#background_color='
+    self.background_color = val
+  end
+  def color_1
+    Rails.logger.warn 'Bus#color_1 is deprecated, use Bus#background_color'
+    background_color
+  end
+
+  def color_2=(val)
+    Rails.logger.warn 'Bus#color_2= is deprecated, use Bus#text_color='
+    self.text_color = val
+  end
+  def color_2
+    Rails.logger.warn 'Bus#color_2 is deprecated, use Bus#text_color'
+    text_color
+  end
 end
