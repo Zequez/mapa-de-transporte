@@ -1,4 +1,4 @@
-class BusEditor.Route.AddressesManager.Watcher extends Eventable
+class BusEditor.Route.AddressesManager.Watcher extends Utils.Eventable
   # Events
   # - change -> RouteAddress
 

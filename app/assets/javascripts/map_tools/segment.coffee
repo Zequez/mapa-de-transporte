@@ -1,11 +1,11 @@
-class window.Segment
+class MapTools.Segment
   constructor: (p1, p2, latlng1, latlng2)->
     @p1 = p1
     @p2 = p2
 
     @latlng1 = latlng1
     @latlng2 = latlng2
-    
+
     @calculate_vars()
 
   calculate_vars: ->

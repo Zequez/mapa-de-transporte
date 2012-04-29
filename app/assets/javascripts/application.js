@@ -10,13 +10,12 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
 //= require jquery_ujs
 //= require_directory ./jquery
 //= require_directory ./tools
-//= require_directory ./map_tools
-//= require ./controllers/bus_button
-//= require_directory ./controllers/static
-//= require_directory ./controllers/filter
-//= require_directory ./controllers
-//= require ./controllers/city_init
+
+//= require ./utils
+//= require ./map_tools
+//= require ./mdc
+
+//= require ./init

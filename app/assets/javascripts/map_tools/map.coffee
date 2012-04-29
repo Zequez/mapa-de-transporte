@@ -1,36 +1,31 @@
-class window.Map
-  constructor: (element, viewport)->
+class MapTools.Map
+  constructor: (element, viewport, options = {})->
     @e = element
     @viewport = viewport
-    @g = google.maps
+    @options = options
 
     @make_bounds()
     @calculate_center()
     @build_gmap()
 
   build_gmap: ->
-    @gmap = new @g.Map(@e[0], @map_settings())
+    @gmap = new $G.Map(@e[0], @map_settings())
     @gmap.fitBounds @bounds if @bounds
-
-    # Add Valid
-    window.valids.push 911
-
       
-
+ 
   map_settings: ->
     @make_bounds()
-    {
+    _.extend {
       zoom: 12,
       center: @center,
-      mapTypeId: @g.MapTypeId.ROADMAP,
-      backgroundColor: if window.CONFIG then CONFIG.map_background_color else null
-    }
+      mapTypeId: $G.MapTypeId.ROADMAP
+    }, @options
 
   make_bounds: ->
     if @viewport
-      @sw = new @g.LatLng @viewport.southwest.lat, @viewport.southwest.lng
-      @ne = new @g.LatLng @viewport.northeast.lat, @viewport.northeast.lng
-      @bounds = new @g.LatLngBounds(@sw, @ne)
+      @sw = new $G.LatLng @viewport.southwest.lat, @viewport.southwest.lng
+      @ne = new $G.LatLng @viewport.northeast.lat, @viewport.northeast.lng
+      @bounds = new $G.LatLngBounds(@sw, @ne)
     else
       @bounds = false
 
@@ -38,7 +33,7 @@ class window.Map
     if @bounds
       @center = @bounds.getCenter()
     else
-      @center = new @g.LatLng(0,0)
+      @center = new $G.LatLng(0,0)
 
   get_bounds: ->
     bounds = @gmap.getBounds()

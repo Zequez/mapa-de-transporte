@@ -1,4 +1,4 @@
-class BusEditor.Route extends Eventable
+class BusEditor.Route extends Utils.Eventable
   constructor: (city, data, element_name, color)->
     @city = city
     @map  = @city.map

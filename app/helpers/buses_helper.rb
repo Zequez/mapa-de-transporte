@@ -83,10 +83,11 @@ module BusesHelper
   def bus_link(bus)
     href  = city_buses_path([bus])
     title = I18n.t('views.buses.show_bus_in_map', bus: bus.name)
-  
+    hide_title  = I18n.t('views.buses.hide_bus_in_map', bus: bus.name)
+
     active = ("active" if bus.is_shown?)
     variation = ("<span class='bus-variation'>#{bus.variation}</span>" if bus.variation)
-    "<a href='#{href}' title='#{title}' class='slot bus #{active}' id='bus-#{bus.id}'>
+    "<a href='#{href}' title='#{title}' toggled_title='#{hide_title}' class='slot bus #{active}' id='bus-#{bus.id}'>
       <div class='bus-name'>#{bus.cropped_name}#{variation}</div>
     </a>".html_safe
   end
