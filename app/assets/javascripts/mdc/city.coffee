@@ -15,10 +15,10 @@ class MDC.City
     @element = @e = $$('map')
 
   build_map: (data)->
-    @map = new MapTools.Map(@element, data.viewport)
+    @map = new MapTools.Map(@element, data["viewport"])
 
   build_bus_groups: (data)->
-    @bus_groups = for bus_group in data.bus_groups
+    @bus_groups = for bus_group in data["bus_groups"]
       bus_group = new MDC.BusGroup bus_group, this
       @buses = @buses.concat bus_group.buses
       bus_group

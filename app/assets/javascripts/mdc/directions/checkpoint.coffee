@@ -47,7 +47,7 @@ class MDC.Directions.Checkpoint extends Utils.Eventable
       @fire_event('rightclick')
 
     $G.event.addListener @number_marker, 'mouseup', (e)=>
-      if e.b.button == 1
+      if e["b"]["button"] == 1
         @fire_event('middleclick')
 
   set_position: (latlng)->

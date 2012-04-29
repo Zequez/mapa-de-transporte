@@ -23,6 +23,6 @@ class BusEditor.Route.AddressesManager.Displayer.Poly extends BusEditor.Route.Ad
     p0 = [@results[0].lat(), @results[0].lng()]
     p1 = [@results[1].lat(), @results[1].lng()]
 
-    segment = new Segment(p0, p1, @results[0], @results[1])
+    segment = new MapTools.Segment(p0, p1, @results[0], @results[1])
 
     [$LatLng(segment.interpolate(-5)), $LatLng(segment.interpolate(6))]

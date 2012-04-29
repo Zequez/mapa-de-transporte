@@ -1,4 +1,4 @@
-class BusEditor.Map.Route extends Route
+class BusEditor.Map.Route extends MapTools.Route
   temp_point: null
   point_addition_enabled: true
   reverse_insertion: false
@@ -8,7 +8,7 @@ class BusEditor.Map.Route extends Route
     @bind_events()
 
   bind_events: ->
-    @ev.addListener @gmap, "click",       (e)=> @add_point(e.latLng)
+    $G.event.addListener @gmap, "click",       (e)=> @add_point(e.latLng)
     @update_edit_state()
 
   # We have to be a little bit hacky here, because
@@ -47,7 +47,7 @@ class BusEditor.Map.Route extends Route
     @reverse_insertion = yes_no
 
   encoded: ->
-    @g.geometry.encoding.encodePath @points
+    $G.geometry.encoding.encodePath @points
 
 #
 

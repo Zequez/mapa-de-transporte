@@ -20,7 +20,7 @@ class SegmentCalculator
   #check
   distance: (list_of_points, should_translate)->
     if should_translate
-      segment = new Segment(list_of_points)
+      segment = new MapTools.Segment(list_of_points)
       new_points = []
       for point in list_of_points
         new_points.push point(should_translate)

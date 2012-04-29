@@ -15,10 +15,10 @@ MDC.CONFIG = {
 }
 
 user_settings = {
-  help_tips: true,
-  max_walking_distance: 500,
-  max_routes_suggestions: 1
-}
+  "help_tips": true,
+  "max_walking_distance": 500,
+  "max_routes_suggestions": 1
+}    
 
 class UserSettings
   default: {},

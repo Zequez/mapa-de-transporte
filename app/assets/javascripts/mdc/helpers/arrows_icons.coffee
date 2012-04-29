@@ -18,7 +18,6 @@ class ArrowsIcons
     @generate()
 
   generate: ->
-    Point =
     for color in @colors
       @images[color] = {}
       for angle, angle_position in @angles

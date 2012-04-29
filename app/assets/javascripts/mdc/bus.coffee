@@ -28,19 +28,19 @@ class MDC.Bus extends Utils.Eventable
   #########################
 
   build_button: ->
-    @button = new MDC.Interface.BusButton(@data.id)
+    @button = new MDC.Interface.BusButton(@data["id"])
 
   build_routes: ->
     @color           = MDC.Helpers.Colors.get()
-    @departure_route = new MDC.BusRoute(@data.encoded_departure_route, this, true)
-    @return_route    = new MDC.BusRoute(@data.encoded_return_route,    this, false)
+    @departure_route = new MDC.BusRoute(@data["encoded_departure_route"], this, true)
+    @return_route    = new MDC.BusRoute(@data["encoded_return_route"],    this, false)
 
 
   ### Elements Events Binding ###
   ###############################
 
   build_popup: ->
-    @popup = new MDC.Interface.BusPopup(@data.name)
+    @popup = new MDC.Interface.BusPopup(@data["name"])
 
   bind_button: ->
     @button.add_listener 'activated', => @on_button_activate()
@@ -136,7 +136,7 @@ class MDC.Bus extends Utils.Eventable
       @return_route.unhighlight()
 
   marker_image: ->
-    MDC.Helpers.BusesIcons.get(@data.id)
+    MDC.Helpers.BusesIcons.get(@data["id"])
 
   ### Direction stuff ###
   #######################

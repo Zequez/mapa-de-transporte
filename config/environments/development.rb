@@ -29,10 +29,19 @@ Mdc::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
+  require 'closure-compiler'
 
+  closure_externs = Dir.glob("#{config.root}/closure_externs/*")
+
+  config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
+                                                      formatting: 'PRETTY_PRINT',
+                                                      debug: true,
+                                                      externs: closure_externs)
+
+  config.assets.compile = true
+  config.assets.compress = true
   config.serve_static_assets = true
   # Expands the lines which load the assets
-  config.assets.debug = true
 
   # Do not compress assets
 end

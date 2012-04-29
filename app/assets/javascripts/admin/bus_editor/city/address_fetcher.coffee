@@ -23,5 +23,5 @@ class BusEditor.City.AddressFetcher
     }
 
   parse_result: (result)->
-    console.log "Parsed result...", result
+#    console.log "Parsed result...", result
     result.geometry.location

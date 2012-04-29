@@ -19,6 +19,7 @@ gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'nested_form',  git: 'git://github.com/ryanb/nested_form.git'
 
 
+gem 'closure-compiler'
 
 gem 'compass-rails', git: 'git://github.com/Compass/compass-rails.git'
 
@@ -28,7 +29,6 @@ group :assets do
   gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
       :git                               => 'git://github.com/anjlab/bootstrap-rails.git'
 
-  gem 'closure-compiler'
   gem 'uglifier', '>= 1.0.3'
 end
 

@@ -6,11 +6,11 @@ class BusEditor.City
     @build_fetcher()
 
   build_map: ->
-    @map = new Map($$('map'), @data.viewport)
+    @map = new MapTools.Map($$('map'), @data["viewport"])
     @gmap = @map.gmap
 
   build_fetcher: ->
-    @fetcher = new BusEditor.City.AddressFetcher(@data.name, @data.country, @data.region_tag)
+    @fetcher = new BusEditor.City.AddressFetcher(@data["name"], @data["country"], @data["region_tag"])
 
   fetch_address: (address, callback)->
     @fetcher.fetch(address, callback)

@@ -1,8 +1,6 @@
 - if not @bus.new_record?
   :javascript
-    $(document).ready(function(){
-      new BusEditor.Bus(#{@bus.to_editor_json});
-    });
+    var bus_editor_data = #{@bus.to_editor_json};
 
 = semantic_form_for [:admin, resource] do |f|
   = f.inputs do

@@ -57,7 +57,7 @@ class MDC.Interface.Directions extends Utils.Eventable
 
 class AlternativesControl extends Utils.Eventable
   constructor: ->
-    @max_routes = MDC.SETTINGS.read.max_routes_suggestions || 1
+    @max_routes = MDC.SETTINGS.read["max_routes_suggestions"] || 1
     @find_elements()
     @bind_elements()
 

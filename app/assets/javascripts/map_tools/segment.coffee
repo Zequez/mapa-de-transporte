@@ -77,7 +77,7 @@ class MapTools.Segment
       point = [a[1]+ab_m_t[1], a[0]+ab_m_t[0]]
     ###
 
-    new Segment(p, point)
+    new MapTools.Segment(p, point)
 
   distance_in_meters: ->
     return @_distance_in_meters if @_distance_in_meters

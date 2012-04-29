@@ -1,18 +1,18 @@
 class MDC.BusGroup
   constructor: (data, city)->
-    @data = data
+    #@data = data # To obfuscation
     @city = city
 
-    @build_button()
-    @build_buses()
+    @build_button(data)
+    @build_buses(data)
 
     @bind_button()
 
-  build_button: ->
-    @button = new MDC.Interface.BusButton("group-#{@data.id}")
+  build_button: (data)->
+    @button = new MDC.Interface.BusButton("group-#{data["id"]}")
 
-  build_buses: ->
-    @buses = for bus in @data.visible_buses
+  build_buses: (data)->
+    @buses = for bus in data["visible_buses"]
       new MDC.Bus bus, this
 
   bind_button: ->

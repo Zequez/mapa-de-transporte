@@ -53,8 +53,8 @@ module Mdc
     # config.active_record.whitelist_attributes = true
 
     #config.assets.js_compressor = :closure
-    require 'closure-compiler'
-    config.assets.js_compressor = Closure::Compiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS')
+    #require 'closure-compiler'
+    #config.assets.js_compressor = Closure::Compiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS')
 
     # Enable the asset pipeline
     config.assets.enabled = true

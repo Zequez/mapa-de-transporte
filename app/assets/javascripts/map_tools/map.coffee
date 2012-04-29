@@ -23,8 +23,8 @@ class MapTools.Map
 
   make_bounds: ->
     if @viewport
-      @sw = new $G.LatLng @viewport.southwest.lat, @viewport.southwest.lng
-      @ne = new $G.LatLng @viewport.northeast.lat, @viewport.northeast.lng
+      @sw = new $G.LatLng @viewport["southwest"]["lat"], @viewport["southwest"]["lng"]
+      @ne = new $G.LatLng @viewport["northeast"]["lat"], @viewport["northeast"]["lng"]
       @bounds = new $G.LatLngBounds(@sw, @ne)
     else
       @bounds = false

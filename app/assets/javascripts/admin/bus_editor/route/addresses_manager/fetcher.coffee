@@ -26,7 +26,7 @@ class BusEditor.Route.AddressesManager.Fetcher
       callback @results
 
   fetch_query: (query, callback)->
-    console.log 'Querieing...', query
+#    console.log 'Querieing...', query
     @city.fetch_address query, (result)=>
       if result
         @results.push result
