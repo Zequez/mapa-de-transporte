@@ -49,11 +49,14 @@ class BusEditor.Route.AddressesManager
     for i, address of @current_addresses
       address.show()
     return
+  show: -> @show_addresses()
+
 
   hide_addresses: ->
     for i, address of @current_addresses
       address.hide()
     return
+  hide: -> @hide_addresses()
 
   highlight_address: (address)->
     if @current_addresses[address.id]

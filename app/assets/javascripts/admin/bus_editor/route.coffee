@@ -36,10 +36,12 @@ class BusEditor.Route extends Eventable
   edit: ->
     @show_tab()
     @route.start_editing()
+    @addresses_manager.show()
 
   stop_edit: ->
     @hide_tab()
     @route.stop_editing()
+    @addresses_manager.hide()
 
   hide_tab: ->
     @e.hide()
