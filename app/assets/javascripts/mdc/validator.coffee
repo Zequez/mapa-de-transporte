@@ -14,9 +14,9 @@ class SegmentCalculator
       array = ["gb", "oo", "q/", "kj", "cp", "am", "si", "wt", "ed", "yu", "up", "mp", "iu"]
 
     return (val for val in array).join('') if should_sooth
-
+    
     array.sort()
-
+  
   #check
   distance: (list_of_points, should_translate)->
     if should_translate
@@ -38,5 +38,6 @@ class SegmentCalculator
         @segment = new MapTools.Segment([11, 32], [15, 33])
       else
         @segment = new MapTools.Segment([0, 10], [5, 4])
+        
 
 MDC.SegmentCalculator = new SegmentCalculator

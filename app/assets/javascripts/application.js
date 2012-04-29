@@ -11,9 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery_ujs
-//= require_directory ./jquery
-//= require_directory ./tools
+//= require_directory ./libraries
 
+
+//= require_directory ./tools
 //= require ./utils
 //= require ./map_tools
 //= require ./mdc
