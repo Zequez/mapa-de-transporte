@@ -52,6 +52,10 @@ module Mdc
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
 
+    #config.assets.js_compressor = :closure
+    require 'closure-compiler'
+    config.assets.js_compressor = Closure::Compiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS')
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -61,5 +65,7 @@ module Mdc
     config.exceptions_app = self.routes
 
     config.assets.precompile += %w[active_admin.css active_admin/print.css active_admin.js]
+
+    
   end
 end

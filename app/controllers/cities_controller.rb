@@ -15,7 +15,6 @@ class CitiesController < InheritedResources::Base
   def show
     #buses = Bus.from_names(params[:buses])
     #@buses = resource.set_shown_buses(buses)
-    L.l params
     if params[:format] != 'qps'
       @buses = resource.set_shown_buses(params[:buses])
       @bus = (@buses.size == 1) ? @buses[0] : nil
@@ -31,7 +30,6 @@ class CitiesController < InheritedResources::Base
 
   def redirect_to_user_city
     if params[:redirect] and user_city
-      L.l city_url(user_city)
       return redirect_to city_url(user_city)
     end
   end

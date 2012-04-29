@@ -32,6 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_domain
+    #L.l Mdc::Application.config.assets.debug
     @current_domain ||= Domain.find_by_name(request.host)
   end
 end
