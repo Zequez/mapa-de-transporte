@@ -22,14 +22,14 @@ class BusEditor.Map.BusRoute extends BusEditor.Map.Route
 
     for i, point of points
       checkpoint = _.clone(@checkpoints[i]) || {}
-      checkpoint.latitude  = point.lat()
-      checkpoint.longitude = point.lng()
-      checkpoint.number = i
+      checkpoint["latitude"]  = point.lat()
+      checkpoint["longitude"] = point.lng()
+      checkpoint["number"] = i
       result.push checkpoint
 
     for checkpoint in to_destroy
       checkpoint = _.clone checkpoint
-      checkpoint._destroy = 1
+      checkpoint["_destroy"] = 1
       result.push checkpoint
 
     result

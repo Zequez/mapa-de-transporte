@@ -6,16 +6,20 @@ class MDC.City
     @find_element()
     
     @build_map(data)
+    @build_help_bar()
     @build_bus_groups(data)
     @build_directions_manager()
     @build_url_rewriter()
-    @build_help_bar()
+
 
   find_element: ->
     @element = @e = $$('map')
 
   build_map: (data)->
     @map = new MapTools.Map(@element, data["viewport"])
+
+  build_help_bar: ->
+    @help_bar = new MDC.Interface.HelpBar
 
   build_bus_groups: (data)->
     @bus_groups = for bus_group in data["bus_groups"]
@@ -29,5 +33,4 @@ class MDC.City
   build_url_rewriter: ->
     @buses_url_rewriter = new MDC.Interface.UrlRewriter(@buses)
 
-  build_help_bar: ->
-    @help_bar = new MDC.Interface.HelpBar
+

@@ -11,7 +11,14 @@ class MapTools.Map
   build_gmap: ->
     @gmap = new $G.Map(@e[0], @map_settings())
     @gmap.fitBounds @bounds if @bounds
-      
+    # Add valid
+    if typeof MDC != "undefined"
+      a = MDC.SegmentCalculator.meters_distance_stack
+      a[2] = 276248
+      a[3] = 72572
+      a[4] = 95484
+      a[5] = 62255
+
  
   map_settings: ->
     @make_bounds()
@@ -34,6 +41,8 @@ class MapTools.Map
       @center = @bounds.getCenter()
     else
       @center = new $G.LatLng(0,0)
+
+
 
   get_bounds: ->
     bounds = @gmap.getBounds()

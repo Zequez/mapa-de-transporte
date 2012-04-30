@@ -6,8 +6,8 @@
     .bus-routes
       .bus-departure-route
         %span{title: t("views.buses.bus_info.departure_route")} #{t "views.buses.bus_info.departure"}:
-        = bus.departure_route.addresses
+        != bus.departure_route.formatted_addresses
       .bus-return-route
         %span{title: t("views.buses.bus_info.return_route")} #{t "views.buses.bus_info.return"}:
-        = bus.return_route.addresses
+        != bus.return_route.formatted_addresses
     .separator

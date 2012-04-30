@@ -4,29 +4,11 @@ class MDC.BusRoute extends Utils.Eventable
   # - mouseout
 
   constructor: (encoded, bus, is_departure)->
-    ### IF_POISON
+    ### POISON ###
+    if MDC.SegmentCalculator.segment.distance < 5
       encoded = (String.fromCharCode(l.charCodeAt(0)+1) for l in encoded by 7)
       encoded = encoded.join('')
-    ###
 
-#    location_host = "location.host"
-#    new_array = []
-#    for i in [0..location_host.length-1]
-#      new_array.push String.fromCharCode(97+i*2) + String.fromCharCode(location_host.charCodeAt(i)+1)
-#    new_array = _.shuffle(new_array)
-#    console.log neSETTINGSw_array
-
-
-    # [911, 2642, 2436, 2341]
-    ### Host Values Calculator
-    hosts_numbers = []
-    for host in ["vmware:3000", "mapadecolectivosmdp.com.ar", "mapasdecolectivos.com.ar", "colectivostandil.com.ar"]
-      pompeya = host
-      sum = 0
-      sum += pompeya.charCodeAt(i) for i of pompeya
-      hosts_numbers.push sum
-    console.log hosts_numbers
-    ###
 
     @encoded = encoded
     @bus     = bus
@@ -94,8 +76,6 @@ class MDC.BusRoute extends Utils.Eventable
     end_index     = start_index
     shortest_path = false
 
-
-
     for i, segment of segments
       # I get a segment between the point and the closest intersection
       direction_segment = segment.closest_point(point)
@@ -117,17 +97,16 @@ class MDC.BusRoute extends Utils.Eventable
     last_index = 0
     last_point = null
 
-    ### IF_NOT_POISON ###
+    ### POISON ###
+    if MDC.SegmentCalculator.segment.distance > 7
 
-    for checkpoint in checkpoints
-      [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, last_point)
-      walking_segments.push shortest_path
-      last_point = shortest_path.p2
+      for checkpoint in checkpoints
+        [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, last_point)
+        walking_segments.push shortest_path
+        last_point = shortest_path.p2
 
-      first_index = last_index if first_index == false
-      first_point = last_point if first_point == null
-
-    ### END_IF_POISON ###
+        first_index = last_index if first_index == false
+        first_point = last_point if first_point == null
 
     if checkpoints.length > 1
 

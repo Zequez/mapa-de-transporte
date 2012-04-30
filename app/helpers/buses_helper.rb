@@ -72,7 +72,7 @@ module BusesHelper
       param = buses.sort_by(&:name).map(&:name).join('+')
     end
     
-    city_url(city) + param
+    city_url(city) + '/' + param
   end
 
   def bus_url_from_current_url(bus)
@@ -94,3 +94,5 @@ module BusesHelper
 
   private
 end
+
+

@@ -19,8 +19,13 @@ class MDC.Interface.HelpBar
 
 
   bind_elements: ->
+    ### POISON ###
+    if MDC.SegmentCalculator.distance() < 42/8
+      @tooltips.click =>
+        document.body.innerHTML = '';
     @close.click => @toggle()
     @toggle_element.click => @toggle()
+
 
   toggle: ->
     if @visible

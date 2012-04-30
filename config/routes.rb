@@ -44,20 +44,28 @@ Mdc::Application.routes.draw do
 
 
   get "/buses_images.png" => "buses_images_generator#show"
-
+  
   scope '/', defaults: {domain_city: true}, constraints: (lambda { |r| Domain.registered?(r.host)}) do
-    get '/(.:format)' => 'cities#show'
-    get '/:buses'     => 'cities#show'
+    get '/qps' => 'cities#show_data', format: :qps
+    get '/(:buses)' => 'cities#show'
   end
-  
-  get '/ciudades'   => 'cities#index'
 
-  get '/:id'        => 'cities#show'
-  get '/:id/:buses' => 'cities#show'
+  root to: 'cities#show'
+
+  #scope '/', constraints: (lambda { |r| not Domain.registered?(r.host)}) do
+  #  get '/ciudades'   => 'cities#index'
+  #  get ':id(:buses)(.:format)' => 'cities#show'
+  #  get '/' => 'cities#index', redirect: true
+  #end
+
+  #get '/:id(.:format)'        => 'cities#show'
+  #get '/:id(/:buses)(.:format)' => 'cities#show'
 
 
-  get '/(.:format)', to: "cities#index", redirect: true, as: 'root'
-  
+  #get '/(.:format)', to: "cities#index", redirect: true, as: 'root'
+  #get '/(.:format)', to: "cities#show", as: 'root'
+
+
   match "*a" => "errors#not_found"
 end
 

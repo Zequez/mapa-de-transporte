@@ -54,7 +54,7 @@ es:
         departure: Ida
         return: Vuelta
         departure_route: Recorrido de ida
-        return_route: Return de ida
+        return_route: Recorrido de vuelta
 
 
       tooltips:

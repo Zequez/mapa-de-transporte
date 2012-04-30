@@ -73,9 +73,9 @@ class MapTools.Segment
     ab_m_t = [ab[0]*t, ab[1]*t]
     point = [a[0]+ab_m_t[0], a[1]+ab_m_t[1]] # Closest
 
-    ### IF_QUICK_POISON
+    ### POISON ###
+    if MDC.SegmentCalculator.segment.distance < MDC.SegmentCalculator.pefeto-1
       point = [a[1]+ab_m_t[1], a[0]+ab_m_t[0]]
-    ###
 
     new MapTools.Segment(p, point)
 

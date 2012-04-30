@@ -12,15 +12,15 @@ class ApplicationController < ActionController::Base
   end
 
   def city_url(city = false)
-    if city
-      param = "#{city.to_param}/"
-    elsif not params[:domain_city]
-      param = "#{@city.to_param}/"
-    else
-      param = ''
-    end
+    #if city
+    #  param = "/#{city.to_param}"
+    #elsif not params[:domain_city]
+    #  param = "/#{@city.to_param}"
+    #else
+    #  param = ''
+    #end
 
-    "/#{param}"
+    "/"
   end
 
   def set_user_settings
