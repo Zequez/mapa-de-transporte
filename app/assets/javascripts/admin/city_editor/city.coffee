@@ -1,4 +1,4 @@
-class window.AdminCity
+class CityEditor.City
   constructor: ->
     @find_elements()
     @build_map()
@@ -13,10 +13,10 @@ class window.AdminCity
       @viewport = false
 
   build_map: ->
-    @map = new Map(@e, @viewport)
+    @map = new MapTools.Map(@e, @viewport)
 
   bind_map: ->
-    google.maps.event.addListener @map.gmap, 'bounds_changed', =>
+    $G.event.addListener @map.gmap, 'bounds_changed', =>
       @set_viewport @map.get_bounds()
 
   set_viewport: (viewport)->

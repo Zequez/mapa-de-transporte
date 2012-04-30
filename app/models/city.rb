@@ -1,4 +1,5 @@
 require 'json'
+require 'base64'
 
 class City < ActiveRecord::Base
   has_many :buses
@@ -85,8 +86,23 @@ class City < ActiveRecord::Base
             }).html_safe
   end
 
-  def to_qps
-    to_map_json
+  ### Crappy encryption ###
+  #########################
+
+  def to_qps(domain)
+    my_encode(to_map_json)
+  end
+
+  def from_qps(encoded, domain)
+    my_decode(encoded)
+  end
+
+  def my_encode(data)
+    Base64.encode64(data).strip.gsub(/\n|=/, "").reverse
+  end
+
+  def my_decode(data)
+    Base64.decode64(data.reverse + ("=" * (data.size % 4)))
   end
 
   # This is for the view to be able to render the city like a bus.

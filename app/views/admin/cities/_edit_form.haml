@@ -1,11 +1,5 @@
-:javascript
-  $(document).ready(function(){
-    new AdminCity;
-  });
-
-
 = semantic_form_for [:admin, resource] do |f|
-  = f.inputs :name, :perm, :bus_price, :bus_delay, :bus_start_time, :bus_end_time, :bus_cash, :bus_card, :json_viewport
+  = f.inputs :name, :perm, :bus_delay, :bus_start_time, :bus_end_time, :bus_cash, :bus_card, :json_viewport
   = f.actions
 
   #map

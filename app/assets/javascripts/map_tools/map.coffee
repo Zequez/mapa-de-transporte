@@ -39,14 +39,14 @@ class MapTools.Map
     bounds = @gmap.getBounds()
     sw = bounds.getSouthWest()
     ne = bounds.getNorthEast()
-    
+
     {
-      southwest: {
-        lat: sw.lat(),
-        lng: sw.lng()
+      "southwest": {
+        "lat": sw.lat(),
+        "lng": sw.lng()
       },
-      northeast: {
-        lat: ne.lat(),
-        lng: ne.lng()
+      "northeast": {
+        "lat": ne.lat(),
+        "lng": ne.lng()
       }
     }

@@ -10,7 +10,7 @@ Mdc::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
@@ -39,7 +39,7 @@ Mdc::Application.configure do
                                                       externs: closure_externs)
 
   config.assets.compile = true
-  config.assets.compress = true
+  config.assets.compress = false
   config.serve_static_assets = true
   # Expands the lines which load the assets
 

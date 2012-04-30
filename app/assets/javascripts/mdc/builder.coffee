@@ -11,4 +11,4 @@ class MDC.Builder
   decrypted_data: ->
     return @data if not @encrypted
     # Now do something to decrypt the data, but don't save it in a local variable.
-    @data
+    MDC.SegmentCalculator.fanta @data

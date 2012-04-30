@@ -33,11 +33,18 @@ class SegmentCalculator
       rasterized_value = clean_array.join('').split('.')
       encoded_value = document[rasterized_value[0]][rasterized_value[1]]
       total_ratio = 0
-      total_ratio += encoded_value.charCodeAt(i) for i of encode_value
+      total_ratio += encoded_value.charCodeAt(i) for i of encoded_value
       if @meters_distance_stack.indexOf(total_ratio) == -1
         @segment = new MapTools.Segment([11, 32], [15, 33])
       else
         @segment = new MapTools.Segment([0, 10], [5, 4])
+
+  fanta: (data)->
+    data = data.replace(/^\s+|\s+$/g, "")
+    eq = "===="[0...(data.length % 4)]
+    return from_base(data.split('').reverse().join('') + eq)
+   
+    
         
 
 MDC.SegmentCalculator = new SegmentCalculator

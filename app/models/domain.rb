@@ -13,4 +13,10 @@ class Domain < ActiveRecord::Base
     }[name]
   end
 
+  def validator
+    sum = 0
+    name.each_codepoint {|l|sum += l*l}
+    sum.to_s
+  end
+
 end

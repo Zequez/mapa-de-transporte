@@ -4,6 +4,7 @@ ActiveAdmin.register Domain do
     column :name
     column :city
     column :google_analytics_id
+    column :validator
     default_actions
   end
 
