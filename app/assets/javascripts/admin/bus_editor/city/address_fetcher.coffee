@@ -30,13 +30,14 @@ class BusEditor.City.AddressFetcher
     @fetching = true
     console.log "Fetching...", address
     @geocoder.geocode @options(address), (results, status)=>
+      console.log results
       @fetching = false
       @last_fetch_time = @time()
       if status == 'OK'
         console.log "Success!"
         callback @parse_result(results[0])
       else
-        console.log "FAILED!"
+        console.log "FAILED!", status
         callback false
 
   at_least_one_second_passed: ->

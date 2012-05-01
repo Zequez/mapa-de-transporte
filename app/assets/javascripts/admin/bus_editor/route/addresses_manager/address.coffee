@@ -26,6 +26,7 @@ class BusEditor.Route.AddressesManager.Address
   fetch: ->
     @fetcher ||= new BusEditor.Route.AddressesManager.Fetcher(@city, @address)
     @fetcher.fetch (results)=>
+      console.log "Results!", results
       @results = results
       if results
         if results.length == 1

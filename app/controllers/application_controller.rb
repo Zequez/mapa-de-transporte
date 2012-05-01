@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :city_url
+  helper_method :current_domain
 
   before_filter :set_locale
   before_filter :set_user_settings
@@ -31,8 +32,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_domain
-    #L.l Mdc::Application.config.assets.debug
+  def current_domain
     @current_domain ||= Domain.find_by_name(request.host)
   end
 end
