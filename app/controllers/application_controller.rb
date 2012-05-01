@@ -6,8 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :set_user_settings
-  before_filter :set_domain
-
+  
   def set_locale
     I18n.locale = :es
   end
