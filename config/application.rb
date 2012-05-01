@@ -64,6 +64,16 @@ module Mdc
 
     config.exceptions_app = self.routes
 
-    config.assets.precompile += %w[active_admin.css active_admin/print.css active_admin.js]
+
+
+    config.assets.precompile += %w[
+      application.css
+      errors.css
+      application.js
+      custom_admin.js
+      active_admin.css
+      active_admin/print.css
+      active_admin.js
+    ] + Dir["#{config.root}/app/assets/images/**/"]
   end
 end
