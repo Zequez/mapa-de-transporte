@@ -1,10 +1,17 @@
 class MapTools.Segment
+  p1: null
+  p2: null
+
+  latlng1: null
+  latlng2: null
+
   constructor: (p1, p2, latlng1, latlng2)->
     @p1 = p1
     @p2 = p2
 
-    @latlng1 = latlng1
-    @latlng2 = latlng2
+    if latlng1
+      @latlng1 = latlng1
+      @latlng2 = latlng2
 
     @calculate_vars()
 
@@ -48,6 +55,10 @@ class MapTools.Segment
     points.push @p2 if last
 
     points
+
+  travel_x_distance: (distance)->
+    return this if not distance
+    new MapTools.Segment @interpolate(distance/@distance), @p2
 
   middle_point: -> @interpolate(0.5)
 
