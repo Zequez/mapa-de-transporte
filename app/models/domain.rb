@@ -14,13 +14,17 @@ class Domain < ActiveRecord::Base
   end
 
   def validator
-    sum = 0
-    name.each_codepoint {|l|sum += l*l}
-    sum.to_s
+    MyEncryptor.domain_validator(name)
   end
 
   def self.validators
-    CONFIG[:authorized_domains] || all.map{ |domain| domain.validator }
+    val = (CONFIG[:authorized_domains] || all.map(&:name)).map do |domain_name|
+      MyEncryptor.domain_validator(domain_name)
+    end
+    L.l val
+    val
   end
+
+  
 
 end
