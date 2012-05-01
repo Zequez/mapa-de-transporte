@@ -1,2 +1,2 @@
-// CLOSURE_COMPILER_SKIP_FILEa
+// CLOSURE_COMPILER_SKIP_FILE
 //= require active_admin/base

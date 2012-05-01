@@ -12,3 +12,5 @@ When displaying a bus destination the bus route should have less opacity, and th
 and when hovering the route it should only highlight that part.
 
 It should load a systematically the overral Google Maps direction route to walk.
+
+The route making system should query many routes at the same time.

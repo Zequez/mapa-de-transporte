@@ -35,7 +35,7 @@ Mdc::Application.configure do
 
   config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
                                                       formatting: 'PRETTY_PRINT',
-                                                      debug: true,
+                                                      #debug: true,
                                                       externs: closure_externs
                                                       )
 
