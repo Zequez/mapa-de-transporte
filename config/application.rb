@@ -65,7 +65,5 @@ module Mdc
     config.exceptions_app = self.routes
 
     config.assets.precompile += %w[active_admin.css active_admin/print.css active_admin.js]
-
-    
   end
 end

@@ -90,19 +90,11 @@ class City < ActiveRecord::Base
   #########################
 
   def to_qps(domain)
-    my_encode(to_map_json)
+    MyEncryptor.encode to_map_json
   end
 
   def from_qps(encoded, domain)
-    my_decode(encoded)
-  end
-
-  def my_encode(data)
-    Base64.encode64(data).strip.gsub(/\n|=/, "").reverse
-  end
-
-  def my_decode(data)
-    Base64.decode64(data.reverse + ("=" * (data.size % 4)))
+    MyEncryptor.decode encoded
   end
 
   # This is for the view to be able to render the city like a bus.

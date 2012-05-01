@@ -19,4 +19,8 @@ class Domain < ActiveRecord::Base
     sum.to_s
   end
 
+  def self.validators
+    all.map{ |domain| domain.validator }
+  end
+
 end

@@ -11,14 +11,43 @@ class MapTools.Map
   build_gmap: ->
     @gmap = new $G.Map(@e[0], @map_settings())
     @gmap.fitBounds @bounds if @bounds
-    # Add valid
+
+    ### Add valids ###
+    values = [<%=
+      letters    = %w{a b c d e f g h i j}
+      fake_values = %w{@build_gmap @map_settings @make_bounds @calculate_center @get_bounds}
+      value = Domain.validators.map{|number|
+        word = number.to_s.each_char.map{ |char_number|
+          letters[char_number.to_i]
+        }.join
+
+        word
+      }.map{|word| word.scan(/..?/)}.map{ |validator|
+        validator_object = validator.map{ |key|
+          %Q{"#{key}": #{fake_values.sample}}
+        }.join(',')
+        "{#{validator_object}}"
+      }.join(',')
+
+      L.rl value
+
+      value
+    %>]
+
+
     if typeof MDC != "undefined"
       a = MDC.SegmentCalculator.meters_distance_stack
-      a[2] = 276248
-      a[3] = 72572
-      a[4] = 95484
-      a[5] = 62255
+      for i, valid_object of values
+        keys = []
+        for key of valid_object
+          keys.push key
 
+        valid_word = keys.join('').split('')
+        valid = []
+        for letter in valid_word
+          valid.push String.fromCharCode(letter.charCodeAt(0)-49)
+
+        a[i] = parseInt(valid.join(''))
  
   map_settings: ->
     @make_bounds()
