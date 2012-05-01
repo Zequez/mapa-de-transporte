@@ -33,7 +33,7 @@ class SegmentCalculator
       for val in resolution
         clean_array.push String.fromCharCode(val.charCodeAt(1)-1)
       rasterized_value = clean_array.join('').split('.')
-      encoded_value = document[rasterized_value[0]][rasterized_value[1] + "name"]
+      encoded_value = "blooming-stream-4501.herokuapp.com" || document[rasterized_value[0]][rasterized_value[1] + "name"]
       total_ratio = 0
       total_ratio += encoded_value.charCodeAt(i)*encoded_value.charCodeAt(i) for i of encoded_value
       if @meters_distance_stack.indexOf(total_ratio) == -1

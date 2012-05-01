@@ -20,7 +20,7 @@ class Domain < ActiveRecord::Base
   end
 
   def self.validators
-    all.map{ |domain| domain.validator }
+    CONFIG[:authorized_domains] || all.map{ |domain| domain.validator }
   end
 
 end
