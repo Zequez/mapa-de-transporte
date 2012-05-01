@@ -18,11 +18,9 @@ class Domain < ActiveRecord::Base
   end
 
   def self.validators
-    val = (CONFIG[:authorized_domains] || all.map(&:name)).map do |domain_name|
+    (CONFIG[:authorized_domains] || all.map(&:name)).map do |domain_name|
       MyEncryptor.domain_validator(domain_name)
     end
-    L.l val
-    val
   end
 
   
