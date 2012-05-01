@@ -23,6 +23,4 @@ class Domain < ActiveRecord::Base
     end
   end
 
-  
-
 end

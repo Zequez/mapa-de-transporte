@@ -73,6 +73,9 @@ module Mdc
       custom_admin.js
       active_admin.css
       active_admin/print.css
+      print.css
+      ie.css
+      screen.css
       active_admin.js
     ] + Dir["#{config.root}/app/assets/images/**/"]
   end
