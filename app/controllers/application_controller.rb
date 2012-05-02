@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     #else
     #  param = ''
     #end
-
+  
     "/"
   end
 

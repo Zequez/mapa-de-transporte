@@ -14,3 +14,96 @@ and when hovering the route it should only highlight that part.
 It should load a systematically the overral Google Maps direction route to walk.
 
 The route making system should query many routes at the same time.
+
+Add rounded_return flag.
+
+Calculate average route for calculations and similarity check, so you show only one line for every route in a street.
+Better, create automatically a global route path, that binds every part to a bus, or to buses. This will, save a lot of processing, and be awesome at the sight.
+
+Be able to hide the streets.
+
+"Mostrar rutas simplificadas" que alisa a las rutas y deja las partes más importantes,
+una ruta por colectivo. Y cuando le pasás el mouse por encima te muestra la ruta real.
+Y haciendo click se mantiene.
+
+Juntar las rutas de los colectivos que pasan por un determinado sector. Y mostrar un color en forma de //// con los distintos colores.
+Cuando le pasás el mouse por encima a uno de los colectivos, te muestra la ruta original.
+
+Juntar el recorrido de ida y de vuelta en uno solo, y mostrarlo solo cuando se quiere saber la dirección exacta.
+O hacer uno unificado y separarlo cuando va por distintas calles. Que el recorrido sea violeta y que sea azul o rojo cuando es de ida o vuelta.
+Y así nos ahorramos las flechas. Te las muestra cuando le pasás el mouse por encima nomás.
+
+Show arrow on mouse over.
+
+
+Entonces...
+
+Las rutas estarían unificadas.
+Tendría que tener mi propia base de datos con las calles. De dónde a dónde van, las continuaciones, etc.
+O tendría que dentro de las rutas, separar por segmentos. Y calcular por proximidad de forma dinámica.
+
+Tengo que encontrar una forma de dibujar las flechas dentro de la línea, círculos con líneas no es lindo.
+Tengo que hacer el renderizado en CSS...
+
+
+Cuando se muestra un solo colectivo debería cambiar a rojo/azul
+El color del fonto del toolip debería ser el mismo que la línea.
+También en las líneas a la derecha.
+
+Agregar puntos clave, para clasificar colectivos.
+
+Hablidad de ocultar la rutas escritas...
+
+-----------------
+
+Idea para hacerlo: puntos. Guardar puntos clave en la base de datos, para que todos los colectivos utilicen esos puntos específicos.
+Cuando creás la ruta de los colectivos podés seleccionar los puntos por donde pasan, o crear puntos nuevos. Y siempre
+aparecen todos los puntos ya creados, y las rutas no son más que una unión de los puntos, y no una selección de latitudes
+y longitudes, etc.
+Además los puntos pueden estar asociados con otros puntos como "pasa entre estos 2 puntos". O simplemente se puede hacer automáticamente
+para que cuando creás un punto intermedio se asocien los colectivos que pasan entre los 2 puntos al nuevo punto.
+
+
+P1 - P2
+
+P1 - P3 - P2
+
+Los putos deberían poder asociarse con cualquier cantidad de puntos.
+
+Tablas...
+
+routes_points: route, point
+points: lat, lng
+points_connections: point_1, point_2
+
+
+
+Ejemplo:
+
+p1 - p2
+
+Si yo agrego p3 entre p1 y p2 entonces...
+p1 - p3
+p3 - p2
+Y se tienen que cambiar todas las rutas que pasan por esos puntos...
+
+Cuando se renderizan en pantalla los buses, los puntos que tienen solo 1 o 2 conexiones quedan ocultados.
+Esto se determina dependiendo los buses que se estén mostrando, se calcula cuales puntos no se usan.
+O quizás, los segmentos que estén conectados se debería comparar, si los buses son los mismos no se renderiza el punto intermedio.
+De esta manera sería más flexible.
+
+Como los puntos están asociados entre sí, las rutas no necesitarían tener ningún tipo de numeración, excepto el punto de partida,
+y a partir de ahí se asume la dirección de la ruta dependiendo de con qué punto esté conectado.
+
+Para calcular proximidad, se calcula la proximidad con cada uno de los segmentos y se selecciona el más cercano.
+Los segmentos están formados por varios puntos, no solo 2, y cada uno tiene una determinada lista de buses.
+Se pueden ver a los segmentos como las actuales bus_route pero generados dinámicamente.
+Al calcular la distancia a un segmento obtenés la distancia a un determinado colectivo.
+Luego cuando calculás la distance a otro segmento obtenés la distancia a otro colectivo.
+Además como los segmentos están asociados a colectivos prácticamente podés chequear
+directamente los segmentos más cercanos y encontrar colectivos que coinciden para
+decidir cuales son los colectivos más cercanos, y tenés la ventana de que podés mostrar colectivos que pasan
+y llegan al mismo lugar.
+
+Igual la distancia se tendría que calcular por los segmentos asociados a los colectivos, porque
+los segmentos no están asociados entre ellos.
