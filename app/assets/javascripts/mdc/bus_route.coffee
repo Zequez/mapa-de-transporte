@@ -89,6 +89,8 @@ class MDC.BusRoute extends Utils.Eventable
     [shortest_path, end_index]
 
   direction_to_checkpoints: (checkpoints)->
+    return false if @route.segments.lenght == 0
+
     walking_segments = []
     route_segments = []
 

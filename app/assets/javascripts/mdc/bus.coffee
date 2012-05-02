@@ -32,8 +32,15 @@ class MDC.Bus extends Utils.Eventable
 
   build_routes: ->
     @color           = MDC.Helpers.Colors.get()
-    @departure_route = new MDC.BusRoute(@data["encoded_departure_route"], this, true)
-    @return_route    = new MDC.BusRoute(@data["encoded_return_route"],    this, false)
+    @routes = []
+    
+    if @data["encoded_departure_route"]
+      @routes.push new MDC.BusRoute(@data["encoded_departure_route"], this, true)
+
+    if @data["encoded_return_route"]
+      @routes.push new MDC.BusRoute(@data["encoded_return_route"],    this, false)
+#    @departure_route =
+#    @return_route    =
 
 
   ### Elements Events Binding ###
@@ -49,11 +56,11 @@ class MDC.Bus extends Utils.Eventable
     @button.add_listener 'mouseout', => @on_button_out()
 
   bind_routes: ->
-    @departure_route.add_listener "mouseover", => @on_route_hover(@departure_route)
-    @departure_route.add_listener "mouseout", => @on_route_out(@departure_route)
-    @return_route.add_listener "mouseover", => @on_route_hover(@return_route)
-    @return_route.add_listener "mouseout", => @on_route_out(@return_route)
-
+    for route in @routes
+      do (route)=>
+        route.add_listener "mouseover", => @on_route_hover(route)
+        route.add_listener "mouseout", => @on_route_out(route)
+        
   ### Interface Elements Events Handlers ###
   ##########################################
 
@@ -99,8 +106,7 @@ class MDC.Bus extends Utils.Eventable
     if not @activated
       @activated = true
       @button.activate()
-      @departure_route.show()
-      @return_route.show()
+      @show_routes()
       @direction.show() if @direction and @direction_visible
       @fire_event('activated')
 
@@ -109,8 +115,7 @@ class MDC.Bus extends Utils.Eventable
       @activated = false
       @button.deactivate()
       @bus_group.deactivate()
-      @departure_route.hide()
-      @return_route.hide()
+      @hide_routes()
       @direction.hide() if @direction
       @fire_event('deactivated')
 
@@ -125,15 +130,16 @@ class MDC.Bus extends Utils.Eventable
     if route # We assume is one of our routes...
       route.highlight()
     else
-      @departure_route.highlight()
-      @return_route.highlight()
+      route.highlight() for route in @routes
 
   unhighlight_routes: (route)->
     if route # We assume is one of our routes...
       route.unhighlight()
     else
-      @departure_route.unhighlight()
-      @return_route.unhighlight()
+      route.unhighlight() for route in @routes
+
+  show_routes: -> route.show() for route in @routes
+  hide_routes: -> route.hide() for route in @routes
 
   marker_image: ->
     MDC.Helpers.BusesIcons.get(@data["id"])
@@ -142,13 +148,12 @@ class MDC.Bus extends Utils.Eventable
   #######################
 
   direction_to_checkpoints: (checkpoints)->
-    departure_route_direction = @departure_route.direction_to_checkpoints(checkpoints)
-    return_route_direction    = @return_route.direction_to_checkpoints(checkpoints)
+    directions = []
+    for route in @routes
+      direction = route.direction_to_checkpoints(checkpoints)
+      directions.push direction if direction
 
-    if departure_route_direction.walking_distance < return_route_direction.walking_distance
-      departure_route_direction
-    else
-      return_route_direction
+    directions.sort((d)-> d.walking_distance)[0]
 
   # Set from path_finder#handle_directions
   set_direction: (direction)->

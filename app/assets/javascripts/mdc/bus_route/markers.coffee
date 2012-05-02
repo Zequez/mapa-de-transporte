@@ -54,7 +54,6 @@ class MDC.BusRoute.Markers
         if distance_to_travel > segment.distance
           distance_to_travel = distance_to_travel - segment.distance
 
-          console.log i, segments.length
           if current_segment_number == segments.length
             @add_marker(segment.p2, segment.angle)
           break

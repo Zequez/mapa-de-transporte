@@ -63,32 +63,53 @@ class MapTools.Segment
   middle_point: -> @interpolate(0.5)
 
   closest_point: (p)->
-    a = @p1
-    b = @p2
+    p1 = @p1
+    p2 = @p2
+    p3 = p
 
-    ap = [p[0]-a[0], p[1]-a[1]]
-    ab = [b[0]-a[0], b[1]-a[1]]
+    xd = p2[0] - p1[0]
+    yd = p2[1] - p1[1]
 
-    ab2   = ab[0]*ab[0] + ab[1]*ab[1]
-    ap_ab = ap[0]*ab[0] + ap[1]*ab[1]
-
-    if ab2 != 0
-      t     = ap_ab / ab2
-      if t < 0
-        t = 0
-      else if t > 1
-        t = 1
+    if xd == 0 && yd == 0
+      closest = p1
     else
-      t = 1
+      u = ( (p3[0] - p1[0]) * xd + (p3[1] - p1[1]) * yd ) / (xd * xd + yd * yd)
 
-    ab_m_t = [ab[0]*t, ab[1]*t]
-    point = [a[0]+ab_m_t[0], a[1]+ab_m_t[1]] # Closest
+      if u < 0
+        closest = p1
+      else if u > 1
+        closest = p2
+      else
+        closest = [p1[0] + u * xd, p1[1] + u * yd]
 
-    ### POISON ###
-    if MDC.SegmentCalculator.segment.distance < MDC.SegmentCalculator.pefeto-1
-      point = [a[1]+ab_m_t[1], a[0]+ab_m_t[0]]
+    return new MapTools.Segment(p3, closest)
 
-    new MapTools.Segment(p, point)
+#    a = @p1
+#    b = @p2
+#
+#    ap = [p[0]-a[0], p[1]-a[1]]
+#    ab = [b[0]-a[0], b[1]-a[1]]
+#
+#    ab2   = ab[0]*ab[0] + ab[1]*ab[1]
+#    ap_ab = ap[0]*ab[0] + ap[1]*ab[1]
+#
+#    if ab2 != 0
+#      t     = ap_ab / ab2
+#      if t < 0
+#        t = 0
+#      else if t > 1
+#        t = 1
+#    else
+#      t = 1
+#
+#    ab_m_t = [ab[0]*t, ab[1]*t]
+#    point = [a[0]+ab_m_t[0], a[1]+ab_m_t[1]] # Closest
+#
+#    ### POISON ###
+#    if MDC.SegmentCalculator.segment.distance < MDC.SegmentCalculator.pefeto-1
+#      point = [a[1]+ab_m_t[1], a[0]+ab_m_t[0]]
+#
+#    new MapTools.Segment(p, point)
 
   distance_in_meters: ->
     return @_distance_in_meters if @_distance_in_meters
@@ -98,3 +119,23 @@ class MapTools.Segment
   path: ->
     @mapize()
     [@latlng1, @latlng2]
+
+#class MapTools.Point
+#  constructor: (point)->
+#    @p = point
+#    @x = point[0]
+#    @y = point[1]
+#
+#  sum: (point)->
+#    new MapTools.Point [@x + point.x, @y + point.y]
+#
+#  res: (point)->
+#    new MapTools.Point [@x - point.x, @y - point.y]
+#
+#  mul: (value)->
+#    new MapTools.Point [@x * value, @y * value]
+#
+#  div: (value)-> @mul(1/value)
+#
+#  dot: (point)->
+#    @x*point.x + @y*point.y
