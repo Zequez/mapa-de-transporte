@@ -87,6 +87,8 @@ module BusesHelper
 
     active = ("active" if bus.is_shown?)
     variation = ("<span class='bus-variation'>#{bus.variation}</span>" if bus.variation)
+
+
     "<a href='#{href}' title='#{title}' toggled_title='#{hide_title}' class='slot bus #{active}' id='bus-#{bus.id}'>
       <div class='bus-name'>#{bus.cropped_name}#{variation}</div>
     </a>".html_safe

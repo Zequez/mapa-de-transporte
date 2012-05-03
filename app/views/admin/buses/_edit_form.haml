@@ -14,9 +14,10 @@
     = f.input :end_time
     = f.input :background_color
     = f.input :text_color
+    = f.input :alert_message
     = f.input :karma
-    = f.input :encoded_departure_route
-    = f.input :encoded_return_route
+    = f.input :encoded_departure_route, as: :string
+    = f.input :encoded_return_route, as: :string
     = f.input :visible
 
   #map
@@ -30,7 +31,7 @@
             Reverse Insertion
         = rf.input :name
         = rf.input :addresses
-        = rf.input :encoded
+        = rf.input :encoded, as: :string
         = rf.input :json_checkpoints_attributes, as: :string
 
   = f.buttons

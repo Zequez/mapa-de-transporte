@@ -76,12 +76,12 @@
                   .buses-batch-slots
                     - buses_batch.each do |bus|
                       - if bus
-                        = bus_link(bus)
+                        = render partial: 'shared/bus-link', locals: {bus: bus}
 
     .separator
 
     #facebook-like-box
-      <div class="fb-like-box" data-href="#{CONFIG[:facebook_page_url]}" data-width="280" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
+      <div class="fb-like-box" data-href="#{CONFIG[:facebook_page_url]}" data-width="310" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
 
     .separator
 

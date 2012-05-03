@@ -20,7 +20,13 @@ ActiveAdmin.register Bus do
   end
 
   index do
-    column :name
+    column :name do |bus|
+      if not bus.visible
+        raw "<span style='color: red; font-weight: bold;' title='No visible'>#{bus.name}</span>"
+      else
+        bus.name
+      end
+    end
     column :bus_group
     column :city
     column :card
@@ -28,13 +34,13 @@ ActiveAdmin.register Bus do
     column :delay
     column :start_time
     column :end_time
+    column :alert_message
     column :background_color do |bus|
       color_column(bus.background_color)
     end
     column :text_color do |bus|
       color_column bus.text_color
     end
-    column :visible
     default_actions
   end
 

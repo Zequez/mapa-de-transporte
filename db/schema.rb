@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120502184129) do
+ActiveRecord::Schema.define(:version => 20120503173249) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20120502184129) do
     t.text     "encoded_return_route"
     t.integer  "card"
     t.integer  "cash"
+    t.string   "alert_message"
   end
 
   add_index "buses", ["name", "city_id", "bus_group_id"], :name => "index_buses_on_name_and_city_id_and_bus_group_id"

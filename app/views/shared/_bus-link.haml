@@ -1,0 +1,11 @@
+%a.slot.bus{ href:          city_buses_path([bus]),
+             title:         I18n.t('views.buses.show_bus_in_map', bus: bus.name),
+             toggled_title: I18n.t('views.buses.hide_bus_in_map', bus: bus.name),
+             class:         "#{("active" if bus.is_shown?)}",
+             id:            "bus-#{bus.id}" }
+  .bus-name
+    = bus.cropped_name
+    - if bus.variation
+      %span.bus-variation= bus.variation
+    - if not bus.alert_message.blank?
+      %span.alert-message{title: t('views.buses.routes_outdated', message: bus.alert_message)} *
