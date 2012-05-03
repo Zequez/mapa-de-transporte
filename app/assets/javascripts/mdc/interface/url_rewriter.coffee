@@ -17,7 +17,7 @@ class MDC.Interface.UrlRewriter
 
   rewrite_url: ->
     buses_names = @get_buses_names()
-    new_url = location.origin + "/" + buses_names
+    new_url = "/" + buses_names
     window.history.replaceState(false, false, new_url)
 
 
