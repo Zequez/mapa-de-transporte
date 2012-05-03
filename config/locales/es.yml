@@ -55,6 +55,9 @@ es:
         return: Vuelta
         departure_route: Recorrido de ida
         return_route: Recorrido de vuelta
+        toggle:
+          Mostrar/Ocultar esta info que seguro no te interesa, pero a mí me interesa que a Google le interese.
+          Te pido disculpas por las molestias.
 
 
       tooltips:

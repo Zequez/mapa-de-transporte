@@ -10,6 +10,7 @@ class MDC.City
     @build_bus_groups(data)
     @build_directions_manager()
     @build_url_rewriter()
+    @build_bus_info()
 
 
   find_element: ->
@@ -26,6 +27,9 @@ class MDC.City
       bus_group = new MDC.BusGroup bus_group, this
       @buses = @buses.concat bus_group.buses
       bus_group
+
+  build_bus_info: ->
+    @bus_info = new MDC.BusInfo()
 
   build_directions_manager: ->
     @directions_manager = new MDC.Directions.Manager(@map, @buses)
