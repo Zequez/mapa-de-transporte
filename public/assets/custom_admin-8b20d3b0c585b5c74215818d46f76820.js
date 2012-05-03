@@ -1291,13 +1291,13 @@ var MapTools = {};
       */
       values = [
         {
-          "dc": this.build_gmap,
+          "dc": this.make_bounds,
           "bb": this.build_gmap,
-          "gf": this.make_bounds
+          "gf": this.map_settings
         }, {
           "ch": this.calculate_center,
           "gc": this.make_bounds,
-          "ei": this.get_bounds
+          "ei": this.build_gmap
         }
       ];
       if (typeof MDC !== "undefined") {
