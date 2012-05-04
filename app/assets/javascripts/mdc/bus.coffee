@@ -101,7 +101,7 @@ class MDC.Bus extends Utils.Eventable
 
   on_button_deactivate: ->
     @hide()
-
+  
   show: ->
     if not @activated
       @activated = true
@@ -152,7 +152,11 @@ class MDC.Bus extends Utils.Eventable
     for route in @routes
       direction = route.direction_to_checkpoints(checkpoints)
       directions.push direction if direction
+      console.log @data['name'], direction.walking_distance
 
+
+
+    
     directions.sort((d)-> d.walking_distance)[0]
 
   # Set from path_finder#handle_directions

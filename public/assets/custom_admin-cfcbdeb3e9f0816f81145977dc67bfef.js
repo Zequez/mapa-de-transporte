@@ -1295,9 +1295,9 @@ var MapTools = {};
           "bb": this.make_bounds,
           "gf": this.calculate_center
         }, {
-          "ch": this.make_bounds,
+          "ch": this.get_bounds,
           "gc": this.map_settings,
-          "ei": this.build_gmap
+          "ei": this.map_settings
         }
       ];
       if (typeof MDC !== "undefined") {
