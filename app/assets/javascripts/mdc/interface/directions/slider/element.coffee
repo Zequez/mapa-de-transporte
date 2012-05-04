@@ -19,6 +19,16 @@ class MDC.Interface.Directions.Slider.Element extends Utils.Eventable
     @update_value()
     @change_element_position() # After we build the convertor we have the position for the element.
 
+  rebuild: (options)->
+    @o = @options = _.extend @options, options
+
+    @global_offset = @o.global_offset
+
+    @build_convertor()
+
+    @update_value()
+    @change_element_position()
+
   build_convertor: ->
     @convertor = new MDC.Interface.Directions.Slider.Convertor(@o.value, @o.min, @o.max, @o.min_bound, @o.max_bound, @element)
 
@@ -31,7 +41,7 @@ class MDC.Interface.Directions.Slider.Element extends Utils.Eventable
 
   start_dragging: (e)->
     @dragging = true
-    @dragging_position = e.offsetX
+    @dragging_position = e.offsetX || e.pageX - @element.offset().left
     @window.one 'mouseup', => @stop_dragging()
     @window.mousemove (e)=>
       @dragging_move(e)
@@ -105,3 +115,5 @@ class MDC.Interface.Directions.Slider.Element extends Utils.Eventable
 #    @convertor.set_min_max(min, max)
 #    @update_value()
 #    @update_element_position()
+
+  

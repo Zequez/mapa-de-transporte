@@ -40,9 +40,7 @@ class MDC.Interface.Directions.Slider.Manager extends Utils.Eventable
 
   bind_window: ->
     @window.resize =>
-      # Some cleanup would be nice, but whatever, is not like I'm going to be constantly resizing the window...
-      @build_slider()
-      @bind_slider()
+      @slider.rebuild @slider_options()
 
   set_min_max: (min, max)->
     @slider.set_min_max(min, max)
