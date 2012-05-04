@@ -43,7 +43,7 @@ Mdc::Application.routes.draw do
   match "/error_500" => "errors#server_error"
 
 
-  get "/buses_images.png" => "buses_images_generator#show"
+  get "/buses_images.png" => "buses_images_generator#show", format: 'png'
   
   scope '/', defaults: {domain_city: true}, constraints: (lambda { |r| Domain.registered?(r.host)}) do
     get '/qps' => 'cities#show_data', format: :qps

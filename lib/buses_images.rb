@@ -49,7 +49,11 @@ module BusesImages
       end
 
       def sprite_path
-        CONFIG[:buses_sprite_path]
+        sprite_file.path
+      end
+
+      def sprite_file
+        @sprite_file ||= Tempfile.new('bus-sprite')
       end
     end
   end

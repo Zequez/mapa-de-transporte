@@ -3,10 +3,11 @@ class BusesImagesGeneratorController < ApplicationController
 
   def show
     Bus.rebuild_sprite
-    data = File.open(Bus.sprite_path, 'rb').read
+    data = File.read(Bus.sprite_path, mode: 'rb')
     send_data(data, type: 'image/png', disposition: 'inline')
   end
 end
+
 
 #Connection:keep-alive
 #Content-Length:1233

@@ -11,7 +11,7 @@ Mdc::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -44,6 +44,8 @@ Mdc::Application.configure do
   config.assets.compress = false
   config.serve_static_assets = true
   # Expands the lines which load the assets
+
+  #config.action_controller.perform_caching = true
 
   # Do not compress assets
 end
