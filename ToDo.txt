@@ -17,6 +17,8 @@ The route making system should query many routes at the same time.
 
 Add rounded_return flag.
 
+Add link to header.
+
 Calculate average route for calculations and similarity check, so you show only one line for every route in a street.
 Better, create automatically a global route path, that binds every part to a bus, or to buses. This will, save a lot of processing, and be awesome at the sight.
 

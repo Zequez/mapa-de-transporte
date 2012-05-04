@@ -1,8 +1,7 @@
 // require jquery_ujs
 //= require ./copyright
 
-//= require ./libraries/underscore
-//= require ./libraries/cookie
+//= require_directory ./libraries
 
 //= require_directory ./tools
 //= require ./utils

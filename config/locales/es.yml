@@ -83,6 +83,7 @@ es:
           - "Te ganaste <a href='#' onclick='document.body.innerHTML = \"\"'>nada</a>."
 
       directions:
+        slider_title: Máxima distancia que estás dispuesto a caminar
         line_name: Nombre de la línea
         walking_distance: Distancia total que deberías caminar
         route_distance: Distancia total que recorrerías en colectivo

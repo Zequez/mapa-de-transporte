@@ -1,0 +1,34 @@
+#buses-directions
+  #buses-directions-slider
+    .slider-rail
+    .slider{title: t('views.buses.directions.slider_title')}
+      %span.slider-title= t('views.buses.directions.slider_title')
+      %span.slider-number> 0
+      m
+      
+
+
+  #buses-directions-legend
+    .bus-name{title: t('views.buses.directions.line_name')}
+      .direction-legend-background= t('views.buses.directions.line_name')
+    .walking-distance{title: t('views.buses.directions.walking_distance')}
+      .direction-legend-background= t('views.buses.directions.walking_distance')
+    .route-distance{title: t('views.buses.directions.route_distance')}
+      .direction-legend-background= t('views.buses.directions.walking_distance')
+  #buses-directions-tooltip
+    = t('views.buses.directions.help')
+  #list-of-directions
+    #bus-direction-template.bus-direction
+      .bus-name.bus-name-value! &nbsp;
+      .walking-distance
+        %span.walking-distance-value>
+        m
+      .route-distance
+        %span.route-distance-value>
+        km
+
+  #add-remove-buses-directions
+    %span.plus{title: t('views.buses.directions.show_another_route')}> +
+    %span.minus{title: t('views.buses.directions.show_one_less_route')} -
+
+  .separator
