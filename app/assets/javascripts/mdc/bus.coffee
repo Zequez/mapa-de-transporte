@@ -152,12 +152,12 @@ class MDC.Bus extends Utils.Eventable
     for route in @routes
       direction = route.direction_to_checkpoints(checkpoints)
       directions.push direction if direction
-      console.log @data['name'], direction.walking_distance
 
 
-
-    
-    directions.sort((d)-> d.walking_distance)[0]
+    ordered_directions = directions.sort (r1, r2)->
+      r1.walking_distance > r2.walking_distance
+      
+    ordered_directions[0]
 
   # Set from path_finder#handle_directions
   set_direction: (direction)->

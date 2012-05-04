@@ -1,4 +1,6 @@
 class BusesImagesGeneratorController < ApplicationController
+  caches_action :show
+
   def show
     Bus.rebuild_sprite
     data = File.open(Bus.sprite_path, 'rb').read

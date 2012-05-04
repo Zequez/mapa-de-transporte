@@ -8,6 +8,8 @@ ActiveAdmin.register Bus do
   filter :name
 
   controller do
+    cache_sweeper :bus_sweeper
+
     def new
       @bus = Bus.for_new
       new!
