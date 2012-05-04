@@ -1,11 +1,15 @@
 class BusesImagesGeneratorController < ApplicationController
-  #caches_action :show
+  caches_action :show
 
   def show
     Rails.logger.info '#################### Regenerating buses images'
-    Rails.logger.info Bus.sprite_path
     Bus.rebuild_sprite
     data = File.read(Bus.sprite_path, mode: 'rb')
+
+    if !data || data.size < 10 || data.blank?
+      raise "Failed to generate the buses images"
+    end
+    
     send_data(data, type: 'image/png', disposition: 'inline')
   end
 end
