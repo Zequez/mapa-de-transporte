@@ -31,11 +31,11 @@ class MDC.Directions.Manager
       @calculate_buses()
 
   create_directions_interface: ->
-    @directions_interface = new MDC.Interface.Directions
+    @directions_interface = new MDC.Interface.Directions.Manager
 
   bind_directions_interface: ->
     @directions_interface.add_listener 'options_updated', =>
-      @handle_directions()
+      @handle_directions() if @directions.length > 0
 
   calculate_buses: ->
     @remove_directions()
@@ -56,8 +56,19 @@ class MDC.Directions.Manager
 
 
   handle_directions: ->
-    @shown_directions  = to_display  = @directions[0..(MDC.SETTINGS.read["max_routes_suggestions"]-1)]
-    @hidden_directions = to_not_display  = @directions[MDC.SETTINGS.read["max_routes_suggestions"]..]
+    @shown_directions = []
+    @hidden_directions = []
+
+    max_distance = MDC.SETTINGS.read["max_walking_distance"]
+    
+    for direction in @directions
+      if direction.real_walking_distance <= max_distance
+        @shown_directions.push direction
+      else
+        @hidden_directions.push direction
+
+#    if @shown_directions.length == 0
+#      @shown_directions.push @hidden_directions.shift()
     
     for direction in @hidden_directions
       direction.route_bus.hide()
@@ -77,9 +88,16 @@ class MDC.Directions.Manager
     @directions = []
     @shown_directions = []
     @hidden_directions = []
-    
+
   update_directions_interface: ->
-    @directions_interface.set_directions @shown_directions, @directions.length
+#    if @directions.length > 0
+#      min = @directions[0].real_walking_distance
+#      max = _.last(@directions).real_walking_distance
+#    else
+    min = max = false
+
+    @directions_interface.set_directions @shown_directions, min, max
+
 
     
 

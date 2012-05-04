@@ -67,7 +67,9 @@ es:
         remove_checkpoint: Para <b>eliminar un destino</b> haz click secundario sobre este.
         move_checkpoint: Puedes <b>mover un destino</b> arrastrándolo.
         invert_checkpoints: Puedes <b>invertir los destinos</b> clickeándolos con el botón del medio.
-        more_buses: Por defacto se busca la ruta más corta. Haz click en el signo <b>+ para mostrar rutas alternativas</b>.
+        more_buses:
+          Mueve el deslizador para seleccionar la <b>distancia que estás dispuesto a caminar</b>.
+          Se mostrarán todos los colectivos que estén dentro de la distancia seleccionada.
         close_help: Haz click en la cruz roja en la esquina superior para <b>ocultar esta ayuda</b>.
         silly:
           - Si estás leyendo esto ya es demasiado tarde,
@@ -89,6 +91,7 @@ es:
         route_distance: Distancia total que recorrerías en colectivo
         show_another_route: Mostrar otra ruta
         show_one_less_route: Mostrar una ruta menos
-        help: Haz click en el mapa para calcular las rutas más cercanas.
+        help:
+          Haz click en el mapa para mostrar rutas de colectivos a menos de <span class='max_walking_distance'></span> metros.
 
 

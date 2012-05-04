@@ -2,16 +2,18 @@ class MDC.Interface.Directions.Slider.Manager extends Utils.Eventable
   # Events
   # - change
 
-  min: 0
-  max: 1000
 
-  constructor: (initial_value)->
+
+  constructor: (@initial_value)->
+    @min = MDC.CONFIG.max_walking_distance_min
+    @max = MDC.CONFIG.max_walking_distance_max
+
     @find_elements()
 
-    @build_slider(initial_value)
+    @build_slider()
     @bind_slider()
 
-    @update_slider_info()
+    @bind_window()
 
   find_elements: ->
     @container = $$('buses-directions-slider')
@@ -20,16 +22,27 @@ class MDC.Interface.Directions.Slider.Manager extends Utils.Eventable
     @window    = $(window)
 
   build_slider: (initial_value)->
-    @slider = new MDC.Interface.Directions.Slider.Element(@slider_e, initial_value)
+    @slider = new MDC.Interface.Directions.Slider.Element(@slider_options())
+
+  slider_options: ->
+    {
+      element: @slider_e,
+      value: @initial_value,
+      min: @min,
+      max: @max,
+      min_bound: 0,
+      max_bound: @container.width(),
+      global_offset: @container.offset().left + 0
+    }
 
   bind_slider: ->
-    @inherit_listener @slider, 'change'
+    @slider.add_listener 'change', (value)=> @fire_event('change', value)
 
-  update_slider_info: ->
-    @slider.set_bounds(0, @container.width())
-    @slider.set_global_offset(@container.offset().left + 0)
-    @slider.set_min_max(@min, @max)
-    @slider.init()
+  bind_window: ->
+    @window.resize =>
+      # Some cleanup would be nice, but whatever, is not like I'm going to be constantly resizing the window...
+      @build_slider()
+      @bind_slider()
 
   set_min_max: (min, max)->
     @slider.set_min_max(min, max)

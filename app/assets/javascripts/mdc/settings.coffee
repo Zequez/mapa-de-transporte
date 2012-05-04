@@ -12,11 +12,14 @@ MDC.CONFIG = {
   url_buses_join: '+'
 
   settings_cookie: 'settings'
+
+  max_walking_distance_min: 0
+  max_walking_distance_max: 2980
 }
 
 user_settings = {
   "help_tips": true,
-  "max_walking_distance": 500,
+  "max_walking_distance": 1000,
   "max_routes_suggestions": 1,
   "show_bus_info": true
 }

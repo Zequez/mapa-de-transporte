@@ -25,6 +25,7 @@ class MDC.Directions.RouteDirection extends Utils.Eventable
     @directions = []
 
     @calculate_walking_distance()
+    @calculate_real_walking_distance()
 
   calculate_walking_distance: ->
     @walking_distance = 0
@@ -67,7 +68,6 @@ class MDC.Directions.RouteDirection extends Utils.Eventable
 
   prepare_for_displaying: ->
     @create_checkpoints_directions()
-    @calculate_real_walking_distance()
     @calculate_real_route_distance()
     @set_bus_name()
     @ready_to_display = true

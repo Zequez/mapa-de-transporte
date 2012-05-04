@@ -18,3 +18,5 @@
 /.idea
 
 /mysql_to_psql_migration
+
+/public/assets2

@@ -1,14 +1,16 @@
 class MDC.Interface.Directions.Slider.Convertor
-  constructor: (@default_value, @min, @max, @position, @default_min_bound, @default_max_bound, @element)->
+  position: 0
+  
+  constructor: (@default_value, @min, @max, @default_min_bound, @default_max_bound, @element)->
+    @update_bounds()
+    @set_min_max(@min, @max)
 
-
-  set_default_value: (value)->
-    @default_value = value
-    @set_value(value)
+#  set_default_value: (value)->
+#    console.log "Set default value", value
+#    @default_value = value
+#    @set_value(value)
 
   set_value: (value)->
-    console.log value
-
     if value < @min
       value = @min
     else if value > @max
@@ -22,7 +24,7 @@ class MDC.Interface.Directions.Slider.Convertor
       false
 
   recalculate_value: ->
-    @value = parseInt((((@position - @min_bound) / @bound_range) * @range) / 10) * 10
+    @value = parseInt((((@position - @min_bound) / @bound_range) * @range) / 10) * 10 + @min
 
   set_position: (position)->
     if position < @min_bound
@@ -30,21 +32,17 @@ class MDC.Interface.Directions.Slider.Convertor
     else if position > @max_bound
       position = @max_bound
 
-
     if position != @position
       @position = position
       @recalculate_value()
+      @default_value = @value # We set this because we explicitly changed the value
       true
     else
       false
 
   recalculate_position: ->
-    @position = parseInt( ((@value - @min) / @range) * @bound_range + @min_bound )
-
-  set_bounds: (min_bound, max_bound)->
-    @default_min_bound = min_bound
-    @default_max_bound = max_bound
     @update_bounds()
+    @position = parseInt( ((@value - @min) / @range) * @bound_range + @min_bound )
 
   update_bounds: ->
     element_width = @element.width()
@@ -52,11 +50,12 @@ class MDC.Interface.Directions.Slider.Convertor
     @max_bound = @default_max_bound
     @max_bound -= element_width if @max_bound > element_width
     @bound_range = @max_bound - @min_bound
-    @recalculate_position()
+    @default_bound_range = @default_max_bound - @default_min_bound
 
   set_min_max: (min, max)->
-    @min = parseInt( min / 10 ) * 10
-    @max = parseInt( (max + 9.99) / 10 ) * 10
+    @min = parseInt( ( min + 10 ) / 10 ) * 10
+    @max = parseInt( ( max + 20 ) / 10 ) * 10
     @range = @max - @min
 
-    @set_value(@default_value)
+    if not @set_value(@default_value)
+      @recalculate_position()

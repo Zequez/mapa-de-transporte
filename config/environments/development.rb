@@ -35,17 +35,16 @@ Mdc::Application.configure do
 
   config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
                                                       formatting: 'PRETTY_PRINT',
-                                                      debug: true,
+                                                      debug: false,
                                                       externs: closure_externs
                                                       )
   
-  config.assets.debug = true
+  config.assets.debug = false
   config.assets.compile = true
-  config.assets.compress = false
+  config.assets.compress = true
   config.serve_static_assets = true
   # Expands the lines which load the assets
 
-  #config.action_controller.perform_caching = true
 
   # Do not compress assets
 end

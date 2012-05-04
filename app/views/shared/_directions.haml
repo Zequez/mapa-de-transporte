@@ -16,7 +16,7 @@
     .route-distance{title: t('views.buses.directions.route_distance')}
       .direction-legend-background= t('views.buses.directions.walking_distance')
   #buses-directions-tooltip
-    = t('views.buses.directions.help')
+    != t('views.buses.directions.help')
   #list-of-directions
     #bus-direction-template.bus-direction
       .bus-name.bus-name-value! &nbsp;
