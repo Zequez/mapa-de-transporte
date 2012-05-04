@@ -88,7 +88,6 @@ class MDC.Interface.Directions.Slider.Element extends Utils.Eventable
     @element.css left: @convertor.position
 
 
-
   # VALUE
 
   set_value: (value)->

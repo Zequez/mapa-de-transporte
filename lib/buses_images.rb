@@ -24,7 +24,7 @@ module BusesImages
     end
 
     def icon_path
-      (Rails.root + CONFIG[:bus_icon_path]).to_s.sub(':id', id.to_s)
+      (Rails.root + CONFIG[:bus_icon_path]).to_s.sub(':id', ("%04d" % id.to_s))
     end
 
     module ClassMethods
