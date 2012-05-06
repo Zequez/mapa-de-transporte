@@ -9,6 +9,16 @@ defaults: &defaults
   build_buses_sprite_on_demand: true
   facebook_page_url: https://www.facebook.com/pages/MapaDeColectivosMarDelPlata/211856755596258
 
+  custom_domains:
+    - vmware
+    - vm-mdp
+    - vm-tandil
+
+  authorized_domains:
+    - vmware
+    - vm-mdp
+    - vm-tandil
+
 
 development:
   <<: *defaults
@@ -18,6 +28,12 @@ test:
 
 production:
   <<: *defaults
+
+  custom_domains:
+    - blooming-stream-4501.herokuapp.com
+    - mapadecolectivosmdp.com.ar
+
   authorized_domains:
     - blooming-stream-4501.herokuapp.com
     - mapadecolectivosmdp.com.ar
+
