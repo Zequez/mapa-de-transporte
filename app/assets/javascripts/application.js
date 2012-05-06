@@ -3,6 +3,7 @@
 
 //= require_directory ./libraries
 
+//= require gmaps_animations_crack
 
 //= require_directory ./tools
 //= require ./utils
