@@ -29,4 +29,8 @@ class Route < ActiveRecord::Base
 
     end.join('<span class="bus-address-turn" title="Dobla en"> / </span>')
   end
+
+  def blank?
+    addresses.blank?
+  end
 end

@@ -6,10 +6,18 @@
     -#= render partial: "/shared/bus-data", locals: {bus: bus}
     -#.bus-pictures
     .bus-routes
-      .bus-departure-route
-        %span{title: t("views.buses.bus_info.departure_route")} #{t "views.buses.bus_info.departure"}:
-        != bus.departure_route.formatted_addresses
-      .bus-return-route
-        %span{title: t("views.buses.bus_info.return_route")} #{t "views.buses.bus_info.return"}:
-        != bus.return_route.formatted_addresses
+      - if bus.circular_route?
+        - if bus.route
+          .bus-departure-route
+            %span{title: t("views.buses.bus_info.departure_return_route")} #{t("views.buses.bus_info.departure_return")}:
+            != bus.route.formatted_addresses
+      - else
+        - if bus.departure_route
+          .bus-departure-route
+            %span{title: t("views.buses.bus_info.departure_route")} #{t "views.buses.bus_info.departure"}:
+            != bus.departure_route.formatted_addresses
+        - if bus.return_route
+          .bus-return-route
+            %span{title: t("views.buses.bus_info.return_route")} #{t "views.buses.bus_info.return"}:
+            != bus.return_route.formatted_addresses
     .separator

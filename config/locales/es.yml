@@ -54,8 +54,10 @@ es:
         line: Línea %{bus}
         departure: Ida
         return: Vuelta
+        departure_return: Ida y vuelta
         departure_route: Recorrido de ida
         return_route: Recorrido de vuelta
+        departure_return_route: Recorrido de ida y vuelta
         toggle:
           Mostrar/Ocultar esta info que seguro no te interesa, pero a mí me interesa que a Google le interese.
           Te pido disculpas por las molestias.

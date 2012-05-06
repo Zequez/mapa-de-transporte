@@ -145,4 +145,20 @@ class Bus < ActiveRecord::Base
     Rails.logger.warn 'Bus#color_2 is deprecated, use Bus#text_color'
     text_color
   end
+
+  def circular_route?
+    departure_route.blank? or return_route.blank?
+  end
+
+  def route
+    if departure_route.blank?
+      if return_route.blank?
+        nil
+      else
+        return_route
+      end
+    else
+      departure_route
+    end
+  end
 end
