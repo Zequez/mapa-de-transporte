@@ -8,4 +8,4 @@
     - if bus.variation
       %span.bus-variation= bus.variation
     - if not bus.alert_message.blank?
-      %span.alert-message{title: t('views.buses.routes_outdated', message: bus.alert_message)} *
+      %span.alert-message{title: bus.alert_message} *
