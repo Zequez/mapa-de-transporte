@@ -1,24 +1,37 @@
 class MDC.BusInfo
   constructor: ()->
+    @visible = MDC.SETTINGS.read["show_bus_info"]
     @find_elements()
     @bind_elements()
 
+    if not @visible
+      @hide()
+
   find_elements: ->
-    @e = $$('buses-info')
-    @toggle = @e.find('.toggle')
-    @text_toggled = @toggle.attr('data-toggled')
-    @text_not_toggled = @toggle.attr('data-not-toggled')
+    @e = $$("buses-info")
+    @toggle = @e.find(".toggle")
+    @text_toggled = @toggle.attr("data-toggled")
+    @text_not_toggled = @toggle.attr("data-not-toggled")
 
   bind_elements: ->
     @toggle.click =>
-      hide = @e.is('.toggled')
-
-      if hide
-        @e.removeClass('toggled')
-        @toggle.html(@text_not_toggled)
+      if @visible # Then hide
+        @hide()
       else
-        @e.addClass('toggled')
-        @toggle.html(@text_toggled)
+        @show()
 
-      MDC.SETTINGS.set('show_bus_info', !hide)
+      @set_cookie()
+
+  hide: ->
+    @visible = false
+    @e.removeClass("toggled")
+    @toggle.html(@text_not_toggled)
+
+  show: ->
+    @visible = true
+    @e.addClass("toggled")
+    @toggle.html(@text_toggled)
+
+  set_cookie: ->
+    MDC.SETTINGS.set("show_bus_info", @visible)
 

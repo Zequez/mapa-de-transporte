@@ -18,14 +18,14 @@
         %image{src: "/assets/header.png", alt: t('views.buses.header.logo_title', city: @city.name)}
 
     #header-bar
-      #toggle-help{title: t('views.buses.header_bar.help'), class: ('toggled' if show_help_tips?)} Ayuda
+      #toggle-help{title: t('views.buses.header_bar.help')} Ayuda
       #city-bus-price{title: t('views.buses.header_bar.ticket_price', city: @city.name)}
         %span.bus-price-icon Precio del boleto:
         %span.bus-price-money= monetize @city.bus_card
 
     .separator
 
-    #tooltips{class: ('hidden' if not show_help_tips?)}
+    #tooltips
       - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses close_help}.each do |tooltip|
         %div{id: "tooltip-#{tooltip}"}
           = raw t("views.buses.tooltips.#{tooltip}")

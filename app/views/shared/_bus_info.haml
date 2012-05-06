@@ -1,7 +1,7 @@
-#buses-info{class: ("toggled" if show_bus_info?)}
+#buses-info
   .toggle{"data-toggled" => "&#9650;", "data-not-toggled" => "&#9660;", title: t('views.buses.bus_info.toggle')}
-    != show_bus_info? ? "&#9650;" : "&#9660;"
-  .bus-info{id: "bus-info-#{bus.id}"}
+    &#9660;
+  .bus-info.toggled{id: "bus-info-#{bus.id}"}
     %h2{title: t("views.buses.bus_info.line", bus: bus.name)}= bus.name
     -#= render partial: "/shared/bus-data", locals: {bus: bus}
     -#.bus-pictures

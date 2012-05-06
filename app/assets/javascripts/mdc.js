@@ -1,4 +1,5 @@
 //= require_self
+//= require ./mdc/settings
 //= require_tree ./mdc
 
 // Declaring this in JavaScript we avoid to have to

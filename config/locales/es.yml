@@ -59,7 +59,8 @@ es:
         return_route: Recorrido de vuelta
         departure_return_route: Recorrido de ida y vuelta
         toggle:
-          Mostrar/Ocultar esta info que seguro no te interesa, pero a mí me interesa que a Google le interese.
+          Mostrar/Ocultar esta info que seguro no te interesa, pero a Google sí, y te la tengo que mostrar a vos también.
+          Por suerte la podés ocultar.
           Te pido disculpas por las molestias.
 
 

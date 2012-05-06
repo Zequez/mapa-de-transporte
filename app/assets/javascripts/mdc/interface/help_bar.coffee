@@ -1,28 +1,27 @@
 class MDC.Interface.HelpBar
   constructor: ->
-    @visible = MDC.SETTINGS.read.help_tips != false
+    @visible = MDC.SETTINGS.read["help_tips"]
     @find_elements()
     @bind_elements()
 
-    @set_visibility()
+    if not @visible
+      @hide()
 
   find_elements: ->
     @tooltips = $$('tooltips')
     @close    = @tooltips.find('.close')
     @toggle_element = $$('toggle-help')
 
-  set_visibility: ->
-    if $$('tooltips').is(':visible')
-      @show()
-    else
-      @hide()
+#  set_visibility: ->
+#    if $$('tooltips').is(':visible')
+#      @show()
+#    else
+#      @hide()
 
 
   bind_elements: ->
     ### POISON ###
-    if MDC.SegmentCalculator.distance() < 42/8
-      @tooltips.click =>
-        document.body.innerHTML = '';
+    MDC.SegmentCalculator.distance()
     @close.click => @toggle()
     @toggle_element.click => @toggle()
 
