@@ -42,6 +42,7 @@ class BusesImages::Icon < BusesImages::BaseImageMagick
 
   def number_images
     @numbar_images ||= @string[0...3].each_char.map do |char|
+      char = char.sub("?", "question")
       "#{BusesImages::ICONS_PATH}#{char}.png"
     end
   end
