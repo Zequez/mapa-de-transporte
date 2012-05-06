@@ -1,6 +1,8 @@
 class Domain < ActiveRecord::Base
   belongs_to :city
 
+  scope :no_cities, where('city_id = ?', nil)
+
   after_save { Rails.cache.delete "Domain.registered?" }
 
   def self.registered?(name)

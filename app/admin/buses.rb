@@ -9,6 +9,7 @@ ActiveAdmin.register Bus do
 
   controller do
     cache_sweeper :bus_sweeper
+    cache_sweeper :city_sweeper
 
     def new
       @bus = Bus.for_new

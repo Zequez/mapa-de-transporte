@@ -1,4 +1,8 @@
 ActiveAdmin.register BusGroup do
+  controller do
+    cache_sweeper :city_sweeper
+  end
+
   before_filter { @skip_sidebar = true }
 
   index do

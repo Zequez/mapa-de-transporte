@@ -1,5 +1,6 @@
 ActiveAdmin.register City do
   controller do
+    cache_sweeper :city_sweeper
     defaults finder: :from_param
   end
 

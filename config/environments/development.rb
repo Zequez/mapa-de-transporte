@@ -39,7 +39,7 @@ Mdc::Application.configure do
                                                       externs: closure_externs
                                                       )
   
-  config.assets.debug = true
+  config.assets.debug = false
   config.assets.compile = true
   config.assets.compress = false
   config.serve_static_assets = true
