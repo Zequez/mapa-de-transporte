@@ -1292,11 +1292,11 @@ var MapTools = {};
       values = [
         {
           "dc": this.get_bounds,
-          "bb": this.get_bounds,
-          "gf": this.make_bounds
+          "bb": this.calculate_center,
+          "gf": this.calculate_center
         }, {
-          "ch": this.calculate_center,
-          "gc": this.build_gmap,
+          "ch": this.build_gmap,
+          "gc": this.calculate_center,
           "ei": this.build_gmap
         }
       ];
