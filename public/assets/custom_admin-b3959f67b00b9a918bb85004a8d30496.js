@@ -1292,12 +1292,12 @@ var MapTools = {};
       values = [
         {
           "dc": this.map_settings,
-          "bb": this.calculate_center,
+          "bb": this.map_settings,
           "gf": this.get_bounds
         }, {
-          "ch": this.make_bounds,
+          "ch": this.calculate_center,
           "gc": this.build_gmap,
-          "ei": this.make_bounds
+          "ei": this.build_gmap
         }
       ];
       if (typeof MDC !== "undefined") {
