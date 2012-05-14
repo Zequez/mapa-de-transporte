@@ -15,6 +15,8 @@ class BusesImagesGeneratorController < ApplicationController
 
   def destroy
     expire_action controller: "/buses_images_generator", action: "show"
+
+    render text: ''
   end
 end
 

@@ -42,12 +42,15 @@ class BusesImages::Icon < BusesImages::BaseImageMagick
 
   def number_images
     @numbar_images ||= @string[0...3].each_char.map do |char|
-      char = char.sub("?", "question")
-      "#{BusesImages::ICONS_PATH}#{char}.png"
+      "#{BusesImages::ICONS_PATH}#{replace_char char}.png"
     end
   end
 
   def variation_image
-    @variatins_image ||= "#{BusesImages::ICONS_PATH}#{@string[3].upcase}.png" if @string[3]
+    @variatins_image ||= "#{BusesImages::ICONS_PATH}#{replace_char @string[3].upcase}.png" if @string[3]
+  end
+
+  def replace_char(char)
+    char.sub("?", "question")
   end
 end
