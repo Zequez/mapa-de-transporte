@@ -2,7 +2,7 @@ class MDC.Interface.UrlRewriter
   constructor: (buses)->
     if window.history.replaceState
       @buses = buses
-      @bind_buses()
+      #@bind_buses()
 
   bind_buses: ->
     for bus in @buses

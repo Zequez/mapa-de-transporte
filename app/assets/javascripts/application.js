@@ -11,3 +11,4 @@
 //= require ./mdc
 
 //= require ./init
+

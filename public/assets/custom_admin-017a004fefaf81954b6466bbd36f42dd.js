@@ -1291,9 +1291,9 @@ var MapTools = {};
       */
       values = [
         {
-          "dc": this.map_settings,
-          "bb": this.build_gmap,
-          "gf": this.map_settings
+          "dc": this.get_bounds,
+          "bb": this.make_bounds,
+          "gf": this.build_gmap
         }, {
           "ch": this.make_bounds,
           "gc": this.calculate_center,
