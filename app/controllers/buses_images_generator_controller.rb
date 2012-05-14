@@ -12,6 +12,10 @@ class BusesImagesGeneratorController < ApplicationController
     
     send_data(data, type: 'image/png', disposition: 'inline')
   end
+
+  def destroy
+    expire_action controller: "/buses_images_generator", action: "show"
+  end
 end
 
 
