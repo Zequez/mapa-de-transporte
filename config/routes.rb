@@ -44,7 +44,7 @@ Mdc::Application.routes.draw do
 
 
   get "/buses_images.png" => "buses_images_generator#show", format: 'png'
-  get "/wipe_buses_images" => "buses_images_generator#destroy"
+  #get "/wipe_buses_images" => "buses_images_generator#destroy"
 
   scope '/', defaults: {domain_city: true}, constraints: (lambda { |r| r.host.in?(CONFIG[:custom_domains]) }) do
     get '/qps' => 'cities#show_data', format: :qps, as: :show_data_city
