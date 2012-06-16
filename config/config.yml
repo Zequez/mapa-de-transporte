@@ -1,6 +1,6 @@
 defaults: &defaults
   country: Argentina
-  gmaps_url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyBuaeRl4SDBP2M3QNhtwhMFGnKkfX6nIyk&sensor=true&v=3.7&libraries=geometry"
+  gmaps_url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyC7A78b33qd7zjvK0S_5Z7WR86vS74s4LM&sensor=true&v=3.7&libraries=geometry"
   jquery_url: "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
 
   bus_icon_path: "public/buses_images/:id.png"
