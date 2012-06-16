@@ -38,10 +38,6 @@ class Bus < ActiveRecord::Base
     self.perm = name.sub('?', 'q').sub('+', 'm')
   end
 
-  def to_param
-    perm
-  end
-
   # These will be delegated to groups and to city
   def self.delegatable_attributes
     %w{delay price card cash start_time end_time}

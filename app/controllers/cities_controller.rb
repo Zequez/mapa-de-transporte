@@ -27,7 +27,7 @@ class CitiesController < InheritedResources::Base
 
   # This is tricky because we often don't have an :id
   def show_city_cache
-    a = "cities/#{(params[:id] || request.host)}/buses/#{params[:buses]}"
+    a = "cities/#{params[:id]}/buses/#{params[:buses]}"
     #a = {city_domain: (params[:id] || request.host), buses: params[:buses]}
     #a = {id: (params[:id] || request.host), buses: params[:buses]}
     L.l a
@@ -35,7 +35,7 @@ class CitiesController < InheritedResources::Base
   end
 
   def show_city_qps_cache
-    "cities/#{(params[:id] || request.host)}/qps"
+    "cities/#{params[:id]}/qps"
   end
 
   private
