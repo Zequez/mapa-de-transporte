@@ -1,9 +1,4 @@
 ActiveAdmin.register Domain do
-
-  controller do
-    cache_sweeper :city_sweeper
-  end
-
   index do
     column :id
     column :name
