@@ -8,6 +8,8 @@ class MDC.Bus extends Utils.Eventable
 
   activated: false
 
+  data: null
+
   constructor: (data, bus_group)->
     @data = data
     @bus_group = bus_group
