@@ -65,34 +65,20 @@ module BusesHelper
     end
   end
 
-  def city_buses_path(city = false, buses)
+  def city_buses_path(city, buses)
     if buses.is_a? String
       param = buses
     else
-      param = buses.sort_by(&:name).map(&:name).join('+')
+      param = buses.map(&:perm).sort.join('+')
     end
     
-    city_url(city) + param
+    city_url(city) + '/' + param
   end
 
-  def bus_url_from_current_url(bus)
-    buses = (bus.is_shown? ? @buses - [bus] : @buses + [bus])
-    city_buses_path(buses)
-  end
-
-  def bus_link(bus)
-    href  = city_buses_path([bus])
-    title = I18n.t('views.buses.show_bus_in_map', bus: bus.name)
-    hide_title  = I18n.t('views.buses.hide_bus_in_map', bus: bus.name)
-
-    active = ("active" if bus.is_shown?)
-    variation = ("<span class='bus-variation'>#{bus.variation}</span>" if bus.variation)
-
-
-    "<a href='#{href}' title='#{title}' toggled_title='#{hide_title}' class='slot bus #{active}' id='bus-#{bus.id}'>
-      <div class='bus-name'>#{bus.cropped_name}#{variation}</div>
-    </a>".html_safe
-  end
+  #def bus_url_from_current_url(bus)
+  #  buses = (bus.is_shown? ? @buses - [bus] : @buses + [bus])
+  #  city_buses_path(buses)
+  #end
 
   private
 end

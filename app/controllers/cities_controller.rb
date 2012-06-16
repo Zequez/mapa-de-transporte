@@ -1,32 +1,28 @@
 class CitiesController < InheritedResources::Base
-  actions :index, :show
+  actions :show
 
-  caches_action :show_data, cache_path:  :show_city_qps_cache.to_proc
-  #caches_action :show_data, :show
-  caches_action :show, cache_path: :show_city_cache.to_proc
-
-  #before_filter :redirect_to_user_city, only: :index
-
-  #def index
-  #  if params[:redirect] and user_city
-  #
-  #  else
-  #    index!
-  #  end
-  #end
+  if Rails.env == "production"
+    caches_action :show_data, cache_path:  :show_city_qps_cache.to_proc
+    #caches_action :show_data, :show
+    caches_action :show, cache_path: :show_city_cache.to_proc
+  end
+  
+  def redirect_to_default
+    redirect_to city_path(City.first)
+  end
 
   def show
     @buses = resource.set_shown_buses(params[:buses])
-    @bus = (@buses.size == 1) ? @buses[0] : nil
-
+    @bus = (@buses.size == 1) ? @buses[0] : nil # Just show the complete bus information if we are displaying just one bus.
+    L.l params[:buses]
+    L.l @buses
     show!
   end
 
   def show_data
     resource
-    render 'show.qps', layout: false
+    render 'show', layout: false, format: :qps
   end
-
 
 
   # This is tricky because we often don't have an :id
@@ -44,6 +40,8 @@ class CitiesController < InheritedResources::Base
 
   private
 
+
+
   #def redirect_to_user_city
   #  if params[:redirect] and user_city
   #    return redirect_to city_url(user_city)
@@ -52,7 +50,7 @@ class CitiesController < InheritedResources::Base
 
   def resource
     @city ||= begin
-      city = ( from_param_city if params[:id] ) || domain_city
+      city = ( from_param_city if params[:id] )
       raise ActiveRecord::RecordNotFound if !city
       city
     end

@@ -8,8 +8,8 @@ es:
   views:
     head:
       title: Mapas de Colectivos
-      title_city: Mapa de Colectivos %{city}
-      title_bus: Mapa del Recorrido del %{bus} %{city}
+      title_city: Mapa de Colectivos en %{city}
+      title_bus: Mapa del Recorrido del %{bus} en %{city}
       
       description:
         Mapas de Colectivos es un sitio web que te permite ver los recorridos de los
@@ -27,8 +27,9 @@ es:
 
       copyright:
         title: ""
-        first_line: © 2012 Mapa de Colectivos Mar del Plata.
+        first_line: © 2012 Mapa de Transporte.
         second_line: Todos los derechos reservables reservados.
+        third_line: "<a href='https://twitter.com/#!/MapaTransporte'>Seguinos en Twitter</a>"
         real_person:
           Soy un <a href='http://twitter.com/zequez' title='Prefiero Facebook pero mi mamá me dijo que no agregara desconocidos. Así que cualquier cosa Twitteame.'>ser humano</a>.
 

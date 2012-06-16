@@ -1,4 +1,4 @@
-%a.slot.bus{ href:          city_buses_path([bus]),
+%a.slot.bus{ href:          city_buses_path(@city, [bus]),
              title:         I18n.t('views.buses.show_bus_in_map', bus: bus.name),
              toggled_title: I18n.t('views.buses.hide_bus_in_map', bus: bus.name),
              class:         "#{("active" if bus.is_shown?)}",

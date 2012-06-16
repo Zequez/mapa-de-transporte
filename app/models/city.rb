@@ -55,7 +55,7 @@ class City < ActiveRecord::Base
   end
 
   def set_shown_buses(buses)
-    buses = Bus.ids_from_names buses
+    buses = Bus.ids_from_perms buses
 
     new_buses_array = []
     bus_groups.each do |bus_group|
@@ -80,7 +80,7 @@ class City < ActiveRecord::Base
               bus_groups: {
                 only: [:id, :name],
                 include: {
-                  visible_buses: { only: [:id, :name, :encoded_departure_route, :encoded_return_route, :is_shown] }
+                  visible_buses: { only: [:id, :name, :perm, :encoded_departure_route, :encoded_return_route, :is_shown] }
                 }
               },
             }).html_safe
@@ -89,11 +89,11 @@ class City < ActiveRecord::Base
   ### Crappy encryption ###
   #########################
 
-  def to_qps(domain)
+  def to_qps(domain = nil)
     MyEncryptor.encode to_map_json
   end
 
-  def from_qps(encoded, domain)
+  def from_qps(encoded, domain = nil)
     MyEncryptor.decode encoded
   end
 

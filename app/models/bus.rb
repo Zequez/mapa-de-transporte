@@ -15,12 +15,32 @@ class Bus < ActiveRecord::Base
   scope :from_buses_names, lambda{|buses, groups|
     joins(:bus_group)
     .ordered
-    .where("buses.name IN (?) OR bus_groups.name IN (?)", buses, groups)
+    .where("buses.perm IN (?) OR bus_groups.name IN (?)", buses, groups)
   }
   scope :select_ids, select('buses.id')
 
+  before_validation :uppercase_name
+  before_save :create_perm
   before_save :set_routes_caches
   after_save :handle_sprite_generation
+
+  validates :name,
+            presence: true,
+            format: { with: /[0-9]{3}[ABCDEFG?+]?/ }
+
+
+  def uppercase_name
+    L.l self.name
+    self.name = name.upcase
+  end
+
+  def create_perm
+    self.perm = name.sub('?', 'q').sub('+', 'm')
+  end
+
+  def to_param
+    perm
+  end
 
   # These will be delegated to groups and to city
   def self.delegatable_attributes
@@ -47,7 +67,7 @@ class Bus < ActiveRecord::Base
     end
   end
 
-  def self.ids_from_names(all_names)
+  def self.ids_from_perms(all_names)
     names, groups_names = parse_names all_names
 
     if names.size > 0 or groups_names.size > 0
@@ -119,7 +139,7 @@ class Bus < ActiveRecord::Base
   end
 
   def cropped_name
-    name[0..2]
+    name[0...3]
   end
 
   # Hackity Hack
@@ -127,24 +147,6 @@ class Bus < ActiveRecord::Base
   #  self.departure_route = bus.departure_route
   #  self.return_route = bus.return_route
   #end
-
-  def color_1=(val)
-    Rails.logger.warn 'Bus#color_1= is deprecated, use Bus#background_color='
-    self.background_color = val
-  end
-  def color_1
-    Rails.logger.warn 'Bus#color_1 is deprecated, use Bus#background_color'
-    background_color
-  end
-
-  def color_2=(val)
-    Rails.logger.warn 'Bus#color_2= is deprecated, use Bus#text_color='
-    self.text_color = val
-  end
-  def color_2
-    Rails.logger.warn 'Bus#color_2 is deprecated, use Bus#text_color'
-    text_color
-  end
 
   def circular_route?
     departure_route.blank? or return_route.blank?

@@ -1,7 +1,7 @@
-- if current_domain and not current_domain.google_analytics_id.blank?
+- if request.host == CONFIG[:production_domain]
   <script type="text/javascript">
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '#{current_domain.google_analytics_id}']);
+  _gaq.push(['_setAccount', '#{CONFIG[:google_analytics_id]}']);
   _gaq.push(['_trackPageview']);
 
   (function() {

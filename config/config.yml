@@ -7,17 +7,15 @@ defaults: &defaults
   bus_icons_path: "public/buses_images/"
   buses_sprite_path: "public/buses_images.png"
   build_buses_sprite_on_demand: true
-  facebook_page_url: https://www.facebook.com/pages/MapaDeColectivosMarDelPlata/211856755596258
+  facebook_page_url: https://www.facebook.com/pages/Mapa-de-Transporte/141373665998093
+  google_analytics_id: "UA-32695596-1"
 
-  custom_domains:
-    - vmware
-    - vm-mdp
-    - vm-tandil
+  production_domain: mapadetransporte.com.ar
 
   authorized_domains:
     - vmware
-    - vm-mdp
-    - vm-tandil
+    - blooming-stream-4501.herokuapp.com
+    - mapadetransporte.com.ar
 
 
 development:
@@ -28,12 +26,3 @@ test:
 
 production:
   <<: *defaults
-
-  custom_domains:
-    - blooming-stream-4501.herokuapp.com
-    - mapadecolectivosmdp.com.ar
-
-  authorized_domains:
-    - blooming-stream-4501.herokuapp.com
-    - mapadecolectivosmdp.com.ar
-

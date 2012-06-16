@@ -24,5 +24,4 @@ class Domain < ActiveRecord::Base
       MyEncryptor.domain_validator(domain_name)
     end
   end
-
 end

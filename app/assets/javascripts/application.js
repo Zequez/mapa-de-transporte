@@ -11,4 +11,3 @@
 //= require ./mdc
 
 //= require ./init
-
