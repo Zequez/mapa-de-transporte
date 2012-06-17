@@ -15,7 +15,8 @@
   .padding
     #header
       %h1
-        %image{src: "/assets/header.png", alt: t('views.buses.header.logo_title', city: @city.name)}
+        %a{href: '/', title: "Lo siento, solo Mar del Plata por ahora."}
+          %image{src: "/assets/header.png", alt: t('views.buses.header.logo_title', city: @city.name)}
 
     #header-bar
       #toggle-help{title: t('views.buses.header_bar.help')} Ayuda

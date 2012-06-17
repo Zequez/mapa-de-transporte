@@ -14,8 +14,6 @@ class CitiesController < InheritedResources::Base
   def show
     @buses = resource.set_shown_buses(params[:buses])
     @bus = (@buses.size == 1) ? @buses[0] : nil # Just show the complete bus information if we are displaying just one bus.
-    L.l params[:buses]
-    L.l @buses
     show!
   end
 
