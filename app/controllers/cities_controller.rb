@@ -20,7 +20,7 @@ class CitiesController < InheritedResources::Base
 
   def show_data
     resource
-    render 'show.qps', layout: false, format: :qps
+    render text: @city.to_qps, format: :qps
   end
 
 

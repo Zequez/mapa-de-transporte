@@ -43,8 +43,7 @@ class SegmentCalculator
 
   fanta: (data)->
     data = data.replace(/^\s+|\s+$/g, "")
-    eq = "===="[0...(data.length % 4)]
-    return from_base(data.split('').reverse().join('') + eq)
+    return from_base(data.split('').reverse().join(''))
    
     
         
