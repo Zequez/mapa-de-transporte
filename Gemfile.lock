@@ -137,6 +137,7 @@ GEM
       polyamorous (~> 0.5.0)
     mime-types (1.17.2)
     multi_json (1.1.0)
+    nokogiri (1.5.4)
     orm_adapter (0.0.6)
     pg (0.13.2)
     polyamorous (0.5.0)
@@ -208,6 +209,10 @@ GEM
       multi_json (>= 1.0.2)
     warden (1.1.1)
       rack (>= 1.0)
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
 
 PLATFORMS
   ruby
@@ -219,6 +224,7 @@ DEPENDENCIES
   closure-compiler
   coffee-rails (~> 3.2.1)
   compass-rails!
+  formtastic
   haml-rails
   inherited_resources
   jquery-rails
@@ -231,3 +237,4 @@ DEPENDENCIES
   spork!
   thin
   uglifier (>= 1.0.3)
+  webrat

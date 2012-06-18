@@ -31,7 +31,13 @@ Spork.prefork do
     config.use_transactional_fixtures = true
   end
 
+  Webrat.configure do |config|
+    config.mode = :rack
+    config.open_error_files = false # prevents webrat from opening the browser
+  end
+
 end
+
 
 Spork.each_run do
 	# This code will be run each time you run your specs.
@@ -40,11 +46,12 @@ Spork.each_run do
   #FactoryGirl.reload
 
   ##require 'rspec/rails'
-  #Dir["#{Rails.root}/app/controllers/**/*.rb"].each do |controller|
-  #  load controller
-  #end
-  #
-  #Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
-  #  load model
-  #end
+  
+  Dir["#{Rails.root}/app/controllers/**/*.rb"].each do |controller|
+    load controller
+  end
+  
+  Dir["#{Rails.root}/app/models/**/*.rb"].each do |model|
+    load model
+  end
 end

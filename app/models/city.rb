@@ -5,6 +5,7 @@ class City < ActiveRecord::Base
   has_many :buses
   has_many :bus_groups, inverse_of: :city
   has_many :domains
+  has_many :feedbacks
 
   validates :name, presence: true, uniqueness: true
   validates :perm, presence: true, uniqueness: true

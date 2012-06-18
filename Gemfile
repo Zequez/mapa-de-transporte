@@ -15,6 +15,7 @@ gem 'haml-rails'
 
 gem 'babosa'
 
+gem 'formtastic'
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'nested_form',  git: 'git://github.com/ryanb/nested_form.git'
 
@@ -37,6 +38,7 @@ gem 'jquery-rails'
 group :test, :development do
   gem 'spork', git: 'git://github.com/sporkrb/spork.git'
   gem 'rspec-rails'
+  gem 'webrat'
 end
 
 group :development do

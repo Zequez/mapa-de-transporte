@@ -5,6 +5,10 @@ es:
 
   error_just_me: Nope, solo yo puedo hacer esto.
 
+  errors:
+    feedback:
+      anti_flood: Gracias por el entusiasmo, pero por favor, esperá al menos 20 segundos entre mensajes :3
+
   views:
     head:
       title: Mapas de Colectivos
@@ -21,6 +25,9 @@ es:
         destino.
       description_bus:
         Mapa dinámico del recorrido del colectivo %{bus} de %{city}.
+
+    feedback:
+      thanks: ¡Gracias por colaborar!
 
     toolbar:
       ads: Publicidad

@@ -34,6 +34,8 @@ module Mdc
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     #config.i18n.default_locale  = :es
     #config.i18n.locale = :es
+    #I18n.locale = :es
+    config.i18n.fallbacks = [:es, :en]
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

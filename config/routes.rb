@@ -4,6 +4,7 @@ Mdc::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
+  resources :feedbacks, only: [:create]
 
   match "/error_404" => "errors#not_found"
   match "/error_500" => "errors#server_error"

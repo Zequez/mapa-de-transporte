@@ -1,0 +1,9 @@
+# Logfile created on 2012-06-17 21:12:20 -0700 by logger.rb/31641
+REQUESTING PAGE: {:NAME=>"ZEQUEZ", :EMAIL=>"ZEQUEZ@GMAIL.COM", :MESSAGE=>"HOLA!", :CITY_ID=>106} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:NAME=>"ZEQUEZ", :EMAIL=>"ZEQUEZ@GMAIL.COM", :MESSAGE=>"HOLA!", :CITY_ID=>107} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:NAME=>"ZEQUEZ", :EMAIL=>"BAD_EMAIL", :MESSAGE=>"HOLA!", :CITY_ID=>108} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:NAME=>"ZEQUEZ", :EMAIL=>"BAD_EMAIL", :MESSAGE=>"HOLA!", :CITY_ID=>109} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:PARAMS=>{:NAME=>"ZEQUEZ", :EMAIL=>"ZEQUEZ@GMAIL.COM", :MESSAGE=>"HOLA!", :CITY_ID=>110}} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:PARAMS=>{:NAME=>"ZEQUEZ", :EMAIL=>"ZEQUEZ@GMAIL.COM", :MESSAGE=>"HOLA!", :CITY_ID=>111}} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:PARAMS=>{:NAME=>"ZEQUEZ", :EMAIL=>"BAD_EMAIL", :MESSAGE=>"HOLA!", :CITY_ID=>112}} /feedbacks with {} and HTTP headers {}
+REQUESTING PAGE: {:PARAMS=>{:NAME=>"ZEQUEZ", :EMAIL=>"BAD_EMAIL", :MESSAGE=>"HOLA!", :CITY_ID=>113}} /feedbacks with {} and HTTP headers {}
