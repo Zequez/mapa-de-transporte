@@ -1291,16 +1291,16 @@ var MapTools = {};
       */
       values = [
         {
-          "hc": this.map_settings,
-          "fh": this.build_gmap,
-          "c": this.calculate_center
+          "hc": this.build_gmap,
+          "fh": this.calculate_center,
+          "c": this.build_gmap
         }, {
-          "dc": this.map_settings,
-          "bb": this.build_gmap,
-          "gf": this.build_gmap
+          "dc": this.make_bounds,
+          "bb": this.make_bounds,
+          "gf": this.calculate_center
         }, {
-          "ce": this.make_bounds,
-          "gh": this.make_bounds,
+          "ce": this.build_gmap,
+          "gh": this.map_settings,
           "ii": this.build_gmap
         }
       ];

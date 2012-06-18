@@ -16,7 +16,6 @@ class MDC.Interface.UrlRewriter
     names = []
     for bus in @buses
       if bus.activated
-        console.log bus.data
         names.push bus.data["perm"]
     names.join(MDC.CONFIG.url_buses_join)
 
