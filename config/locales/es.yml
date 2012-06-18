@@ -9,6 +9,23 @@ es:
     feedback:
       anti_flood: Gracias por el entusiasmo, pero por favor, esperá al menos 20 segundos entre mensajes :3
 
+  activerecord:
+    attributes:
+      feedback:
+        name: Nombre
+        email: Email
+        city: Ciudad
+        message: Mensaje
+
+  formtastic:
+    actions:
+      feedback:
+        create: Enviar
+
+    placeholders:
+      feedback:
+        message: "Estimado ser humano, le escribo este mensaje con el objetivo de comunicarle que..."
+
   views:
     head:
       title: Mapas de Colectivos

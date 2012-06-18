@@ -11,5 +11,6 @@
 //= require ./mdc
 
 //= require ./init
+//= require ./feedbacks
 
  

@@ -30,6 +30,7 @@ ActiveAdmin.register Bus do
         bus.name
       end
     end
+
     column :bus_group
     column :city
     column :card

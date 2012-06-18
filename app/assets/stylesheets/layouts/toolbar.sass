@@ -1,4 +1,6 @@
 #toolbar
+  z-index: 2
+
   position: absolute
   top: 0px
   bottom: 0px
@@ -10,8 +12,9 @@
 
   //width: $toolbar-space
   width: $toolbar-width
-  min-width: 300px
 
+  +box-shadow(-2px 0px 3px rgba(#000, 0.4))
+  
   +text-shadow($black)
 
   overflow: auto
