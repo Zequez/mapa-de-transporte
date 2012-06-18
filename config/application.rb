@@ -79,6 +79,7 @@ module Mdc
       ie.css
       screen.css
       active_admin.js
+      jquery.min.js
     ] + Dir["#{config.root}/app/assets/images/**/"]
   end
 end

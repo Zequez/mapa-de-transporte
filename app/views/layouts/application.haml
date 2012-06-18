@@ -6,6 +6,11 @@
     =javascript_include_tag CONFIG[:gmaps_url]
     =javascript_include_tag CONFIG[:jquery_url]
     -#=javascript_include_tag CONFIG[:]
+    :javascript
+      // Fallback if Google fails, because it fails constantly in *some* sucky browsers.
+      if (typeof jQuery == 'undefined') {
+          document.write(unescape("%3Cscript src='/assets/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
+      }
     =javascript_include_tag "application"
     =csrf_meta_tags
     - if content_for? :head
