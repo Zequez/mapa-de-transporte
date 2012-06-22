@@ -17,6 +17,11 @@ es:
         city: Ciudad
         message: Mensaje
 
+    models:
+      sell_location:
+        one: Punto de venta
+        other: Puntos de venta
+
   formtastic:
     actions:
       feedback:
@@ -45,6 +50,14 @@ es:
 
     feedback:
       thanks: ¡Gracias por colaborar!
+      button: Sugerencias o reporte de errores
+
+    sell_locations_popup:
+      address: Dirección
+      name: Nombre
+      selling: Venta
+      reloading: Recarga
+      ticket: Boletos
 
     toolbar:
       ads: Publicidad
@@ -74,6 +87,7 @@ es:
       header_bar:
         help: Ayuda
         ticket_price: Precio del boleto en %{city}
+        sell_locations: Puntos de venta o carga de tarjeta o boletos
 
       bus_info:
         line: Línea %{bus}

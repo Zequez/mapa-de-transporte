@@ -4,11 +4,27 @@
       %span.bus-number
       .bus-popup-arrow
 
+  #map
+
+  #sell-locations-marker-popup-template.sell-locations-marker-popup
+    %p.location-address
+      %span.label #{t "views.sell_locations_popup.address"}:
+      %span.location-address-data
+    %p.location-name
+      %span.label #{t "views.sell_locations_popup.name"}:
+      %span.location-name-data
+    %p.location-info
+      %span.location-info-data
+    %p.location-actions
+      %span.location-action-selling= t "views.sell_locations_popup.selling"
+      %span.location-action-reload= t "views.sell_locations_popup.reloading"
+      %span.location-action-ticket= t "views.sell_locations_popup.ticket"
+
   -##bus-quick-info
   -#  %h2= @city.name
   -#  = render partial: "/shared/bus-data", locals: {bus: @city, light_icons: true}
   -#  .absolute-light
-  #map
+
 
 #toolbar
   .padding
@@ -18,9 +34,10 @@
           %image{src: "/assets/header.png", alt: t('views.buses.header.logo_title', city: @city.name)}
 
     #header-bar
-      #toggle-help{title: t('views.buses.header_bar.help')} Ayuda
+      #toggle-help{title: t('views.buses.header_bar.help')}= t('views.buses.header_bar.help')
+      #toggle-sell-locations{title: t('views.buses.header_bar.sell_locations')}= t('views.buses.header_bar.sell_locations')
       #city-bus-price{title: t('views.buses.header_bar.ticket_price', city: @city.name)}
-        %span.bus-price-icon Precio del boleto:
+        %span.bus-price-icon #{t('views.buses.header_bar.ticket_price', city: @city.name)}:
         %span.bus-price-money= monetize @city.bus_card
 
     .separator
@@ -87,7 +104,7 @@
 
 #feedback
   #feedback-paledator
-  #feedback-button Sugerencias o reporte de errores
+  #feedback-button= t "views.feedback.button"
   #feedback-padding
     = render template: "feedbacks/new"
     

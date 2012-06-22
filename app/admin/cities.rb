@@ -9,7 +9,7 @@ ActiveAdmin.register City do
   end
 
   action_item :only => :show do
-    link_to('Puntos de venta', edit_sell_locations_admin_city_path(city))
+    link_to(SellLocation.model_name.human, edit_sell_locations_admin_city_path(city))
   end
 
   form partial: "edit_form"
@@ -19,13 +19,13 @@ ActiveAdmin.register City do
     column :name
     column :perm
     column :viewport do |city|
-      city.viewport.blank? ? "No" : "Si"
+      city.viewport.blank? ? t('no') : t("yes")
     end
     
     default_actions
 
     column do |city|
-      link_to "Puntos de venta", edit_sell_locations_admin_city_path(city)
+      link_to SellLocation.model_name.human, edit_sell_locations_admin_city_path(city)
     end
   end
 end

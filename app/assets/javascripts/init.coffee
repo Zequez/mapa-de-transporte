@@ -1,3 +1,5 @@
 city_path = location.pathname.match(/\/[^/]+/)
 $.get "#{city_path}/qps", (result)->
-  $ -> new MDC.Builder(result, true)
+  $ ->
+    # Remove on production, just for testing.
+    window.ASD = new MDC.Builder(result, true)
