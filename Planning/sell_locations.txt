@@ -1,0 +1,33 @@
+Puntos de carga
+Tabla: sell_locations lat:float lng:float name:string address:string info:string created_at:datetime card_selling:boolean:false card_reloading:boolean:false ticket_selling:boolean
+Modelo: sell_location
+Controlador: Ninguno
+Controlador Admin: Sí
+Agregar imagen opcional para cada entrada.
+Agregar "enviar imagen" para este lugar. Cuando le pasás el mouse por encima.
+
+Agregar método de pago "boleto" (por Tandil, y seguramente otras ciudades)
+
+
+En Coffee:
+
+MDC.SellLocations.Manager
+MDC.SellLocations.UI
+MDC.SellLocations.Displayer
+MDC.SellLocations.Marker
+MDC.SellLocations.MarkerPopup
+
+En admin:
+
+Mapa a la derecha, textbox a la izquierda.
+Escribiendo en el textbox se busca automáticamente la dirección en el mapa
+la cual puede ser modificada manualmente. Esta info de latitud y longitud se guarda en el formulario.
+La textbox tiene a la derecha otra textbox para poner el nombre. Y otra para poner una descripción.
+También tiene 3 boxes para seleccionar si se venden tarjetas, se cargan tarjetas y/o se venden boletos.
+También una cruz para borrar el lugar.
+
+Script crea al manager.
+SellLocationsEditor.Manager
+SellLocationsEditor.SellLocation
+SellLocationsEditor.FormElement
+SellLocationsEditor.Marker

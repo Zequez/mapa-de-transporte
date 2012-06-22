@@ -15,6 +15,7 @@ gem 'haml-rails'
 
 gem 'babosa'
 
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'formtastic'
 gem 'activeadmin', git: 'git://github.com/gregbell/active_admin.git'
 gem 'nested_form',  git: 'git://github.com/ryanb/nested_form.git'

@@ -6,6 +6,9 @@ class City < ActiveRecord::Base
   has_many :bus_groups, inverse_of: :city
   has_many :domains
   has_many :feedbacks
+  has_many :sell_locations, order: "address ASC"
+
+  accepts_nested_attributes_for :sell_locations, allow_destroy: true
 
   validates :name, presence: true, uniqueness: true
   validates :perm, presence: true, uniqueness: true
@@ -55,6 +58,16 @@ class City < ActiveRecord::Base
     end
   end
 
+  #def json_sell_locations
+  #  sell_locations.to_json(only: [:id, :lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling])
+  #end
+
+  #def json_sell_locations=(json_sell_locations)
+  #  begin
+  #    assign_attributes :sell_locations, JSON.parse(json_sell_locations)
+  #  end
+  #end
+
   def set_shown_buses(buses)
     buses = Bus.ids_from_perms buses
 
@@ -84,6 +97,13 @@ class City < ActiveRecord::Base
                   visible_buses: { only: [:id, :name, :perm, :encoded_departure_route, :encoded_return_route, :is_shown] }
                 }
               },
+            }).html_safe
+  end
+
+  def to_sell_locations_editor_json
+    to_json(only: [:viewport, :name, :country, :region_tag],
+            include: {
+              sell_locations: {only: [:id, :lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling]}
             }).html_safe
   end
 

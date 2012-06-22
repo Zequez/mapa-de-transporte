@@ -1,0 +1,30 @@
+body.edit_sell_locations
+  form
+    float: left
+    width: 30%
+
+    .sell_location
+      [type="text"]
+        width: 17%
+
+      select
+        width: 9%
+
+      .remove
+        float: right
+        margin-top: 2px
+        padding: 2px
+
+        font-weight: bold
+        color: red
+
+        cursor: pointer
+
+        &:hover
+          background-color: red
+          color: white
+
+
+  #map
+    float: left
+    width: 68%

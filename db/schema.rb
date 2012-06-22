@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120618073115) do
+ActiveRecord::Schema.define(:version => 20120621120543) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20120618073115) do
     t.integer "bus_end_time"
     t.integer "bus_card"
     t.integer "bus_cash"
+    t.integer "bus_ticket"
   end
 
   add_index "bus_groups", ["name"], :name => "index_bus_groups_on_name"
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20120618073115) do
     t.integer  "cash"
     t.string   "alert_message"
     t.string   "perm"
+    t.integer  "ticket"
   end
 
   add_index "buses", ["name", "city_id", "bus_group_id"], :name => "index_buses_on_name_and_city_id_and_bus_group_id"
@@ -102,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20120618073115) do
     t.boolean "show_bus_cash",  :default => true,        :null => false
     t.string  "country",        :default => "Argentina"
     t.string  "region_tag",     :default => "AR"
+    t.integer "bus_ticket"
   end
 
   add_index "cities", ["perm"], :name => "index_cities_on_perm"
@@ -132,6 +135,23 @@ ActiveRecord::Schema.define(:version => 20120618073115) do
     t.integer "departure_bus_id"
     t.integer "return_bus_id"
     t.text    "formatted_addresses"
+  end
+
+  create_table "sell_locations", :force => true do |t|
+    t.float    "lat"
+    t.float    "lng"
+    t.string   "name"
+    t.string   "address"
+    t.string   "info"
+    t.datetime "created_at"
+    t.boolean  "card_selling"
+    t.boolean  "card_reloading"
+    t.boolean  "ticket_selling"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.integer  "city_id"
   end
 
 end
