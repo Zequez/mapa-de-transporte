@@ -11,6 +11,8 @@
       if (typeof jQuery == 'undefined') {
           document.write(unescape("%3Cscript src='/assets/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));
       }
+    :javascript
+      window.cache_time = #{Time.now.to_i};
     =javascript_include_tag "application"
     =csrf_meta_tags
     - if content_for? :head
@@ -29,7 +31,7 @@
 
     = render partial: 'shared/google_analytics'
 
-  %body{"city-url" =>  city_url}
+  %body
     :erb
       <div id="fb-root"></div>
       <script>(function(d, s, id) {

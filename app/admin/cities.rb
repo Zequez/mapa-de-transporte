@@ -21,7 +21,12 @@ ActiveAdmin.register City do
     column :viewport do |city|
       city.viewport.blank? ? t('no') : t("yes")
     end
-    
+    column :show_bus_card
+    column :show_bus_cash
+    column :show_bus_ticket
+
+    column :sell_points_visibility
+
     default_actions
 
     column do |city|

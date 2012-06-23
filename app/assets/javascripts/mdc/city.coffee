@@ -9,6 +9,7 @@ class MDC.City
     @build_help_bar()
     @build_bus_groups(data)
     @build_directions_manager()
+    @build_sell_locations_manager(data.sell_locations)
     @build_url_rewriter()
     @build_bus_info()
 
@@ -28,13 +29,15 @@ class MDC.City
       @buses = @buses.concat bus_group.buses
       bus_group
 
-  build_bus_info: ->
-    @bus_info = new MDC.BusInfo()
 
   build_directions_manager: ->
     @directions_manager = new MDC.Directions.Manager(@map, @buses)
 
+  build_sell_locations_manager: (sell_locations_data)->
+    @sell_locations_manager = new MDC.SellLocations.Manager(sell_locations_data, @map)
+
   build_url_rewriter: ->
-    @buses_url_rewriter = new MDC.Interface.UrlRewriter(@buses)
+    @buses_url_rewriter = new MDC.Interface.UrlRewriter(@buses, @sell_locations_manager)
 
-
+  build_bus_info: ->
+    @bus_info = new MDC.BusInfo()

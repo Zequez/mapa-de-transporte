@@ -9,7 +9,6 @@ class MDC.SellLocations.Marker
     @marker = new $G.Marker @marker_options()
 
   marker_options: ->
-    console.log @get_image()
     {
       map: @gmap
       position: @get_latlng()
@@ -57,7 +56,7 @@ class MDC.SellLocations.Marker
 
   hide: ->
     @marker.setVisible false
-    @popup.hide()
+    @hide_popup()
 
 
   get_image: ->

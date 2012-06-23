@@ -97,6 +97,9 @@ class City < ActiveRecord::Base
                   visible_buses: { only: [:id, :name, :perm, :encoded_departure_route, :encoded_return_route, :is_shown] }
                 }
               },
+              sell_locations: {
+                only: [:lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling]
+              }
             }).html_safe
   end
 

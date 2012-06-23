@@ -1,5 +1,25 @@
 = semantic_form_for [:admin, resource] do |f|
-  = f.inputs :name, :perm, :bus_delay, :bus_start_time, :bus_end_time, :bus_cash, :bus_card, :json_viewport
+  = f.inputs name: "Info" do
+    = f.input :name
+    = f.input :perm
+    = f.input :country, as: :string
+    = f.input :region_tag
+
+  = f.inputs name: "Buses" do
+    = f.input :bus_delay
+    = f.input :bus_start_time
+    = f.input :bus_end_time
+    = f.input :bus_cash
+    = f.input :bus_card
+    = f.input :bus_ticket
+    = f.input :show_bus_cash
+    = f.input :show_bus_card
+    = f.input :show_bus_ticket
+
+  = f.inputs name: "Otros" do
+    = f.input :json_viewport
+    = f.input :sell_points_visibility
+
   = f.actions
 
   #map

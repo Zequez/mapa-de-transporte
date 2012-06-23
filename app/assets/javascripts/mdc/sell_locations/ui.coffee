@@ -1,14 +1,18 @@
 class MDC.SellLocations.UI extends Utils.Eventable
   constructor: ->
     @find_elements()
+    @read_state()
     @bind_elements()
 
   find_elements: ->
     @button = $$('toggle-sell-locations')
 
+  read_state: ->
+    @activated = @button.is('.toggled')
+
   bind_elements: ->
     @button.click =>
-      if @button.is('.toggled')
+      if @read_state()
         @fire_event('deactivated')
         @deactivate()
       else
@@ -16,7 +20,9 @@ class MDC.SellLocations.UI extends Utils.Eventable
         @activate()
 
   activate: ->
+    @activated = true
     @button.addClass('toggled')
 
   deactivate: ->
+    @activated = false
     @button.removeClass('toggled')

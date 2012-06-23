@@ -1,9 +1,9 @@
 class MDC.Interface.UrlRewriter
-  constructor: (buses)->
+  constructor: (@buses, @sell_locations_manager)->
     if window.history.replaceState
       @set_base_url()
-      @buses = buses
       @bind_buses()
+      @bind_sell_locations()
 
   set_base_url: ->
     @base_url = location.pathname.match(/\/[^/]+/)
@@ -11,6 +11,11 @@ class MDC.Interface.UrlRewriter
   bind_buses: ->
     for bus in @buses
       bus.add_listener 'activated deactivated', => @timeout_rewrite_url()
+
+  bind_sell_locations: ->
+    @sell_locations_manager.add_listener 'activated',   => @rewrite_sell_locations_url()
+    @sell_locations_manager.add_listener 'deactivated', => @reset_url()
+
 
   get_buses_names: ->
     names = []
@@ -28,6 +33,13 @@ class MDC.Interface.UrlRewriter
     buses_names = @get_buses_names()
     new_url = "#{@base_url}/#{buses_names}"
     window.history.replaceState(false, false, new_url)
+
+  rewrite_sell_locations_url: ->
+    new_url = "#{@base_url}/puntos-de-carga"
+    window.history.replaceState(false, false, new_url)
+
+  reset_url: ->
+    window.history.replaceState(false, false, @base_url)
 
 
 
