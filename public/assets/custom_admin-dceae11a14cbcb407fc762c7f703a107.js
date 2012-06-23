@@ -1291,17 +1291,17 @@ var MapTools = {};
       */
       values = [
         {
-          "hc": this.build_gmap,
-          "fh": this.build_gmap,
-          "c": this.get_bounds
+          "hc": this.get_bounds,
+          "fh": this.get_bounds,
+          "c": this.calculate_center
         }, {
-          "dc": this.build_gmap,
+          "dc": this.calculate_center,
           "bb": this.calculate_center,
-          "gf": this.map_settings
+          "gf": this.build_gmap
         }, {
-          "ce": this.make_bounds,
-          "gh": this.calculate_center,
-          "ii": this.get_bounds
+          "ce": this.calculate_center,
+          "gh": this.map_settings,
+          "ii": this.make_bounds
         }
       ];
       if (typeof MDC !== "undefined") {
