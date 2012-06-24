@@ -19,9 +19,8 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
       ticket_selling: null,
       visibility: true,
       inexact: false,
-      manual: false
+      manual_position: false
     }, data
-
 
     @build_form_element()
     @bind_form_element()

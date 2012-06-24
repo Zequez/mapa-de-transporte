@@ -19,24 +19,20 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
 
   build_inputs: ->
     inputs   = @element.find(':input')
-    @all_inputs = []
+    @all_inputs = inputs
     @inputs  = {}
     @data._destroy = false
     for name, value of @data
       input = inputs.filter("[name*='#{name}']").last()
       if input.length > 0
         @inputs[name] = input
-        @all_inputs.push input[0]
-      else
-        console.log name
-    @all_inputs = $(@all_inputs)
 
   fill_element: ->
     for i, val of @data
       @fill_input i, val
 
   replace_name: ->
-    for input in @inputs
+    @all_inputs.each (i, input)=>
       input.name = input.name.replace('[0]', "[#{@number}]")
 
   fill_input: (name, value)->
