@@ -29,16 +29,20 @@ class AdminCity.AddressFetcher
   fetch_now: (address, callback)->
     @fetching = true
     console.log "Fetching...", address
-    @geocoder.geocode @options(address), (results, status)=>
+    options = @options(address)
+    console.log "Options", options
+    @geocoder.geocode options, (results, status)=>
       console.log results
       @fetching = false
       @last_fetch_time = @time()
       if status == 'OK'
         console.log "Success!"
-        callback @parse_result(results[0])
+        result = @parse_results(results)
+        console.log "Approximated shitty result..." if not result[1]
+        callback result[0], result[1]
       else
         console.log "FAILED!", status
-        callback false
+        callback false, false
 
   at_least_one_second_passed: ->
     @last_fetch_time < @time()
@@ -52,6 +56,11 @@ class AdminCity.AddressFetcher
       region: @region
     }
 
-  parse_result: (result)->
-#    console.log "Parsed result...", result
-    result.geometry.location
+  parse_results: (results)->
+    result = results[0]
+    console.log "Gathering results from, ", result
+    approximated = (result.geometry.location_type == "APPROXIMATE")
+    partial_match = !!result.partial_match
+    location = result.geometry.location
+
+    [location, !(approximated || partial_match)]

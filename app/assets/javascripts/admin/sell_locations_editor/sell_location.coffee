@@ -71,7 +71,7 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
     @marker.unhighlight()
 
   fetch_address: ->
-    @city.fetch_address @form_element.address_val(), (latlng)=>
+    @city.fetch_address @form_element.address_val(), (latlng, partial_match)=>
       @update_from_fetching(latlng)
       @update_marker(latlng)
 
@@ -90,5 +90,7 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
     @marker.set_latlng(latlng)
 
 
-    
-
+#class FormDataHandler
+#  constructor: (inputs)->
+#
+#
