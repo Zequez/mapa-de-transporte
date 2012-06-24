@@ -1,19 +1,28 @@
 body.edit_sell_locations
   form
+    +clearfix
     float: left
-    width: 30%
+    width: 900px
 
     .sell_location
       [type="text"]
-        width: 17%
+        width: 150px
 
       select
-        width: 9%
+        width: 50px
+
+      label
+        width: auto
+        float: none
+        display: inline-block
 
       .remove
         float: right
+
         margin-top: 2px
         padding: 2px
+
+        width: 10px
 
         font-weight: bold
         color: red
@@ -26,5 +35,6 @@ body.edit_sell_locations
 
 
   #map
-    float: left
-    width: 68%
+    clear: both
+    width: 600px
+    height: 500px

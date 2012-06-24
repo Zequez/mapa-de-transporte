@@ -8,16 +8,28 @@
 class SellLocationsEditor.FormElement extends Utils.Eventable
   constructor: (@data, @template, @number)->
     @build_elements()
+    @build_inputs()
     @fill_element()
     @replace_name()
     @bind_elements()
 
   build_elements: ->
     @element  = @template.clone()
-    @inputs   = @element.find(':input')
     @close    = @element.find('.remove')
-    @address  = @inputs.filter('[name*="address"]')
-    @delete_e = @inputs.filter('[name*="_destroy"]')
+
+  build_inputs: ->
+    inputs   = @element.find(':input')
+    @all_inputs = []
+    @inputs  = {}
+    @data._destroy = false
+    for name, value of @data
+      input = inputs.filter("[name*='#{name}']").last()
+      if input.length > 0
+        @inputs[name] = input
+        @all_inputs.push input[0]
+      else
+        console.log name
+    @all_inputs = $(@all_inputs)
 
   fill_element: ->
     for i, val of @data
@@ -28,26 +40,46 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
       input.name = input.name.replace('[0]', "[#{@number}]")
 
   fill_input: (name, value)->
-    if typeof(value) == "boolean"
-      if value
-        value = 1
-      else
-        value = 0
-    @element.find("[name*='#{name}']").val value
+    input = @inputs[name]
+
+    if input.prop('type') == 'checkbox'
+      input.prop('checked', value)
+    else
+      if input.prop('tagName') == 'SELECT'
+        if typeof(value) == "boolean"
+          if value
+            value = 1
+          else
+            value = 0
+
+      input.val value
+
+  gather_input: (name)->
+    input = @inputs[name]
+
+    if input.prop('type') == 'checkbox'
+      value = input.is(':checked')
+    else
+      value = $(input).val()
+
+    @data[name] = value
 
   bind_elements: ->
-    @inputs.keypress (e)=>
+    @all_inputs.keypress (e)=>
       if e.charCode == 13
         e.preventDefault()
-        @fire_event('enter')
+        @fire_event('enter', @inheritable_data())
 
-    @inputs.focus (e)=>
+    @all_inputs.focus (e)=>
       @fire_event('focus')
 
-    @inputs.change (e)=>
+    @all_inputs.change (e)=>
+      data_name = e.target.name.match(/\[([^[]+)\]$/)[1]
+      @gather_input data_name
+
       @fire_event('change')
 
-    @address.change (e)=>
+    @inputs.address.change (e)=>
       @fire_event('address_change')
 
     @close.click =>
@@ -56,7 +88,7 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
 
   append_to: (parent)->
     parent.append @element
-    @address.focus()
+    @inputs.address.focus()
 
   remove: ->
     if not @data.id
@@ -65,14 +97,25 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
       @delete_e.val true
       @element.hide()
 
-
   address_val: ->
-    @address.val()
+    @inputs.address.val()
 
   set_latlng: (latlng)->
     @fill_input 'lat', latlng.lat()
     @fill_input 'lng', latlng.lng()
 
+  set_manual_position: (boolean)->
+    @fill_input('manual_position', boolean)
+
+  focus: ->
+    @inputs.address.focus()
+
+  inheritable_data: ->
+    {
+      card_selling: @data.card_selling
+      card_reloading: @data.card_reloading
+      ticket_selling: @data.ticket_selling
+    }
 
 
     

@@ -6,30 +6,30 @@
     = f.input :bus_card
     = f.input :bus_cash
     = f.input :bus_ticket
-    -#= f.input :json_sell_locations, as: :text
+
     %li#sell_locations_container
       %div#sell_location_template.sell_location
-        %input{name: "city[sell_locations_attributes][0][id]",             type: "hidden"}
-        %input{name: "city[sell_locations_attributes][0][lat]",            type: "hidden"}
-        %input{name: "city[sell_locations_attributes][0][lng]",            type: "hidden"}
-        %input{name: "city[sell_locations_attributes][0][_destroy]",       type: "hidden"}
-        %input{name: "city[sell_locations_attributes][0][address]",        type: "text",     placeholder: "Dirección"}
-        %input{name: "city[sell_locations_attributes][0][name]",           type: "text",     placeholder: "Nombre"}
-        %input{name: "city[sell_locations_attributes][0][info]",           type: "text",     placeholder: "Información"}
-        %select{name: "city[sell_locations_attributes][0][card_selling]",   type: "checkbox", title: "Venta de tarjetas"}
-          %option{value: ''}  Card selling
-          %option{value: '1'} Yes
-          %option{value: '0'} No
+        = fields_for "city[sell_locations_attributes][0]" do |ff|
+          = ff.hidden_field :id
+          = ff.hidden_field :lat
+          = ff.hidden_field :lng
+          = ff.hidden_field :_destroy
+          = ff.text_field   :address, placeholder: "Dirección"
+          = ff.text_field   :name, placeholder: "Nombre"
+          = ff.text_field   :info, placeholder: "Info"
+          = ff.select :card_selling, {"Venta de tarjetas" => '', 'Sí' => 1, 'No' => 0}
+          = ff.select :card_reloading, {"Recarga de tarjetas" => '', 'Sí' => 1, 'No' => 0}
+          = ff.select :ticket_selling, {"Venta de tickets" => '', 'Sí' => 1, 'No' => 0}
+          %label
+            Visib
+            = ff.check_box :visibility, title: "Visibilidad"
+          %label
+            Inexa
+            = ff.check_box :inexact, title: "Inexacto"
+          %label
+            Manual
+            = ff.check_box :manual_position, title: "Posicionamiento manual"
 
-        %select{name: "city[sell_locations_attributes][0][card_reloading]", type: "checkbox", title: "Recarga de tarjetas"}
-          %option{value: ''}  Card reload
-          %option{value: '1'} Yes
-          %option{value: '0'} No
-
-        %select{name: "city[sell_locations_attributes][0][ticket_selling]", type: "checkbox", title: "Venta de boletos"}
-          %option{value: ''}  Ticket selling
-          %option{value: '1'} Yes
-          %option{value: '0'} No
         .remove X
         
   = f.actions :submit

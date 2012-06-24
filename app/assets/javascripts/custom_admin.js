@@ -4,6 +4,6 @@
 //= require ./utils
 //= require ./map_tools
 //= require_tree ./admin
-
+  
 
 true;

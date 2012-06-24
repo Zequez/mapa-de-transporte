@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120623130225) do
+ActiveRecord::Schema.define(:version => 20120623232747) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -154,6 +154,9 @@ ActiveRecord::Schema.define(:version => 20120623130225) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.integer  "city_id"
+    t.boolean  "visibility",           :default => true,  :null => false
+    t.boolean  "inexact",              :default => false, :null => false
+    t.boolean  "manual_position",      :default => false, :null => false
   end
 
 end

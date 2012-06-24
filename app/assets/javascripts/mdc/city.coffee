@@ -9,7 +9,7 @@ class MDC.City
     @build_help_bar()
     @build_bus_groups(data)
     @build_directions_manager()
-    @build_sell_locations_manager(data.sell_locations)
+    @build_sell_locations_manager(data["visible_sell_locations"])
     @build_url_rewriter()
     @build_bus_info()
 

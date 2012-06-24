@@ -1,5 +1,6 @@
 # Events
 # - change
+# - select
 
 class SellLocationsEditor.Marker extends Utils.Eventable
   constructor: (@gmap, @latlng)->
@@ -23,6 +24,9 @@ class SellLocationsEditor.Marker extends Utils.Eventable
   bind_marker: ->
     $G.event.addListener @marker, 'dragend', (latlng)=>
       @fire_event('change', latlng.latLng)
+
+    $G.event.addListener @marker, 'click', =>
+      @fire_event('select')
 
   highlight: ->
     @marker.setIcon @red_icon()

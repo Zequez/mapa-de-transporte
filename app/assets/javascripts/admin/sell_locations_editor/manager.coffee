@@ -15,6 +15,7 @@ class SellLocationsEditor.Manager
   parse_template: ->
     @form_template.remove()
     @form_template.removeAttr('id')
+    @form_template.find(':input').removeAttr('id')
 
   build_city: ->
     @city = new AdminCity.Builder(@city_data, @map)
@@ -35,8 +36,8 @@ class SellLocationsEditor.Manager
     @bind_sell_location(sell_location)
 
   bind_sell_location: (sell_location)->
-    sell_location.add_listener 'enter', =>
-      @build_sell_location()
+    sell_location.add_listener 'enter', (data)=>
+      @build_sell_location(data)
 
     sell_location.add_listener 'remove', =>
       @remove_sell_location sell_location

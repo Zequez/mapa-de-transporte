@@ -20,7 +20,11 @@ class City < ActiveRecord::Base
   scope :for_show, includes(bus_groups: [:buses])#: [:departure_route, :return_route]])
 
   scope :domain, lambda{|domain|}
-  
+
+  def visible_sell_locations
+    @visible_sell_locations ||= sell_locations.visible.all
+  end
+
   def set_perm
     self.perm = name.to_slug.normalize.to_s
   end
@@ -97,7 +101,7 @@ class City < ActiveRecord::Base
                   visible_buses: { only: [:id, :name, :perm, :encoded_departure_route, :encoded_return_route, :is_shown] }
                 }
               },
-              sell_locations: {
+              visible_sell_locations: {
                 only: [:lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling]
               }
             }).html_safe
@@ -106,7 +110,21 @@ class City < ActiveRecord::Base
   def to_sell_locations_editor_json
     to_json(only: [:viewport, :name, :country, :region_tag],
             include: {
-              sell_locations: {only: [:id, :lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling]}
+              sell_locations: {
+                only: [:id,
+                       :lat,
+                       :lng,
+                       :address,
+                       :name,
+                       :info,
+                       :card_selling,
+                       :card_reloading,
+                       :ticket_selling,
+                       :ticket_selling,
+                       :visibility,
+                       :inexact,
+                       :manual_position]
+              }
             }).html_safe
   end
 

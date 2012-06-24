@@ -16,7 +16,10 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
       lng: 0,
       card_selling:   null,
       card_reloading: null,
-      ticket_selling: null
+      ticket_selling: null,
+      visibility: true,
+      inexact: false,
+      manual: false
     }, data
 
 
@@ -28,13 +31,17 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
     @form_element = new SellLocationsEditor.FormElement(@data, @template, @number)
 
   bind_form_element: ->
-    @inherit_listener(@form_element, 'enter')
     @inherit_listener(@form_element, 'remove')
+
+    @form_element.add_listener 'enter', (e)=>
+      @fire_event('enter', e)
 
     @form_element.add_listener 'focus', =>
       @fire_event('focus', this)
 
-    @form_element.add_listener 'address_change', => @fetch_address()
+    @form_element.add_listener 'address_change', =>
+      if not @form_element.data.manual_position
+        @fetch_address()
 
   create_marker: (latlng)->
     latlng = new $G.LatLng @data.lat, @data.lng
@@ -43,7 +50,11 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
 
   bind_marker: ->
     @marker.add_listener 'change', (latlng)=>
-      @update_form_latlng(latlng)
+      @update_from_dragging(latlng)
+
+    @marker.add_listener 'select', =>
+      console.log 'click'
+      @form_element.focus()
 
   append_to: (parent)->
     @form_element.append_to(parent)
@@ -60,14 +71,21 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
     @highlighted = false
     @marker.unhighlight()
 
-
   fetch_address: ->
     @city.fetch_address @form_element.address_val(), (latlng)=>
-      @update_form_latlng(latlng)
+      @update_from_fetching(latlng)
       @update_marker(latlng)
+
+  update_from_fetching: (latlng)->
+    @update_form_latlng(latlng)
+
+  update_from_dragging: (latlng)->
+    @form_element.set_manual_position(true)
+    @update_form_latlng(latlng)
 
   update_form_latlng: (latlng)->
     @form_element.set_latlng(latlng)
+
 
   update_marker: (latlng)->
     @marker.set_latlng(latlng)
