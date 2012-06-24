@@ -92,7 +92,7 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
     if not @data.id
       @element.remove()
     else
-      @delete_e.val true
+      @inputs._destroy.val true
       @element.hide()
 
   address_val: ->

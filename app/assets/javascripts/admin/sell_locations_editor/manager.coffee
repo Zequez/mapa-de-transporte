@@ -1,5 +1,6 @@
 class SellLocationsEditor.Manager
   sell_locations: []
+  number: 0
 
   constructor: (@city_data)->
     @find_elements()
@@ -28,7 +29,7 @@ class SellLocationsEditor.Manager
       @build_sell_location()
 
   build_sell_location: (data = false)->
-    sell_location = new SellLocationsEditor.SellLocation(data, @form_template, @city, @sell_locations.length)
+    sell_location = new SellLocationsEditor.SellLocation(data, @form_template, @city, @number++)
 
     sell_location.append_to(@container)
 

@@ -30,6 +30,7 @@ class AdminCity.AddressFetcher
     @fetching = true
     console.log "Fetching...", address
     options = @options(address)
+    console.log $.param(options)
     console.log "Options", options
     @geocoder.geocode options, (results, status)=>
       console.log results
@@ -38,7 +39,7 @@ class AdminCity.AddressFetcher
       if status == 'OK'
         console.log "Success!"
         result = @parse_results(results)
-        console.log "Approximated shitty result..." if not result[1]
+#        console.log "Approximated shitty result..." if not result[1]
         callback result[0], result[1]
       else
         console.log "FAILED!", status
@@ -58,9 +59,13 @@ class AdminCity.AddressFetcher
 
   parse_results: (results)->
     result = results[0]
+
     console.log "Gathering results from, ", result
+
+    # This doesn't say shit. Is worthless information given by Google.
     approximated = (result.geometry.location_type == "APPROXIMATE")
     partial_match = !!result.partial_match
+
     location = result.geometry.location
 
     [location, !(approximated || partial_match)]
