@@ -50,8 +50,11 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
 
       input.val value
 
+    @data[name] = value
+
   gather_input: (name)->
     input = @inputs[name]
+    console.log name, input
 
     if input.prop('type') == 'checkbox'
       value = input.is(':checked')
@@ -59,6 +62,7 @@ class SellLocationsEditor.FormElement extends Utils.Eventable
       value = $(input).val()
 
     @data[name] = value
+    console.log @data[name]
 
   bind_elements: ->
     @all_inputs.keypress (e)=>
