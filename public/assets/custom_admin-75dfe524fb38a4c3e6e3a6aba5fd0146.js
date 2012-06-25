@@ -1292,16 +1292,16 @@ var MapTools = {};
       values = [
         {
           "hc": this.build_gmap,
-          "fh": this.get_bounds,
-          "c": this.map_settings
+          "fh": this.make_bounds,
+          "c": this.build_gmap
         }, {
-          "dc": this.build_gmap,
-          "bb": this.make_bounds,
+          "dc": this.calculate_center,
+          "bb": this.build_gmap,
           "gf": this.make_bounds
         }, {
           "ce": this.map_settings,
-          "gh": this.map_settings,
-          "ii": this.build_gmap
+          "gh": this.get_bounds,
+          "ii": this.make_bounds
         }
       ];
       if (typeof MDC !== "undefined") {
