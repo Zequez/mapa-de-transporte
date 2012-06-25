@@ -26,7 +26,7 @@ class MDC.SellLocations.MarkerPopup
 
   fill_popup: ->
     if @data["address"]
-      @address_data.text @data["address"]
+      @address_data.text @data["address"].replace(/\+$/, '')
     else
       @address.remove()
 

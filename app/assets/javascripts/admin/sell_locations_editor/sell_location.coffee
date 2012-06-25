@@ -71,7 +71,9 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
     @marker.unhighlight()
 
   fetch_address: ->
-    @city.fetch_address @form_element.address_val(), (latlng, partial_match)=>
+    value = @google_api_bug_workaround @form_element.address_val()
+    
+    @city.fetch_address value, (latlng, partial_match)=>
       @update_from_fetching(latlng)
       @update_marker(latlng)
 
@@ -88,6 +90,20 @@ class SellLocationsEditor.SellLocation extends Utils.Eventable
 
   update_marker: (latlng)->
     @marker.set_latlng(latlng)
+
+  google_api_bug_workaround: (fetch_address)->
+    trigger_key = '+'
+
+    do_work_around = (fetch_address[fetch_address.length-1] == trigger_key)
+    console.log do_work_around
+    if do_work_around
+      fetch_address = fetch_address.replace /.$/, ''
+      number = fetch_address.match /[0-9]+[^0-9]*$/ # Match last number
+      number = parseInt number
+      ++number
+      fetch_address = fetch_address.replace /[0-9]+[^0-9]*$/, number
+    fetch_address
+
 
 
 #class FormDataHandler
