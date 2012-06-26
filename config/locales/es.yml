@@ -42,11 +42,11 @@ es:
         colectivos en un mapa y descubrir automáticamente las rutas más cortas para llegar a tu
         destino.
       description_city:
-        Mapa de Colectivos %{city} es un sitio web que te permite ver los recorridos de los
+        MapaDeTransporte.com.ar es un sitio web que te permite ver los recorridos de los
         colectivos de %{city} en un mapa y descubrir automáticamente las rutas más cortas para llegar a tu
         destino.
       description_bus:
-        Mapa dinámico del recorrido del colectivo %{bus} de %{city}.
+        Mapa interactivo del recorrido del colectivo %{bus} de %{city}.
 
     feedback:
       thanks: ¡Gracias por colaborar!
