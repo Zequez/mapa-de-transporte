@@ -1,23 +1,25 @@
-#buses-info
-  .toggle{"data-toggled" => "&#9650;", "data-not-toggled" => "&#9660;", title: t('views.buses.bus_info.toggle')}
-    &#9660;
-  .bus-info.toggled{id: "bus-info-#{bus.id}"}
-    %h2{title: t("views.buses.bus_info.line", bus: bus.name)}= bus.name
-    -#= render partial: "/shared/bus-data", locals: {bus: bus}
-    -#.bus-pictures
-    .bus-routes
-      - if bus.circular_route?
-        - if bus.route
-          .bus-departure-route
-            %span{title: t("views.buses.bus_info.departure_return_route")} #{t("views.buses.bus_info.departure_return")}:
-            != bus.route.formatted_addresses
-      - else
-        - if bus.departure_route
-          .bus-departure-route
-            %span{title: t("views.buses.bus_info.departure_route")} #{t "views.buses.bus_info.departure"}:
-            != bus.departure_route.formatted_addresses
-        - if bus.return_route
-          .bus-return-route
-            %span{title: t("views.buses.bus_info.return_route")} #{t "views.buses.bus_info.return"}:
-            != bus.return_route.formatted_addresses
-    .separator
+#bus-info.toggleable.toggled
+  -#.bus-info{id: "bus-info-#{bus.id}"}
+  %div{title: t("views.buses.bus_info.line_toggle", bus: bus.name)}
+    = toolbar_toggler
+    %h2
+      = bus.name
+
+  -#= render partial: "/shared/bus-data", locals: {bus: bus}
+  -#.bus-pictures
+  .bus-routes
+    - if bus.circular_route?
+      - if bus.route
+        .bus-departure-route
+          %span{title: t("views.buses.bus_info.departure_return_route")} #{t("views.buses.bus_info.departure_return")}:
+          != bus.route.formatted_addresses
+    - else
+      - if bus.departure_route
+        .bus-departure-route
+          %span{title: t("views.buses.bus_info.departure_route")} #{t "views.buses.bus_info.departure"}:
+          != bus.departure_route.formatted_addresses
+      - if bus.return_route
+        .bus-return-route
+          %span{title: t("views.buses.bus_info.return_route")} #{t "views.buses.bus_info.return"}:
+          != bus.return_route.formatted_addresses
+  .separator

@@ -1,5 +1,7 @@
 //= require_self
 //= require ./mdc/settings
+//= require ./mdc/interface
+//= require ./mdc/interface/toggleable
 //= require_tree ./mdc
 
 // Declaring this in JavaScript we avoid to have to

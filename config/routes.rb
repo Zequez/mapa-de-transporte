@@ -20,6 +20,8 @@ Mdc::Application.routes.draw do
 
     member do
       get "qps" => "cities#show_data", as: :show_data
+      get "puntos-de-carga" => "cities#show", sell_locations: true
+      get "puntos-de-venta" => "cities#show", sell_locations: true, ticket_locations: true
       get ":buses" => "cities#show"
     end
   end

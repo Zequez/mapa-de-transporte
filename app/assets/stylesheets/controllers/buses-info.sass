@@ -1,59 +1,49 @@
-#buses-info
+//#buses-info
+#bus-info
   //.bus-info-loader
   //  padding-top: 50px
   //  // For some reason this is not the same as doing "center center" :|
   //  background: url(loader.gif) center #{25px - 16px} no-repeat
   //  dispay: none
 
-  &:hover
-    > .toggle
-      display: block
-
-
   h2
     margin-bottom: $m
-    font-size: 1.5em
     text-align: center
 
   .bus-routes
     display: none
 
   &.toggled
-    h2
-      font-size: 2.5em
-
     .bus-routes
       display: block
 
 
-  .bus-info
-    +clearfix
+  //.bus-info
+  +clearfix
 
-    +text-shadow($black)
-
-    //&.hover-show
-    //  position: absolute
-    //  top: 0px
-    //  left: 0px
-    //  width: 100%
-    //  border-radius: 2px
-    //  background: $blueDark
-    //  box-shadow: 0px 0px 5px rgba(0,0,0,0.5)
-    //  z-index: 1
+  //&.hover-show
+  //  position: absolute
+  //  top: 0px
+  //  left: 0px
+  //  width: 100%
+  //  border-radius: 2px
+  //  background: $blueDark
+  //  box-shadow: 0px 0px 5px rgba(0,0,0,0.5)
+  //  z-index: 1
 
 
-    .bus-routes
-      //float: left
-      //width: 50%
-      line-height: 1.3em
-      
-      .bus-departure-route
-        margin-bottom: $m
+  .bus-routes
+    //float: left
+    //width: 50%
+    line-height: 1.3em
 
-      .bus-departure-route > span
-        font-weight: bold
-        color: $red
-      .bus-return-route > span
-        font-weight: bold
-        color: lighten($blue, 10%)
+    .bus-departure-route
+      margin-bottom: $m
+
+    .bus-departure-route > span
+      font-weight: bold
+      color: $red
+    .bus-return-route > span
+      font-weight: bold
+      color: lighten($blue, 10%)
 

@@ -5,6 +5,7 @@ class MDC.SellLocations.Manager extends Utils.Eventable
     @build_displayer(data)
     @bind_ui()
     @read_initial_state()
+    @build_interface_list()
 
   build_displayer: (data)->
     @displayer = new MDC.SellLocations.Displayer(data, @gmap)
@@ -24,6 +25,11 @@ class MDC.SellLocations.Manager extends Utils.Eventable
   read_initial_state: ->
     if @ui.activated
       @displayer.show()
+
+  build_interface_list: ->
+    # If it started activated it means that there is a list...
+    if @ui.activated
+      @list = new MDC.SellLocations.ToolbarList
 
 #$ ->
 #  start = ->

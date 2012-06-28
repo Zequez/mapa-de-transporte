@@ -40,4 +40,4 @@ class MDC.City
     @buses_url_rewriter = new MDC.Interface.UrlRewriter(@buses, @sell_locations_manager)
 
   build_bus_info: ->
-    @bus_info = new MDC.BusInfo()
+    @bus_info = new MDC.Interface.BusInfo()

@@ -21,7 +21,8 @@ user_settings = {
   "help_tips": true,
   "max_walking_distance": 1000,
   "max_routes_suggestions": 1,
-  "show_bus_info": true
+  "show_bus_info": false
+  "show_sell_locations_list": false
 }
 
 class UserSettings

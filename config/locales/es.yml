@@ -36,6 +36,8 @@ es:
       title: Mapas de Colectivos
       title_city: Mapa de Colectivos en %{city}
       title_bus: Mapa del Recorrido del %{bus} en %{city}
+      title_sell_locations: Mapa de puntos de carga de la tarjeta de colectivos en %{city}
+      title_ticket_locations: Mapa de puntos venta de boletos de colectivos en %{city}
       
       description:
         Mapas de Colectivos es un sitio web que te permite ver los recorridos de los
@@ -47,10 +49,21 @@ es:
         destino.
       description_bus:
         Mapa interactivo del recorrido del colectivo %{bus} de %{city}.
+      description_sell_locations:
+        Mapa interactivo con los puntos de carga de la tarjeta de colectivos de %{city}
+      description_ticket_locations:
+        Mapa interactivo con los puntos de venta de boletos de colectivos en %{city}
 
     feedback:
       thanks: ¡Gracias por colaborar!
       button: Sugerencias o reporte de errores
+
+    sell_locations:
+      show_hide: Mostrar / Ocultar lista de puntos de carga de la tarjeta.
+      show_hide_tickets: Mostrar / Ocultar lista de puntos de venta de tickets.
+      list_title: Lista de los puntos de carga de la tarjeta de colectivos
+      
+
 
     sell_locations_popup:
       address: Dirección
@@ -90,6 +103,7 @@ es:
         sell_locations: Puntos de venta o carga de tarjeta o boletos
 
       bus_info:
+        line_toggle: Mostrar/Ocultar información extra sobre la línea %{bus}
         line: Línea %{bus}
         departure: Ida
         return: Vuelta

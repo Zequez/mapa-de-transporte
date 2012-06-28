@@ -1,0 +1,22 @@
+.toggleable
+  >*:first-child
+    cursor: pointer
+    opacity: 0.5
+
+    &:hover
+      opacity: 1
+
+  .toggle
+    float: right
+
+    z-index: 1
+
+    line-height: $m + $m/2 - 1
+    text-align: center
+
+  &.toggled
+    >*:first-child
+      opacity: 1
+
+    .toggle
+      +transform(rotate(180deg))

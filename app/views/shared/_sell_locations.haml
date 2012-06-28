@@ -1,0 +1,12 @@
+#sell-locations-list.toggleable.toggled
+  %div{title: t('views.sell_locations.show_hide')}
+    = toolbar_toggler
+    %h2= t('views.sell_locations.list_title')
+  .toggleable-data
+    %ul
+      - sell_locations.each do |sell_location|
+        %li{title: sell_location.info}
+          %span.address= sell_location.clean_address
+          %span.name= sell_location.name
+
+  .separator

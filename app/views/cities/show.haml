@@ -36,7 +36,7 @@
       #toggle-help{title: t('views.buses.header_bar.help')}= t('views.buses.header_bar.help')
       - if @city.sell_points_visibility?
 
-        #toggle-sell-locations{title: t('views.buses.header_bar.sell_locations'), class: ("toggled" if sell_points_in_url?)}
+        #toggle-sell-locations{title: t('views.buses.header_bar.sell_locations'), class: ("toggled" if sell_locations_in_url?)}
           = t('views.buses.header_bar.sell_locations')
       #city-bus-price{title: t('views.buses.header_bar.ticket_price', city: @city.name)}
         %span.bus-price-icon #{t('views.buses.header_bar.ticket_price', city: @city.name)}:
@@ -54,6 +54,9 @@
 
     - if @bus
       = render partial: 'shared/bus_info', locals: {bus: @bus}
+
+    - if sell_locations_in_url?
+      = render partial: 'shared/sell_locations', locals: {sell_locations: @city.visible_sell_locations}
 
 
     = render partial: 'shared/directions'
