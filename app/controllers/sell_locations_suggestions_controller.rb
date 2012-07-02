@@ -1,11 +1,14 @@
-class SellLocationsSuggestionsController < InheritedResources::Base
+class SellLocationsSuggestionsController < ApplicationController
   layout false
 
-  actions :new, :create
-
   def create
-    create! do |success, failure|
-      success.html { render "thank_you" }
+    @sell_locations_suggestions = SellLocationsSuggestion.new params[:sell_locations_suggestion]
+    @sell_locations_suggestions.user_address = request.ip
+
+    if @sell_locations_suggestions.save
+      render 'thank_you'
+    else
+      render 'new'
     end
   end
 end

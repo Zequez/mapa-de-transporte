@@ -8,7 +8,6 @@ class FeedbacksController < ApplicationController
     if @feedback.save
       render 'success'
     else
-      L.l @feedback.errors
       render 'new'
     end
   end
