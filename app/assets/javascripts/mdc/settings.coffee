@@ -18,14 +18,16 @@ MDC.CONFIG = {
 }
 
 user_settings = {
-  "help_tips": true,
-  "max_walking_distance": 1000,
-  "max_routes_suggestions": 1,
+  "help_tips": true
+  "max_walking_distance": 1000
+  "max_routes_suggestions": 1
   "show_bus_info": false
   "show_sell_locations_list": false
+  "user_name": ""
+  "user_email", ""
 }
 
-class UserSettings
+class UserSettings extends Utils.Eventable
   default: {},
   user_settings: {},
   settings: {}
@@ -49,8 +51,10 @@ class UserSettings
     
 
   set: (setting_name, value)->
-    @settings[setting_name] = value
-    @save()
+    if @settings[setting_name] != value
+      @settings[setting_name] = value
+      @save()
+      @fire_event("change", setting_name, value)
 
   save: ->
     $.cookie MDC.CONFIG.settings_cookie, null

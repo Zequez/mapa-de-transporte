@@ -1,25 +1,12 @@
-class MDC.SellLocations.Marker
+# Events
+# - edit
+
+class MDC.SellLocations.Marker extends MDC.SellLocations.BaseMarker
   window: $(window)
 
-  constructor: (@data, @gmap)->
-    @build_marker()
+  constructor: (data, gmap)->
+    super data, gmap
     @bind_marker()
-
-  build_marker: ->
-    @marker = new $G.Marker @marker_options()
-
-  marker_options: ->
-    {
-      map: @gmap
-      position: @get_latlng()
-      icon: @get_image()
-      visible: false
-      cursor: "default"
-#      shape: @get_shape()
-    }
-
-  get_latlng: ->
-    new $G.LatLng @data["lat"], @data["lng"]
 
   bind_marker: ->
     $G.event.addListener @marker, "mouseover", (e)=>
@@ -28,6 +15,9 @@ class MDC.SellLocations.Marker
     $G.event.addListener @marker, "mouseout", (e)=>
       @hide_popup()
       @end_mouseover()
+
+    $G.event.addListener @marker, "rightclick", (e)=>
+      @fire_event('edit', @data, @marker)
 
   start_mouseover: ->
     @window_event = (e)=>
@@ -51,42 +41,11 @@ class MDC.SellLocations.Marker
     @build_popup() if not @popup
     @popup.hide()
 
-  show: ->
-    @marker.setVisible true
-
   hide: ->
-    @marker.setVisible false
+    super()
     @hide_popup()
 
 
-  get_image: ->
-    if @data["card_selling"]
-      @get_selling_image()
-    else if @data["card_reloading"]
-      @get_reloading_image()
-    else
-      @get_ticket_image()
-
-  get_reloading_image: ->
-    MDC.SellLocations.Marker.ReloadingImage ||= do ->
-      MDC.SellLocations.Marker.create_image 2
-
-  get_selling_image: ->
-    MDC.SellLocations.Marker.SellingImage ||= do ->
-      MDC.SellLocations.Marker.create_image 1
-
-  get_ticket_image: ->
-    MDC.SellLocations.Marker.TicketImage ||= do ->
-       MDC.SellLocations.Marker.create_image 0
-
-MDC.SellLocations.Marker.create_image = (number)->
-  w = 19
-  h = 27
-  size   = new $G.Size(w, h)
-  origin = new $G.Point(19*number, 0)
-  url    = "/assets/sell_locations_marker.png"
-
-  new $G.MarkerImage url, size, origin
 
 
 #  get_shape: ->

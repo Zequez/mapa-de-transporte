@@ -1,0 +1,66 @@
+form
+  .errors, .inline-errors
+    color: $red
+
+  li
+    +clearfix
+    margin-bottom: $m
+    list-style-type: none
+
+  .inputs
+    label
+      display: block
+      float: left
+
+    input, textarea
+      +box-sizing(border-box)
+
+      padding: 5px
+
+      border: none
+      border-radius: 2px
+
+      +box-shadow(inset 0px 0px 3px 1px rgba(#000, 0.5))
+      +reverse-linear-shadow
+
+      color: #333
+      font-family: inherit
+
+      &:focus
+        +box-shadow(#{inset 0px 0px 3px 1px rgba(#000, 0.5), 0px 0px 5px 2px rgba($blue, 1)})
+
+    .inline-errors
+      float: left
+
+
+    .stringish
+      label
+        width: 30%
+      input
+        float: right
+        width: 70%
+
+    .text
+      label
+        margin-bottom: $m
+      textarea
+        height: 100px
+        width: 100%
+
+    .boolean
+      input
+        margin-right: $m/2
+
+      label
+        input
+          margin-bottom: 3px
+
+  .action input
+    @extend .base-button
+    float: right
+
+    padding: 5px
+
+    border: none
+
+    font-weight: bold

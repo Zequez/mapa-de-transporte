@@ -1,0 +1,76 @@
+# Lado del cliente
+
+En el popup debería decir "Click secundario para editar".
+Cuando hacen eso, se ocultan los puntos de carga.
+El punto de carga seleccionado pasa a ser draggable.
+Investigar el tema de los popups personalizados dentro de Google maps para crear el formulario ahí.
+Formulario con los siguientes datos:
+ - user_name:string // Autocompletado de las cookies
+ - user_email:string // Autocompletado de las cookies
+ - address:string
+ - name:string
+ - info:string
+ - lat:float
+ - lng:float
+ - visibility:boolean // Eliminado
+ - sell_location_id:integer
+En la base de datos además estarían las columnas:
+ - created_at:datetime
+ - reviewed:boolean
+Y la tabla se llamaría sell_locations_suggestions
+Cuando se edita una sugerencia, si el usuario es un administrador logueado entonces
+los cambios se aplican automáticamente.
+La clase se crea cuando se va a editar, no cuando se crea el marcador. Y la crea el marcador. Es más debería
+- MDC.SellLocations.Suggestion
+- MDC.SellLocations.Suggestion.Builder
+- MDC.SellLocations.Suggestion.Popup
+- MDC.SellLocations.Suggestion.Marker
+- MDC.SellLocations.Suggestion.Ajax
+- MDC.SellLocations.Suggestion.Form // El formulario es cargado desde un template
+
+# Panel de administración
+
+En el panel de administración, para aprobar las sugerencias te pondría a la
+izquierda el original, y a la derecha todas las sugerencias enviadas.
+Y abajo el mapa mostrando el original y la diferencia con la sugerencia.
+Al lado de cada valor de la sugerencia hay un botón de "aprobar" que copia dicho
+valor a la sell_location original.
+Las sugerencias tienen un botón de "reviewed" que las hacen desaparecer.
+También hay un botón que dice "Guardar y continuar ([numero de sugerencias restantes])"
+la cual envía el formulario y el servidor se encarga de devolver la próxima página o volver al
+índice si ya se terminaron las sugerencias.
+
+- SellLocationsReviews
+- SellLocationsReviews.Builder
+- SellLocationsReviews.Suggestion
+- SellLocationsReviews.SellLocation
+- SellLocationsReviews.Marker
+- SellLocationsReviews.Form (Aplica los eventos a todos los elementos y también rellena datos)
+
+El panel de administración de reviews debería estar en la acción "edit" de Admin::SellLocationsController
+
+
+
+Tareas:
+Crear columnas en la base de datos, controladores, relacionar modelos y crear página de administración.
+Editar sell_location popup para que incluya el "click derecho" y el marcador para que lance el evento.
+Investigar el tema de los popups en Google.
+
+Crear formulario y CSS
+Crear MDC.SellLocations.Suggestion.Form que carga el formulario con información.
+Agregar Email y Nombre a las settings cookies y rellenar este formulario y el feedback desde ahí.
+Crear MDC.SellLocations.Suggestion.Popup que crea el popup donde iría el formulario.
+Crear MDC.SellLocations.Suggestion.Marker que crea un marcador editable.
+Crear MDC.SellLocations.Suggestion.Ajax que se encarga de enviar los datos al server y recibir la respuesta.
+Crear MDC.SellLocations.Suggestion.Builder que se encarga de crear todo e interconectarlos.
+
+Crear CSS del panel de administración de los reviews de las sugerencias.
+Crear SellLocationsReviews.Form
+Crear SellLocationsReviews.Marker
+Crear SellLocationsReviews.SellLocation
+Crear SellLocationsReviews.Suggestion
+Crear SellLocationsReviews.Builder que carga todos las otras clases
+
+
+rails g model sell_locations_suggestion user_name:string user_email:string address:string name:string info:string lat:float lng:float visibility:boolean sell_location_id:integer  created_at:datetime reviewed:boolean
+

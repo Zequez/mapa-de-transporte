@@ -19,6 +19,13 @@
       %span.location-action-selling= t "views.sell_locations_popup.selling"
       %span.location-action-reload= t "views.sell_locations_popup.reloading"
       %span.location-action-ticket= t "views.sell_locations_popup.ticket"
+    %p.location-edit-hint
+      = t "views.sell_locations_popup.edit_hint"
+
+  .sell-location-suggestion-form
+    = render template: "sell_locations_suggestions/new"
+    .close &times;
+      
 
   -##bus-quick-info
   -#  %h2= @city.name

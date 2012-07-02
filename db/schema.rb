@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120623232747) do
+ActiveRecord::Schema.define(:version => 20120702003411) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(:version => 20120623232747) do
   end
 
   create_table "sell_locations", :force => true do |t|
-    t.float    "lat"
-    t.float    "lng"
+    t.float    "lat",                  :default => 0.0,   :null => false
+    t.float    "lng",                  :default => 0.0,   :null => false
     t.string   "name"
     t.string   "address"
     t.string   "info"
@@ -157,6 +157,24 @@ ActiveRecord::Schema.define(:version => 20120623232747) do
     t.boolean  "visibility",           :default => true,  :null => false
     t.boolean  "inexact",              :default => false, :null => false
     t.boolean  "manual_position",      :default => false, :null => false
+  end
+
+  create_table "sell_locations_suggestions", :force => true do |t|
+    t.string   "user_name"
+    t.string   "user_email"
+    t.string   "address"
+    t.string   "name"
+    t.string   "info"
+    t.float    "lat",              :default => 0.0,   :null => false
+    t.float    "lng",              :default => 0.0,   :null => false
+    t.boolean  "visibility",       :default => true,  :null => false
+    t.integer  "sell_location_id"
+    t.datetime "created_at"
+    t.boolean  "reviewed",         :default => false, :null => false
+    t.boolean  "card_selling",     :default => false, :null => false
+    t.boolean  "card_reloading",   :default => false, :null => false
+    t.boolean  "ticket_selling",   :default => false, :null => false
+    t.string   "user_address"
   end
 
 end

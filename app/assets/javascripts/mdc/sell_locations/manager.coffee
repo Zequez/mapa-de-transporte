@@ -3,12 +3,32 @@ class MDC.SellLocations.Manager extends Utils.Eventable
     @gmap = @map.gmap
     @build_ui()
     @build_displayer(data)
+    @bind_displayer()
     @bind_ui()
     @read_initial_state()
     @build_interface_list()
 
   build_displayer: (data)->
     @displayer = new MDC.SellLocations.Displayer(data, @gmap)
+
+  bind_displayer: ->
+    @displayer.add_listener 'edit', (data, marker)=>
+      @build_suggestion(data, marker)
+
+  build_suggestion: (data, marker)->
+    @displayer.hide()
+
+    if @suggestion and @suggestion.is_the_same(data)
+      @suggestion.show()
+    else
+      @suggestion.destroy() if @suggestion
+      @suggestion = new MDC.SellLocations.Suggestion.Builder(data, @gmap)
+      @bind_suggestion()
+
+  bind_suggestion: ->
+    @suggestion.add_listener 'close', =>
+      @suggestion.hide()
+      @displayer.show()
 
   build_ui: ->
     @ui = new MDC.SellLocations.UI()

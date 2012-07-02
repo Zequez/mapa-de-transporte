@@ -19,14 +19,14 @@ class Utils.Eventable
     @remove_listeners(event_name.split(' '), fn)
 
   remove_listeners: (events_names, fn)->
-    for event_name in events_names.split(' ')
+    for event_name in events_names
       @_ensure_event(event_name)
       @events[event_name].splice @events[event_name].indexOf(fn), 1
 
-  fire_event: (event_name, event_object)->
+  fire_event: (event_name, e1, e2, e3)->
     @_ensure_event(event_name)
     for fn in @events[event_name]
-      fn(event_object)
+      fn(e1, e2, e3)
 
   delete_events: ->
     delete @events

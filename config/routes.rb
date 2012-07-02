@@ -13,6 +13,8 @@ Mdc::Application.routes.draw do
   get "/buses_images.png" => "buses_images_generator#show", format: 'png'
   #get "/wipe_buses_images" => "buses_images_generator#destroy"
 
+  resources :sell_locations_suggestions, only: [:update, :create]
+
   resources :cities, only: [:show], path: "/" do
     collection do
       get "ciudades" => "cities#index", as: ''
@@ -25,6 +27,8 @@ Mdc::Application.routes.draw do
       get ":buses" => "cities#show"
     end
   end
+
+
 
   root to: 'cities#redirect_to_default'
 

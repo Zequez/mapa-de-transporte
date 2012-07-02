@@ -27,6 +27,22 @@ es:
       feedback:
         create: Enviar
 
+      sell_locations_suggestion:
+        create: Enviar
+
+    labels:
+      sell_locations_suggestion:
+        user_name: Tu nombre
+        user_email: Tu email
+        address: Dirección
+        name: Nombre
+        info: Información adicional
+        visibility: Visible?
+        removed: Ya no existe?
+        card_selling: Vende tarjetas?
+        card_reloading: Recarga tarjetas?
+        ticket_selling: Vende tickets?
+
     placeholders:
       feedback:
         message: "Estimado ser humano, le escribo este mensaje con el objetivo de comunicarle que..."
@@ -71,6 +87,10 @@ es:
       selling: Venta
       reloading: Recarga
       ticket: Boletos
+      edit_hint: Click secundario para editar
+
+    sell_locations_suggestions:
+      thank_you: Gracias! Los datos serán revisados por un equipo de monos inteligentes antes de ser públicos.
 
     toolbar:
       ads: Publicidad
@@ -126,7 +146,7 @@ es:
         more_buses:
           Mueve el deslizador para seleccionar la <b>distancia que estás dispuesto a caminar</b>.
           Se mostrarán todos los colectivos que estén dentro de la distancia seleccionada.
-        close_help: Haz click en la cruz roja en la esquina superior para <b>ocultar esta ayuda</b>.
+        close_help: Haz click en la cruz roja en la esquina superior derecha para <b>ocultar esta ayuda</b>.
         silly:
           - Si estás leyendo esto ya es demasiado tarde,
             Bob Esponja va a entrar a tu habitación durante la

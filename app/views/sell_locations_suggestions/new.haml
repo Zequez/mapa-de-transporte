@@ -1,0 +1,35 @@
+- @sell_locations_suggestion = SellLocationsSuggestion.new if not @sell_locations_suggestion
+- @city                     = @sell_locations_suggestion.city if not @city
+
+= semantic_form_for @sell_locations_suggestion do |f|
+  = f.semantic_errors :base
+
+  = f.inputs do
+    %li.left
+      %ol
+        = f.input :lat, as: :hidden
+        = f.input :lng, as: :hidden
+        = f.input :sell_location_id, as: :hidden
+        = f.input :user_name
+        = f.input :user_email
+        = f.input :address
+        = f.input :name
+    %li.right
+      %ol
+        = f.input :info, as: :text
+    %li.selling-info
+      %ol
+        - if not @city or @city.show_bus_card
+          = f.input :card_selling
+          = f.input :card_reloading
+        - if not @city or @city.show_bus_ticket
+          = f.input :ticket_selling
+
+    %li.remove-input
+      %ol
+        = f.input :removed, as: :boolean
+
+  = f.actions do
+    = f.action :submit
+
+.paledator

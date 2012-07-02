@@ -3,6 +3,7 @@ class Feedback
 
   constructor: ->
     @find_elements()
+    @fill_user_info()
     @bind_elements()
     
 
@@ -11,8 +12,21 @@ class Feedback
     @paledator = $('#feedback-paledator')
     @container = $('#feedback-padding')
     @form = @feedback.find('form')
+    @user_name  = @form.find("#feedback_name")
+    @user_email = @form.find("#feedback_email")
+
+  fill_user_info: ->
+    @user_name.val MDC.SETTINGS.read["user_name"]
+    @user_email.val MDC.SETTINGS.read["user_email"]
 
   bind_elements: ->
+    MDC.SETTINGS.add_listener 'change', (name, value)=>
+      if name == 'user_name' or name == 'user_email'
+        @fill_user_info()
+
+    @user_name.change  => MDC.SETTINGS.set "user_name", @user_name.val()
+    @user_email.change => MDC.SETTINGS.set "user_email", @user_email.val()
+
     @form.submit (e)=>
       e.preventDefault()
       if not @sending

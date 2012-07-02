@@ -1,0 +1,66 @@
+.sell-location-suggestion-form
+  display: none
+
+  //position: absolute // Just for testing
+  //top: 100px // Just for testing
+  //left: 100px // Just for testing
+
+  margin-left: -200px
+
+  @extend .map-popup
+
+  width: 400px
+
+  .close
+    margin-right: $m/2
+    margin-top: $m/2
+
+  .paledator
+    z-index: 1
+    display: none
+
+    position: absolute
+    left: 0px
+    top: 0px
+
+    height: 100%
+    width: 100%
+
+    border-radius: 2px
+
+    background-color: rgba(#fff, 0.3)
+
+  p
+    margin: $m
+    text-align: center
+
+  form
+    margin: $m
+    fieldset > ol > li
+      margin-bottom: 0px
+
+    .left
+      float: left
+      width: 50%
+
+    .right
+      +box-sizing(border-box)
+
+      float: right
+      padding-left: $m
+      width: 50%
+
+      textarea
+        height: 111px
+
+    .selling-info
+      clear: both
+      width: 100%
+
+      li
+        float: left
+        width: 33%
+
+    .remove-input
+      
+

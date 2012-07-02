@@ -102,7 +102,7 @@ class City < ActiveRecord::Base
                 }
               },
               visible_sell_locations: {
-                only: [:lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling]
+                only: [:id, :lat, :lng, :name, :address, :info, :card_selling, :card_reloading, :ticket_selling]
               }
             }).html_safe
   end
@@ -119,7 +119,6 @@ class City < ActiveRecord::Base
                        :info,
                        :card_selling,
                        :card_reloading,
-                       :ticket_selling,
                        :ticket_selling,
                        :visibility,
                        :inexact,
