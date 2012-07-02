@@ -13,10 +13,13 @@
 !binary "cG9seWxpbmUuZWRpdC92ZXJ0ZXhPdmVyLnBuZw==": polyline.edit/vertexOver-d1a48eec90ba0e503bb870cd7e340818.png
 !binary "c2VsbF9sb2NhdGlvbnNfbWFya2VyLnBuZw==": sell_locations_marker-d01b01a591556c05d6e3b20c56617c9b.png
 !binary "c2hhcmUtYnV0dG9ucy5wbmc=": share-buttons-3e0099b7278b8e9ebe426faf56f30de2.png
+!binary "c2hhcmUtYnV0dG9ucy9zaGFyZS1mYWNlYm9vay5wbmc=": share-buttons/share-facebook-b568724515cbd6b2ef789e376aba1bfd.png
+!binary "c2hhcmUtYnV0dG9ucy9zaGFyZS1nb29nbGUucG5n": share-buttons/share-google-436a9a0a3d630d0cbcfa9efc69b0a1e9.png
+!binary "c2hhcmUtYnV0dG9ucy9zaGFyZS10d2l0dGVyLnBuZw==": share-buttons/share-twitter-4b000e10c0c9bc1a8f955c33b582834f.png
 !binary "c3ByaXRlcy5wbmc=": sprites-77f99b64f52267fd48489e79f6786619.png
 !binary "YWN0aXZlX2FkbWluLmpz": active_admin-94ff544d714af8698d6bf91dabea8a4a.js
-!binary "YXBwbGljYXRpb24uanM=": application-8c8ac6834bdc06d299d1e9e439254d9a.js
-!binary "Y3VzdG9tX2FkbWluLmpz": custom_admin-9a7905c495b285f5e14839cf26355893.js
+!binary "YXBwbGljYXRpb24uanM=": application-513765009dd7799b2d96408bbe359909.js
+!binary "Y3VzdG9tX2FkbWluLmpz": custom_admin-9f9d2c8ae974e60280e690620385a6a5.js
 !binary "anF1ZXJ5Lm1pbi5qcw==": jquery.min-ab486e51192ba3b782fcbb60b2da26ed.js
 !binary "YWN0aXZlX2FkbWluLmNzcw==": active_admin-a91476693a8aa1c80692c7f408c48b5d.css
 !binary "YXBwbGljYXRpb24uY3Nz": application-2a9f5eb59d4b911caf895b04654476f9.css

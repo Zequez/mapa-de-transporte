@@ -24,7 +24,7 @@ user_settings = {
   "show_bus_info": false
   "show_sell_locations_list": false
   "user_name": ""
-  "user_email", ""
+  "user_email": ""
 }
 
 class UserSettings extends Utils.Eventable
@@ -51,7 +51,7 @@ class UserSettings extends Utils.Eventable
     
 
   set: (setting_name, value)->
-    if @settings[setting_name] != value
+    if @settings[setting_name] != value|
       @settings[setting_name] = value
       @save()
       @fire_event("change", setting_name, value)

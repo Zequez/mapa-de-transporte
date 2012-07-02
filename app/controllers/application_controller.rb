@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :set_user_settings
+  before_filter :log_params
   
   def set_locale
     I18n.locale = :es
@@ -29,6 +30,10 @@ class ApplicationController < ActionController::Base
     rescue
       @user_settings ||= {}
     end
+  end
+
+  def log_params
+    Rails.logger.debug params
   end
 
   def current_domain
