@@ -34,14 +34,14 @@ Mdc::Application.configure do
   closure_externs = Dir.glob("#{config.root}/closure_externs/*")
 
   config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
-                                                      formatting: 'PRETTY_PRINT',
-                                                      debug: true,
+                                                      #formatting: 'PRETTY_PRINT',
+                                                      #debug: true,
                                                       externs: closure_externs
                                                       )
   
   config.assets.debug = false
   config.assets.compile = true
-  config.assets.compress = false
+  config.assets.compress = true
   config.serve_static_assets = true
   # Expands the lines which load the assets
 

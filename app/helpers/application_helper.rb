@@ -17,10 +17,18 @@ module ApplicationHelper
     elsif @bus
       t('views.head.title_bus', bus: @bus.name, city: @city.name)
     elsif @city
-      t('views.head.title_city', city: @city.name)
+      city_title
     else
       t('views.head.title')
     end
+  end
+
+  def city_title
+    @city_title ||= t('views.head.title_city', city: @city.name)
+  end
+
+  def current_city_url
+    @current_city_url ||= city_url(@city)
   end
 
   def description
@@ -41,5 +49,19 @@ module ApplicationHelper
 
   def toolbar_toggler
     "<div class='toggle'>&#9660;</div>".html_safe
+  end
+
+  def share_button(title, href, width = 600, height = 300, &block)
+    output = ""
+    output += %{<a href="#{h href}"
+    onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=#{height},width=#{width}');return false;"
+    title="#{h title}">}
+    if block_given?
+      output += capture(&block)
+    else
+      output += h title
+    end
+    output +=  "</a>"
+    output.html_safe
   end
 end

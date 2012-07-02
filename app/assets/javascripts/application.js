@@ -13,8 +13,3 @@
 //= require ./init
 //= require ./feedbacks
 
-
-
-
-
-  

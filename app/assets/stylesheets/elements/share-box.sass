@@ -1,0 +1,33 @@
+#share-box
+  +clearfix
+
+  #share-buttons
+    +clearfix
+
+    margin-bottom: -2px // Because of the buttons shadow
+
+    > *
+      float: left
+      width: 33%
+
+      line-height: 20px
+      text-align: center
+
+      a
+        display: inline-block
+
+        height: 35px
+
+        background-image: url("share-buttons.png")
+
+        text-indent: -9999px
+
+    >#share-twitter>a
+      width: 71px
+      background-position: 0px 0px
+    >#share-facebook>a
+      width: 88px
+      background-position: -71px 0px
+    >#share-google>a
+      width: 86px
+      background-position: -159px 0px

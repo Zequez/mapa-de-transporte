@@ -12,11 +12,12 @@ defaults: &defaults
 
   production_domain: mapadetransporte.com.ar
 
+  twitter_user: MapaTransporte
+
   authorized_domains:
     - vmware
     - blooming-stream-4501.herokuapp.com
     - mapadetransporte.com.ar
-
 
 development:
   <<: *defaults

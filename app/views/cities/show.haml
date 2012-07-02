@@ -83,11 +83,11 @@
                       - if bus
                         = render partial: 'shared/bus-link', locals: {bus: bus}
 
-    .separator
 
-    #facebook-like-box
-      <div class="fb-like-box" data-href="#{CONFIG[:facebook_page_url]}" data-width="310" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
+    = render partial: "/elements/facebook-like-box"
 
+    = render partial: "/elements/share-box"
+      
     .separator
 
     #toolbar-google-adsense
