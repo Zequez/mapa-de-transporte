@@ -768,3 +768,10 @@ InfoBox.prototype.close = function () {
 
   this.setMap(null);
 };
+
+/**
+ * Returns true. Because it gets called, is just a hotfix.
+ */
+InfoBox.prototype.remove = function () {
+  return true
+};

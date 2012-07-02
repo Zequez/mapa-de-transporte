@@ -39,8 +39,8 @@ class MDC.SellLocations.Suggestion.FormInputs
         @data[name] = value
         @set_val name, value
 
-    @inputs.user_name.change  => MDC.SETTINGS.set "user_name", @get_val("user_name")
-    @inputs.user_email.change => MDC.SETTINGS.set "user_email", @get_val("user_email")
+    @inputs["user_name"].change  => MDC.SETTINGS.set "user_name", @get_val("user_name")
+    @inputs["user_email"].change => MDC.SETTINGS.set "user_email", @get_val("user_email")
 
   set_val: (name, value)->
     @data[name] = value
@@ -79,7 +79,7 @@ class MDC.SellLocations.Suggestion.FormInputs
     @bind_inputs()
 
   destroy: ->
-    @inputs.user_name.unbind()
-    @inputs.user_email.unbind()
+    @inputs["user_name"].unbind()
+    @inputs["user_email"].unbind()
 
     MDC.SETTINGS.remove_listener 'change', @settings_listener

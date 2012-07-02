@@ -34,8 +34,8 @@ Mdc::Application.configure do
   closure_externs = Dir.glob("#{config.root}/closure_externs/*")
 
   config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
-                                                      #formatting: 'PRETTY_PRINT',
-                                                      #debug: true,
+                                                      formatting: 'PRETTY_PRINT',
+                                                      debug: true,
                                                       externs: closure_externs
                                                       )
   
