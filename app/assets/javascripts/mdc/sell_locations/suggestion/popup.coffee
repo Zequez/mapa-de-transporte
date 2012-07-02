@@ -27,6 +27,4 @@ class MDC.SellLocations.Suggestion.Popup
     @popup.hide()
 
   destroy: ->
-    console.log @form
-    console.log @popup
     @popup.close()
