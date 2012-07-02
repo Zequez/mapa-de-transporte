@@ -4,11 +4,11 @@
 
 #share-box.barsection
   .separator
-  %h3.barsection-title Compartir
+  %h3.barsection-title= t("views.share_box.share")
   #share-buttons
     #share-facebook
-      =share_button "Compartir en Facebook", share_facebook
+      =share_button t("views.share_box.share_facebook"), share_facebook
     #share-twitter
-      =share_button "Compartir en Twitter", share_twitter
+      =share_button t("views.share_box.share_twitter"), share_twitter
     #share-google
-      =share_button "Compartir en Google+", share_google
+      =share_button t("views.share_box.share_google"), share_google

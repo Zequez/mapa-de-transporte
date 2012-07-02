@@ -92,6 +92,15 @@ es:
     sell_locations_suggestions:
       thank_you: Gracias! Los datos serán revisados por un equipo de monos inteligentes antes de ser públicos.
 
+    follow_us:
+      follow: ¿Nos seguís?
+
+    share_box:
+      share: ¿Compartir?
+      share_facebook: Compartir en Facebook
+      share_twitter: Compartir en Twitter
+      share_google: Compartir en Google+
+
     toolbar:
       ads: Publicidad
 
