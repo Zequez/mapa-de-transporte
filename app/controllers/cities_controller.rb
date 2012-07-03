@@ -1,11 +1,11 @@
 class CitiesController < InheritedResources::Base
   actions :show
 
-  if Rails.env == "production"
+  #if Rails.env == "production"
     caches_action :show_data, cache_path:  :show_city_qps_cache.to_proc
     #caches_action :show_data, :show
     caches_action :show, cache_path: :show_city_cache.to_proc
-  end
+  #end
   
   def redirect_to_default
     redirect_to city_path(City.first)
@@ -26,7 +26,7 @@ class CitiesController < InheritedResources::Base
 
   # This is tricky because we often don't have an :id
   def show_city_cache
-    a = "cities/#{params[:id]}/buses/#{params[:buses]}"
+    a = "cities/#{params[:id]}/buses/#{params[:buses]}/sell_locations/#{params[:sell_locations]}"
     #a = {city_domain: (params[:id] || request.host), buses: params[:buses]}
     #a = {id: (params[:id] || request.host), buses: params[:buses]}
     L.l a
@@ -38,8 +38,6 @@ class CitiesController < InheritedResources::Base
   end
 
   private
-
-
 
   #def redirect_to_user_city
   #  if params[:redirect] and user_city
