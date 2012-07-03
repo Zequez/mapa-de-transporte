@@ -1,5 +1,7 @@
 ActiveAdmin.register SellLocation do
   controller do
+    cache_sweeper :city_sweeper
+
     def update
       update! do
         next_sell_location = SellLocation.first_with_suggestion

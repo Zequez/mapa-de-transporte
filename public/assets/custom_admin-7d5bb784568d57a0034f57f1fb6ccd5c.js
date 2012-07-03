@@ -2553,17 +2553,17 @@ InfoBox.prototype.remove = function () {
       */
       values = [
         {
-          "hc": this.build_gmap,
-          "fh": this.build_gmap,
+          "hc": this.make_bounds,
+          "fh": this.get_bounds,
           "c": this.make_bounds
         }, {
-          "dc": this.make_bounds,
-          "bb": this.calculate_center,
-          "gf": this.calculate_center
+          "dc": this.get_bounds,
+          "bb": this.make_bounds,
+          "gf": this.get_bounds
         }, {
           "ce": this.make_bounds,
           "gh": this.get_bounds,
-          "ii": this.map_settings
+          "ii": this.get_bounds
         }
       ];
       if (typeof MDC !== "undefined") {
