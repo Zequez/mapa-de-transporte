@@ -1,6 +1,7 @@
 #follow-us
   #facebook-like-box
     margin-top: -5px
+    margin-bottom: 5px
 
     width: 100%
     height: 60px
@@ -9,3 +10,26 @@
 
     span, iframe
       //width: 120%!important
+
+  #social-buttons
+    +clearfix
+
+    > *
+      @extend .sprite
+      display: block
+      float: right
+      margin-left: $m
+      text-indent: -9999px
+      
+      //+transition-property(transform)
+      //+transition-duration(0.5s)
+      //
+      //&:hover
+      //  +transform(scale(0.8))
+
+    > #social-google
+      @extend .sprite-google
+    > #social-facebook
+      @extend .sprite-facebook
+    > #social-twitter
+      @extend .sprite-twitter

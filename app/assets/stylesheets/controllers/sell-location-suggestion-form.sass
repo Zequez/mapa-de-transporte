@@ -58,8 +58,19 @@
       width: 100%
 
       li
+        +box-sizing(border-box)
         float: left
         width: 33%
+        padding-right: $m
+
+        &:last-child
+          padding-right: 0px
+
+        label
+          margin-bottom: $m/2
+
+        select
+          width: 100%
 
     .remove-input
       

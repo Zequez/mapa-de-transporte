@@ -10,6 +10,11 @@ defaults: &defaults
   facebook_page_url: https://www.facebook.com/pages/Mapa-de-Transporte/141373665998093
   google_analytics_id: "UA-32695596-1"
 
+  social:
+    facebook: https://www.facebook.com/MapaDeTransporte
+    twitter: https://twitter.com/MapaTransporte
+    google: https://plus.google.com/110450938467125304248/
+
   production_domain: mapadetransporte.com.ar
 
   twitter_user: MapaTransporte

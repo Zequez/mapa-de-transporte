@@ -2,6 +2,8 @@ class Feedback < ActiveRecord::Base
 
   belongs_to :city
 
+  scope :not_read, where(read: false).order('id DESC')
+
   def self.last_from_address(address)
     where(address: address).last
   end

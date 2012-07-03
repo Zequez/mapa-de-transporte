@@ -14,20 +14,14 @@
       text-align: center
 
       a
+        @extend .sprite
         display: inline-block
-
-        height: 35px
-
-        background-image: url("share-buttons.png")
 
         text-indent: -9999px
 
     >#share-twitter>a
-      width: 71px
-      background-position: 0px 0px
+      @extend .sprite-share-twitter
     >#share-facebook>a
-      width: 88px
-      background-position: -71px 0px
+      @extend .sprite-share-facebook
     >#share-google>a
-      width: 86px
-      background-position: -159px 0px
+      @extend .sprite-share-google

@@ -34,8 +34,16 @@ class SellLocationsEditor.Marker extends Utils.Eventable
   unhighlight: ->
     @marker.setIcon @blue_icon()
 
+  hide: ->
+    @marker.setVisible false
+    
+  show: ->
+    @marker.setVisible true
+
   set_latlng: (@latlng)->
     @marker.setPosition @latlng
+
+  set_position: (@latlng)-> @set_latlng(@latlng)
 
   remove: ->
     @marker.setMap null

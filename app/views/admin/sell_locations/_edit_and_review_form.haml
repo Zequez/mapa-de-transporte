@@ -1,1 +1,75 @@
-asdsadsad
+#map-container
+  #map
+  
+= semantic_form_for [:admin, resource] do |f|
+  #sell-location
+    = f.inputs do
+      = f.input :lat#, as: :hidden
+      = f.input :lng#, as: :hidden
+      = f.input :name
+      = f.input :address
+      = f.input :info
+      = f.input :card_selling,   as: :select, collection: yes_no_collection
+      = f.input :card_reloading, as: :select, collection: yes_no_collection
+      = f.input :ticket_selling, as: :select, collection: yes_no_collection
+      = f.input :visibility
+      = f.input :inexact
+      = f.input :manual_position
+
+  #suggestions
+    = f.inputs for: :sell_locations_suggestions do |ff, i|
+      - sugg = ff.object
+      %li.user-info #{h sugg.user_name}, #{h sugg.user_email}, (#{h sugg.user_address})
+
+      %li
+        %ol.selectable-values
+          - if not (sugg.lat.blank? and sugg.lng.blank?)
+            %li.position
+              %label Position
+              .value #{sugg.lat}, #{sugg.lng}
+          - if not sugg.name.blank?
+            %li.name
+              %label Name
+              .value= sugg.name
+          - if not sugg.address.blank?
+            %li.address
+              %label Address
+              .value= sugg.address
+          - if not sugg.info.blank?
+            %li.info
+              %label Info
+              .value= sugg.info
+          - if not sugg.card_selling.blank?
+            %li.card_selling
+              %label Card selling
+              .value= sugg.card_selling
+          - if not sugg.card_reloading.blank?
+            %li.card_reloading
+              %label Card reloading
+              .value= sugg.card_reloading
+          - if not sugg.ticket_selling.blank?
+            %li.ticket_selling
+              %label Ticket selling
+              .value= sugg.ticket_selling
+          - if not sugg.visibility
+            %li.visibility
+              %label Visibility
+              .value= sugg.visibility
+
+      = ff.input :reviewed
+
+
+    
+
+  = f.actions do
+    = f.action :submit
+
+    -#= ff.input :lat
+    -#= ff.input :lng
+    -#= ff.input :name
+    -#= ff.input :address
+    -#= ff.input :info
+    -#= ff.input :card_selling
+    -#= ff.input :card_reloading
+    -#= ff.input :ticket_selling
+    -#= ff.input :visibility

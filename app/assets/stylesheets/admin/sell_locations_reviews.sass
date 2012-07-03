@@ -1,0 +1,53 @@
+body.edit.admin_sell_locations
+  #map-container
+    float: right
+    width: 50%
+    #map
+      width: 100%
+      height: 400px
+      background: rgba(0,0,0,0.05)
+
+  form
+    float: left
+    width: 50%
+
+    //#sell-location
+    //  float: left
+    //  width: 50%
+
+    #suggestions
+      //float: right
+      //clear: right
+      //
+      //width: 50%
+
+      fieldset
+        padding: 2px
+        margin: 5px
+
+        &.minimized
+          li
+            display: none
+            
+          .user-info
+            display: block
+            
+
+      li
+        padding: 0px
+
+      .selectable-values
+        li
+          cursor: pointer
+          
+          &:hover
+            background-color: rgba(0,0,0,0.2)
+
+
+    //#map
+    //  float: right
+    //
+    //  width: 50%
+    //  height: 400px
+    //
+    //  background: rgba(0,0,0,0.05)

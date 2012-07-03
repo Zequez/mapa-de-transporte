@@ -64,4 +64,17 @@ module ApplicationHelper
     output +=  "</a>"
     output.html_safe
   end
+
+  def social_button(target)
+    text = h I18n.t("views.follow_us.social_buttons.#{target}")
+    
+    %{<a id="social-#{target}" title="#{text}" target="_blank" href="#{CONFIG[:social][target]}">#{text}</a>}.html_safe
+  end
+
+  def yes_no_collection
+    @yes_no_null_collection ||= [
+      [I18n.t('yep'), true],
+      [I18n.t('nope'), false]
+    ]
+  end
 end

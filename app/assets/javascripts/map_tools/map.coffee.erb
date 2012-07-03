@@ -69,7 +69,8 @@ class MapTools.Map
     else
       @center = new $G.LatLng(0,0)
 
-
+  set_center: (latlng)->
+    @gmap.setCenter(latlng)
 
   get_bounds: ->
     bounds = @gmap.getBounds()

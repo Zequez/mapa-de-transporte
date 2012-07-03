@@ -65,22 +65,19 @@
       text-align: center
 
     .direction-legend-background
+      @extend .sprite
       display: inline-block
       width: 40px
       height: 40px
-      background-image: url(sprites.png)
       text-indent: -9999px
-
-    $sprite_x: -61px
-    $sprite_y: -39px
 
 
     .bus-name>.direction-legend-background
-      background-position: 0px+$sprite_x 0px+$sprite_y
+      @extend .sprite-bus-name
     .walking-distance>.direction-legend-background
-      background-position: -40px+$sprite_x 0px+$sprite_y
+      @extend .sprite-walking-distance
     .route-distance>.direction-legend-background
-      background-position: -80px+$sprite_x 0px+$sprite_y
+      @extend .sprite-route-distance
 
   >#buses-directions-tooltip
     text-align: center

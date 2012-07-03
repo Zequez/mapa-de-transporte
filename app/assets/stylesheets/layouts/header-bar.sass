@@ -5,9 +5,9 @@
   height: 28px
 
   > *
+    @extend .sprite
+    
     height: 28px
-
-    background-image: url(sprites.png)
 
     opacity: 0.3
 
@@ -21,19 +21,17 @@
   $sprite_y: 0px
 
   #toggle-help
+    @extend .sprite-help
+
     float: left
-    width: 18px
-    height: 100%
-    background-position: -146px+$sprite_x 0px+$sprite_y
     text-indent: -9999px
     cursor: pointer
 
   #toggle-sell-locations
+    @extend .sprite-sell-locations
+
     float: left
     margin-left: $m
-    width: 62px
-    height: 100%
-    background-position: -80px+$sprite_x 0px+$sprite_y
     text-indent: -9999px
     cursor: pointer
 
@@ -47,17 +45,13 @@
     opacity: 1
 
     .bus-price-icon
+      @extend .sprite
+      @extend .sprite-card
       display: inline-block
 
       $sprite_x: -252px
       $sprite_y: 0px
 
-      width: 20px
-      height: 20px
-
-      background-image: url(sprites.png)
-      background-position: 0px+$sprite_x -40px+$sprite_y
-      
       line-height: 20px
       text-indent: -9999px
 

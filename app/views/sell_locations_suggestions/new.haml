@@ -20,10 +20,10 @@
     %li.selling-info
       %ol
         - if not @city or @city.show_bus_card
-          = f.input :card_selling
-          = f.input :card_reloading
+          = f.input :card_selling,   as: :select, collection: yes_no_collection, prompt: "Desconocido"
+          = f.input :card_reloading, as: :select, collection: yes_no_collection, prompt: "Desconocido"
         - if not @city or @city.show_bus_ticket
-          = f.input :ticket_selling
+          = f.input :ticket_selling, as: :select, collection: yes_no_collection, prompt: "Desconnocido"
 
     %li.remove-input
       %ol

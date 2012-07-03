@@ -17,7 +17,9 @@ class MDC.SellLocations.Suggestion.Form extends Utils.Eventable
     @data["user_name"]        = MDC.SETTINGS.read["user_name"]
     @data["user_email"]       = MDC.SETTINGS.read["user_email"]
     @data["sell_location_id"] = @sell_location_data.id
-    @data["removed"]          = false
+#    @data["lat"]              = ""
+#    @data["lng"]              = ""
+#    @data["removed"]          = false
 
     for name in ["lat", "lng", "address", "name", "info", "card_selling", "card_reloading", "ticket_selling"]
       @data[name] = @sell_location_data[name]

@@ -2,6 +2,8 @@ class MDC.SellLocations.Suggestion.FormInputs
   constructor: (@data, @element)->
     @find_inputs()
     @fill_inputs()
+    @fill_placeholders()
+    @fill_selects()
     @bind_inputs()
 
   find_inputs: ->
@@ -22,8 +24,17 @@ class MDC.SellLocations.Suggestion.FormInputs
       false
 
   fill_inputs: ->
-    for name, value of @data
-      @fill_input name, value
+    for name in ["user_name", "user_email", "sell_location_id"]
+      @fill_input name, @data[name]
+
+  fill_placeholders: ->
+    for name in ["name", "address", "info"]
+      @fill_placeholder name, @data[name]
+
+  fill_selects: ->
+    for name in ["card_selling", "card_reloading", "ticket_selling"]
+      @fill_select(name, @data[name])
+      
 
   fill_input: (name, value)->
     input = @inputs[name]
@@ -32,6 +43,30 @@ class MDC.SellLocations.Suggestion.FormInputs
           input.prop 'checked', value
         else
           input.val value
+
+  fill_placeholder: (name, value)->
+    input = @inputs[name]
+    if input
+      input.attr('placeholder', value)
+
+  fill_select: (name, value)->
+    input = @inputs[name]
+    
+    if input
+      value = @boolean_to_select(value)
+      if not (value == null)
+        empty_choice = input.find('option[value=""]')
+        current_choice = input.find("option[value='#{value}']")
+        current_choice.remove()
+        empty_choice.text current_choice.text()
+
+  boolean_to_select: (value)->
+    if value == true
+      "true"
+    else if value == false
+      "false"
+    else
+      null
 
   bind_inputs: ->
     @settings_listener = MDC.SETTINGS.add_listener 'change', (name, value)=>

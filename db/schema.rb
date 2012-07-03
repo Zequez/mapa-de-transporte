@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120702003411) do
+ActiveRecord::Schema.define(:version => 20120703015530) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -165,15 +165,15 @@ ActiveRecord::Schema.define(:version => 20120702003411) do
     t.string   "address"
     t.string   "name"
     t.string   "info"
-    t.float    "lat",              :default => 0.0,   :null => false
-    t.float    "lng",              :default => 0.0,   :null => false
-    t.boolean  "visibility",       :default => true,  :null => false
+    t.float    "lat"
+    t.float    "lng"
+    t.boolean  "visibility"
     t.integer  "sell_location_id"
     t.datetime "created_at"
     t.boolean  "reviewed",         :default => false, :null => false
-    t.boolean  "card_selling",     :default => false, :null => false
-    t.boolean  "card_reloading",   :default => false, :null => false
-    t.boolean  "ticket_selling",   :default => false, :null => false
+    t.boolean  "card_selling"
+    t.boolean  "card_reloading"
+    t.boolean  "ticket_selling"
     t.string   "user_address"
   end
 

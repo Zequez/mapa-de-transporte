@@ -1,6 +1,15 @@
 ActiveAdmin.register SellLocation do
   controller do
-
+    def update
+      update! do
+        next_sell_location = SellLocation.first_with_suggestion
+        if next_sell_location
+          return redirect_to edit_admin_sell_location_path(next_sell_location)
+        else
+          return redirect_to admin_sell_locations_path
+        end
+      end
+    end
   end
 
   form partial: "edit_and_review_form"

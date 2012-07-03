@@ -1,5 +1,29 @@
 ActiveAdmin::Dashboards.build do
 
+  section "Sell locations suggestions" do
+    L.l SellLocation.with_suggestion
+    table_for SellLocation.with_suggestion do
+      column :address
+      column :name
+      column :info
+      column :card_selling
+      column :card_reloading
+      column :ticket_selling
+      column "" do |sell_location|
+        link_to "Revisar", edit_admin_sell_location_path(sell_location)
+      end
+    end
+  end
+
+  section "Feedback" do
+    table_for Feedback.not_read.limit(20) do
+      column :address
+      column :name
+      column :email
+      column :message
+      column :created_at
+    end
+  end
   # Define your dashboard sections here. Each block will be
   # rendered on the dashboard in the context of the view. So just
   # return the content which you would like to display.

@@ -28,8 +28,8 @@ user_settings = {
 }
 
 class UserSettings extends Utils.Eventable
-  default: {},
-  user_settings: {},
+  default: {}
+  user_settings: {}
   settings: {}
   read: {}
 
@@ -51,7 +51,7 @@ class UserSettings extends Utils.Eventable
     
 
   set: (setting_name, value)->
-    if @settings[setting_name] != value|
+    if @settings[setting_name] != value
       @settings[setting_name] = value
       @save()
       @fire_event("change", setting_name, value)

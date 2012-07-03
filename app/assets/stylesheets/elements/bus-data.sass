@@ -21,10 +21,7 @@
       margin-top: -10px
       padding-right: 3px
 
-      width: 20px
-      height: 20px
-
-      background-image: url(sprites.png)
+      @extend .sprite
       background-repeat: no-repeat
 
       text-indent: -9999px
@@ -49,21 +46,18 @@
       background: $white
       box-shadow: 0px 1px 0px $black
 
-  $sprite_x: -252px
-  $sprite_y: 0px
-
   >.bus-delay>.data-icon
-    background-position: 0px+$sprite_x 0px+$sprite_y
+    @extend .sprite-hourglass-dark
   >.bus-schedule
     line-height: 15px
     >.data-value
       font-size: 1em
     >.data-icon
-      background-position: 0px+$sprite_x -20px+$sprite_y
+      @extend .sprite-clock-dark
   >.bus-card>.data-icon
-    background-position: 0px+$sprite_x -40px+$sprite_y
+    @extend .sprite-card-dark
   >.bus-cash>.data-icon
-    background-position: 0px+$sprite_x -60px+$sprite_y
+    @extend .sprite-coin-dark
 
 
 
@@ -73,10 +67,10 @@
         background-color: $blue
 
     >.bus-delay>.data-icon
-      background-position: -20px+$sprite_x 0px+$sprite_y
+      @extend .sprite-hourglass
     >.bus-schedule>.data-icon
-      background-position: -20px+$sprite_x -20px$sprite_y
+      @extend .sprite-clock
     >.bus-card>.data-icon
-      background-position: -20px+$sprite_x -40px+$sprite_y
+      @extend .sprite-card
     >.bus-cash>.data-icon
-      background-position: -20px+$sprite_x -60px+$sprite_y
+      @extend .sprite-coin
