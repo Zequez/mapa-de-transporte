@@ -49,10 +49,11 @@ class MDC.SellLocations.BaseMarker extends Utils.Eventable
        MDC.SellLocations.BaseMarker.create_image 0
 
 MDC.SellLocations.BaseMarker.create_image = (number)->
-  w = 19
-  h = 27
+  w = 17
+  h = 25
+  sprites_positions = [[214, 185], [239, 0], [247, 36]]
   size   = new $G.Size(w, h)
-  origin = new $G.Point(19*number, 0)
-  url    = "/assets/sell_locations_marker.png"
+  origin = new $G.Point(sprites_positions[number][0], sprites_positions[number][1])
+  url    = "/assets/sprites.png"
 
   new $G.MarkerImage url, size, origin

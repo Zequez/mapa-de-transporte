@@ -17,6 +17,7 @@
     %li.right
       %ol
         = f.input :info, as: :text
+        = f.input :comment, as: :text, label: false, title: "Comentario"
     %li.selling-info
       %ol
         - if not @city or @city.show_bus_card

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120703015530) do
+ActiveRecord::Schema.define(:version => 20120703165215) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -175,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20120703015530) do
     t.boolean  "card_reloading"
     t.boolean  "ticket_selling"
     t.string   "user_address"
+    t.string   "comment"
   end
 
 end

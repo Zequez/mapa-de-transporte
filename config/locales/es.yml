@@ -37,6 +37,7 @@ es:
         address: Dirección
         name: Nombre
         info: Información adicional
+        comment: ¿Algún comentario?
         visibility: ¿Visible?
         removed: ¿Ya no existe?
         card_selling: ¿Vende tarjetas?
@@ -44,6 +45,8 @@ es:
         ticket_selling: ¿Vende tickets?
 
     placeholders:
+      sell_locations_suggestion:
+        comment: ¿Algún comentario sobre esta información?
       feedback:
         message: "Estimado ser humano, le escribo este mensaje con el objetivo de comunicarle que..."
 

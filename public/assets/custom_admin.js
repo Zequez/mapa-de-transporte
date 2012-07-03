@@ -2553,17 +2553,17 @@ InfoBox.prototype.remove = function () {
       */
       values = [
         {
-          "hc": this.map_settings,
-          "fh": this.get_bounds,
+          "hc": this.calculate_center,
+          "fh": this.make_bounds,
           "c": this.make_bounds
         }, {
           "dc": this.make_bounds,
           "bb": this.make_bounds,
           "gf": this.make_bounds
         }, {
-          "ce": this.map_settings,
-          "gh": this.build_gmap,
-          "ii": this.calculate_center
+          "ce": this.make_bounds,
+          "gh": this.calculate_center,
+          "ii": this.get_bounds
         }
       ];
       if (typeof MDC !== "undefined") {
@@ -2612,6 +2612,10 @@ InfoBox.prototype.remove = function () {
       } else {
         return this.center = new $G.LatLng(0, 0);
       }
+    };
+
+    Map.prototype.set_center = function(latlng) {
+      return this.gmap.setCenter(latlng);
     };
 
     Map.prototype.get_bounds = function() {
@@ -3977,6 +3981,170 @@ var CityEditor = {};
  */
 
 (function(){var fieldSelection={getSelection:function(){var e=(this.jquery)?this[0]:this;return(('selectionStart'in e&&function(){var l=e.selectionEnd-e.selectionStart;return{start:e.selectionStart,end:e.selectionEnd,length:l,text:e.value.substr(e.selectionStart,l)}})||(document.selection&&function(){e.focus();var r=document.selection.createRange();if(r===null){return{start:0,end:e.value.length,length:0}}var re=e.createTextRange();var rc=re.duplicate();re.moveToBookmark(r.getBookmark());rc.setEndPoint('EndToStart',re);return{start:rc.text.length,end:rc.text.length+r.text.length,length:r.text.length,text:r.text}})||function(){return null})()},replaceSelection:function(){var e=(typeof this.id=='function')?this.get(0):this;var text=arguments[0]||'';return(('selectionStart'in e&&function(){e.value=e.value.substr(0,e.selectionStart)+text+e.value.substr(e.selectionEnd,e.value.length);return this})||(document.selection&&function(){e.focus();document.selection.createRange().text=text;return this})||function(){e.value+=text;return jQuery(e)})()}};jQuery.each(fieldSelection,function(i){jQuery.fn[i]=this})})();
+/**
+ * StickyScroll
+ * written by Rick Harris - @iamrickharris
+ * 
+ * Requires jQuery 1.4+
+ * 
+ * Make elements stick to the top of your page as you scroll
+ *
+ * See README for details
+ *
+*/
+
+
+(function($) {
+  $.fn.stickyScroll = function(options) {
+  
+    var methods = {
+      
+      init : function(options) {
+        
+        var settings;
+        
+        if (options.mode !== 'auto' && options.mode !== 'manual') {
+          if (options.container) {
+            options.mode = 'auto';
+          }
+          if (options.bottomBoundary) {
+            options.mode = 'manual';
+          }
+        }
+        
+        settings = $.extend({
+          mode: 'auto', // 'auto' or 'manual'
+          container: $('body'),
+          topBoundary: null,
+          bottomBoundary: null
+        }, options);
+        
+        function bottomBoundary() {
+          return $(document).height() - settings.container.offset().top
+            - settings.container.attr('offsetHeight');
+        }
+
+        function topBoundary() {
+          return settings.container.offset().top
+        }
+
+        function elHeight(el) {
+          return $(el).attr('offsetHeight');
+        }
+        
+        // make sure user input is a jQuery object
+        settings.container = $(settings.container);
+        if(!settings.container.length) {
+          if(console) {
+            console.log('StickyScroll: the element ' + options.container +
+              ' does not exist, we\'re throwing in the towel');
+          }
+          return;
+        }
+
+        // calculate automatic bottomBoundary
+        if(settings.mode === 'auto') {
+          settings.topBoundary = topBoundary();
+          settings.bottomBoundary = bottomBoundary();
+        }
+
+        return this.each(function(index) {
+
+          var el = $(this),
+            win = $(window),
+            id = Date.now() + index,
+            height = elHeight(el);
+            
+          el.data('sticky-id', id);
+          
+          win.bind('scroll.stickyscroll-' + id, function() {
+            var top = $(document).scrollTop(),
+              bottom = $(document).height() - top - height;
+
+            if(bottom <= settings.bottomBoundary) {
+              el.offset({
+                top: $(document).height() - settings.bottomBoundary - height
+              })
+              .removeClass('sticky-active')
+              .removeClass('sticky-inactive')
+              .addClass('sticky-stopped');
+            }
+            else if(top > settings.topBoundary) {
+              el.offset({
+                top: $(window).scrollTop()
+              })
+              .removeClass('sticky-stopped')
+              .removeClass('sticky-inactive')
+              .addClass('sticky-active');
+            }
+            else if(top < settings.topBoundary) {
+              el.css({
+                position: '',
+                top: '',
+                bottom: ''
+              })
+              .removeClass('sticky-stopped')
+              .removeClass('sticky-active')
+              .addClass('sticky-inactive');
+            }
+          });
+          
+          win.bind('resize.stickyscroll-' + id, function() {
+            if (settings.mode === 'auto') {
+              settings.topBoundary = topBoundary();
+              settings.bottomBoundary = bottomBoundary();
+            }
+            height = elHeight(el);
+            $(this).scroll();
+          })
+          
+          el.addClass('sticky-processed');
+          
+          // start it off
+          win.scroll();
+
+        });
+        
+      },
+      
+      reset : function() {
+        return this.each(function() {
+          var el = $(this),
+            id = el.data('sticky-id');
+            
+          el.css({
+            position: '',
+            top: '',
+            bottom: ''
+          })
+          .removeClass('sticky-stopped')
+          .removeClass('sticky-active')
+          .removeClass('sticky-inactive')
+          .removeClass('sticky-processed');
+          
+          $(window).unbind('.stickyscroll-' + id);
+        });
+      }
+      
+    };
+    
+    // if options is a valid method, execute it
+    if (methods[options]) {
+      return methods[options].apply(this,
+        Array.prototype.slice.call(arguments, 1));
+    }
+    // or, if options is a config object, or no options are passed, init
+    else if (typeof options === 'object' || !options) {
+      return methods.init.apply(this, arguments);
+    }
+    
+    else if(console) {
+      console.log('Method' + options +
+        ' does not exist on jQuery.stickyScroll');
+    }
+
+  };
+})(jQuery);
 (function(a){if(google.maps.Polyline.prototype.edit===a){function b(b,c){function p(){this.setIcon(o)}function q(){this.setIcon(n)}function r(){var a=this.getPosition();a.marker=this,a.ghostMarker=g(this.editIndex).ghostMarker,b.getPath().setAt(this.editIndex,a),c.ghosts&&k(this)}function s(){google.maps.event.trigger(b,"update_at",this.editIndex,this.getPosition())}function t(){if(!c.ghosts)return;var d=g(this.editIndex),e=g(this.editIndex-1);d.ghostMarker&&d.ghostMarker.setMap(null),console.log(this.editIndex),b.getPath().removeAt(this.editIndex),e&&(this.editIndex<b.getPath().getLength()?k(e.marker):(e.ghostMarker.setMap(null),e.ghostMarker=a)),this.setMap(null),b.getPath().forEach(function(a,b){a.marker&&(a.marker.editIndex=b)}),b.getPath().getLength()===1&&b.getPath().pop().marker.setMap(null),google.maps.event.trigger(b,"remove_at",this.editIndex,d)}function u(a){var c=a.marker;return c||(c=new google.maps.Marker({position:a,map:b.getMap(),icon:n,draggable:!0,raiseOnDrag:!1}),google.maps.event.addListener(c,"mouseover",p),google.maps.event.addListener(c,"mouseout",q),google.maps.event.addListener(c,"drag",r),google.maps.event.addListener(c,"dragend",s),google.maps.event.addListener(c,"rightclick",t),a.marker=c),c.setPosition(a),c}c=c||{},c.ghosts=c.ghosts||c.ghosts===a,c.imagePath=c.imagePath||google.maps.Polyline.prototype.edit.settings.imagePath;if(c.ghosts){var d=new google.maps.MarkerImage(c.imagePath+"ghostVertex.png",new google.maps.Size(11,11),new google.maps.Point(0,0),new google.maps.Point(6,6)),e=new google.maps.MarkerImage(c.imagePath+"ghostVertexOver.png",new google.maps.Size(11,11),new google.maps.Point(0,0),new google.maps.Point(6,6)),f=new google.maps.Polyline({map:b.getMap(),strokeColor:b.strokeColor,strokeOpacity:.2,strokeWeight:b.strokeWeight});function g(a){return b.getPath().getAt(a)}function h(){this.setIcon(e)}function i(){this.setIcon(d)}function j(){f.getPath().getLength()===0&&f.setPath([this.marker.getPosition(),this.getPosition(),g(this.marker.editIndex+1)]),f.getPath().setAt(1,this.getPosition())}function k(a){var b=g(a.editIndex),c=g(a.editIndex-1),d=g(a.editIndex+1),e=a.getPosition();b&&b.ghostMarker&&(google.maps.geometry?b.ghostMarker.setPosition(google.maps.geometry.spherical.interpolate(b,d,.5)):b.ghostMarker.setPosition(new google.maps.LatLng(b.lat()+.5*(d.lat()-b.lat()),b.lng()+.5*(d.lng()-b.lng())))),c&&c.ghostMarker&&(google.maps.geometry?c.ghostMarker.setPosition(google.maps.geometry.spherical.interpolate(c,e,.5)):c.ghostMarker.setPosition(new google.maps.LatLng(c.lat()+.5*(e.lat()-c.lat()),c.lng()+.5*(e.lng()-c.lng()))))}function l(){var a=this.getPosition(),c=this.marker.editIndex+1,d;f.getPath().forEach(function(){f.getPath().pop()}),b.getPath().insertAt(c,a),d=u(g(c)),d.editIndex=c,k(this.marker),m(g(c)),b.getPath().forEach(function(a,b){a.marker&&(a.marker.editIndex=b)}),google.maps.event.trigger(b,"insert_at",c,a)}function m(a){if(a.marker.editIndex<b.getPath().getLength()-1){var c=g(a.marker.editIndex+1),e,f;return google.maps.geometry?e=google.maps.geometry.spherical.interpolate(a,c,.5):e=new google.maps.LatLng(a.lat()+.5*(c.lat()-a.lat()),a.lng()+.5*(c.lng()-a.lng())),f=a.ghostMarker,f||(f=new google.maps.Marker({map:b.getMap(),icon:d,draggable:!0,raiseOnDrag:!1}),google.maps.event.addListener(f,"mouseover",h),google.maps.event.addListener(f,"mouseout",i),google.maps.event.addListener(f,"drag",j),google.maps.event.addListener(f,"dragend",l),a.ghostMarker=f,f.marker=a.marker),f.setPosition(e),f}return null}}var n=new google.maps.MarkerImage(c.imagePath+"vertex.png",new google.maps.Size(11,11),new google.maps.Point(0,0),new google.maps.Point(6,6)),o=new google.maps.MarkerImage(c.imagePath+"vertexOver.png",new google.maps.Size(11,11),new google.maps.Point(0,0),new google.maps.Point(6,6));b.getPath().forEach(function(a,b){u(a).editIndex=b,c.ghosts&&m(a)}),google.maps.event.trigger(b,"edit_start")}function c(b){b.getPath().forEach(function(b,c){b.marker&&(b.marker.setMap(null),b.marker=a),b.ghostMarker&&(b.ghostMarker.setMap(null),b.ghostMarker=a)}),google.maps.event.trigger(b,"edit_end",b.getPath())}google.maps.Polyline.prototype.edit=function(d,e){d||d===a?(!e&&typeof d=="object"&&(e=d),b(this,e)):c(this)},google.maps.Polyline.prototype.edit.settings={imagePath:"/assets/polyline.edit/"}}})()
 ;
 var SellLocationsEditor = {};
@@ -4294,9 +4462,22 @@ var SellLocationsEditor = {};
       return this.marker.setIcon(this.blue_icon());
     };
 
+    Marker.prototype.hide = function() {
+      return this.marker.setVisible(false);
+    };
+
+    Marker.prototype.show = function() {
+      return this.marker.setVisible(true);
+    };
+
     Marker.prototype.set_latlng = function(latlng) {
       this.latlng = latlng;
       return this.marker.setPosition(this.latlng);
+    };
+
+    Marker.prototype.set_position = function(latlng) {
+      this.latlng = latlng;
+      return this.set_latlng(this.latlng);
     };
 
     Marker.prototype.remove = function() {
@@ -4447,6 +4628,465 @@ var SellLocationsEditor = {};
     };
 
     return SellLocation;
+
+  })(Utils.Eventable);
+
+}).call(this);
+var SellLocationsReviews = {};
+(function() {
+
+  SellLocationsReviews.Builder = (function() {
+
+    function Builder() {
+      this.build_map();
+      this.bind_map();
+      this.build_suggestions();
+      this.build_sell_location();
+      this.center_map();
+    }
+
+    Builder.prototype.build_map = function() {
+      this.map_element = $("#map");
+      this.map_container = $("#map-container");
+      return this.map = new MapTools.Map(this.map_element);
+    };
+
+    Builder.prototype.bind_map = function() {
+      var offset,
+        _this = this;
+      offset = this.map_element.offset();
+      return $(window).scroll(function() {
+        var scroll_top;
+        scroll_top = $(window).scrollTop();
+        if (scroll_top > offset.top) {
+          _this.map_element.css('position', 'fixed');
+          _this.map_element.css('top', 0);
+          return _this.map_element.css('left', offset.left);
+        } else {
+          _this.map_element.css('top', '');
+          _this.map_element.css('left', '');
+          return _this.map_element.css('position', 'absolute');
+        }
+      });
+    };
+
+    Builder.prototype.build_sell_location = function() {
+      return this.sell_location = new SellLocationsReviews.SellLocation(this.map.gmap);
+    };
+
+    Builder.prototype.center_map = function() {
+      return this.map.set_center(this.sell_location.get_position());
+    };
+
+    Builder.prototype.build_suggestions = function() {
+      var _this = this;
+      this.suggestions_elements = $("#suggestions fieldset");
+      this.suggestions = [];
+      return this.suggestions_elements.each(function(i, element) {
+        var suggestion;
+        suggestion = new SellLocationsReviews.Suggestion($(element), _this.map.gmap);
+        _this.bind_suggestion(suggestion);
+        return _this.suggestions.push(suggestion);
+      });
+    };
+
+    Builder.prototype.bind_suggestion = function(suggestion) {
+      var _this = this;
+      suggestion.add_listener('select', function(name, value) {
+        return _this.sell_location.set_val(name, value);
+      });
+      return suggestion.add_listener('hover', function() {
+        var sugg, _i, _len, _ref;
+        _ref = _this.suggestions;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          sugg = _ref[_i];
+          if (sugg !== suggestion) sugg.unhighlight();
+        }
+        return suggestion.highlight();
+      });
+    };
+
+    return Builder;
+
+  })();
+
+}).call(this);
+(function() {
+  var __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+  SellLocationsReviews.Form = (function(_super) {
+
+    __extends(Form, _super);
+
+    function Form() {
+      this.find_elements();
+    }
+
+    Form.prototype.find_elements = function() {
+      this.element = $("form");
+      this.container = $("#sell-location");
+      return this.inputs = {};
+    };
+
+    Form.prototype.set_position = function(latlng) {
+      this.set_val("lat", latlng.lat());
+      this.set_val("lng", latlng.lng());
+      return this.set_val("manual_position", true);
+    };
+
+    Form.prototype.get_position = function() {
+      return $LatLng([parseFloat(this.get_val('lat')), parseFloat(this.get_val('lng'))]);
+    };
+
+    Form.prototype.val = function(name, value) {
+      if (value === void 0) {
+        return this.get_val(name);
+      } else {
+        return this.set_val(name, value);
+      }
+    };
+
+    Form.prototype.set_val = function(name, value) {
+      var input;
+      input = this.find_input(name);
+      return input.val(value);
+    };
+
+    Form.prototype.get_val = function(name) {
+      var input;
+      input = this.find_input(name);
+      return input.val();
+    };
+
+    Form.prototype.find_input = function(name) {
+      var input;
+      if (this.inputs[name]) return this.inputs[name];
+      input = this.container.find("[name*='" + name + "']");
+      return this.inputs[name] = new Utils.Input(input);
+    };
+
+    return Form;
+
+  })(Utils.Eventable);
+
+  Utils.Input = (function() {
+
+    function Input(element) {
+      this.element = element;
+      this.element = this.element.last();
+      this.set_type();
+    }
+
+    Input.prototype.set_type = function() {
+      var tag_name;
+      tag_name = this.element.prop("tagName");
+      if (tag_name === 'INPUT') {
+        return this.type = this.element.attr('type');
+      } else {
+        return this.type = tag_name.toLowerCase();
+      }
+    };
+
+    Input.prototype.val = function(val) {
+      if (val !== void 0) {
+        return this.set_val(val);
+      } else {
+        return this.get_val();
+      }
+    };
+
+    Input.prototype.set_val = function(val) {
+      if (this.type === 'checkbox') {
+        return this.element.prop('checked', val);
+      } else if (this.type === 'select') {
+        return this.element.val(this.to_select(val));
+      } else {
+        return this.element.val(val);
+      }
+    };
+
+    Input.prototype.get_val = function() {
+      if (this.type === "checkbox") {
+        return this.element.is(":checked");
+      } else if (this.type === "select") {
+        return this.from_select(this.element.val());
+      } else {
+        return this.element.val();
+      }
+    };
+
+    Input.prototype.to_select = function(value) {
+      if (value === true) {
+        return "true";
+      } else if (value === false) {
+        return "false";
+      } else {
+        return value;
+      }
+    };
+
+    Input.prototype.from_select = function(value) {
+      if (value === "true") {
+        return true;
+      } else if (value === "false") {
+        return false;
+      } else {
+        return value;
+      }
+    };
+
+    return Input;
+
+  })();
+
+}).call(this);
+(function() {
+
+  $(function() {
+    if ($(document["body"]).is('.edit.admin_sell_locations')) {
+      return new SellLocationsReviews.Builder;
+    }
+  });
+
+}).call(this);
+(function() {
+  var __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+  SellLocationsReviews.Marker = (function(_super) {
+
+    __extends(Marker, _super);
+
+    function Marker() {
+      Marker.__super__.constructor.apply(this, arguments);
+    }
+
+    Marker.prototype.draggable = function(boolean) {
+      return this.marker.setDraggable(boolean);
+    };
+
+    Marker.prototype.green = function() {
+      return this.marker.setIcon(this.green_icon());
+    };
+
+    Marker.prototype.green_icon = function() {
+      var _base;
+      return (_base = SellLocationsReviews.Marker).green_icon || (_base.green_icon = new $G.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|00FF00", new $G.Size(21, 34), new $G.Point(0, 0), new $G.Point(10, 34)));
+    };
+
+    return Marker;
+
+  })(SellLocationsEditor.Marker);
+
+}).call(this);
+(function() {
+
+  SellLocationsReviews.SellLocation = (function() {
+
+    function SellLocation(gmap) {
+      this.gmap = gmap;
+      this.build_form();
+      this.build_marker();
+      this.bind_marker();
+    }
+
+    SellLocation.prototype.build_form = function() {
+      return this.form = new SellLocationsReviews.Form;
+    };
+
+    SellLocation.prototype.build_marker = function() {
+      this.marker = new SellLocationsReviews.Marker(this.gmap, this.form.get_position());
+      return this.marker.green();
+    };
+
+    SellLocation.prototype.bind_marker = function() {
+      var _this = this;
+      return this.marker.add_listener('change', function(latlng) {
+        return _this.form.set_position(latlng);
+      });
+    };
+
+    SellLocation.prototype.get_position = function() {
+      return this.form.get_position();
+    };
+
+    SellLocation.prototype.set_position = function(latlng) {
+      return this.form.set_position(latlng);
+    };
+
+    SellLocation.prototype.update_marker_position = function() {
+      return this.marker.set_position(this.form.get_position());
+    };
+
+    SellLocation.prototype.set_val = function(name, value) {
+      this.form.set_val(name, value);
+      if (name === 'lat' || name === 'lng') {
+        this.form.val('manual_position', true);
+        return this.update_marker_position();
+      }
+    };
+
+    return SellLocation;
+
+  })();
+
+}).call(this);
+(function() {
+  var __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+  SellLocationsReviews.Suggestion = (function(_super) {
+
+    __extends(Suggestion, _super);
+
+    function Suggestion(form_element, gmap) {
+      this.form_element = form_element;
+      this.gmap = gmap;
+      this.build_form();
+      this.bind_form();
+      this.build_marker();
+      this.hidden = false;
+    }
+
+    Suggestion.prototype.build_form = function() {
+      return this.form = new SellLocationsReviews.SuggestionForm(this.form_element);
+    };
+
+    Suggestion.prototype.bind_form = function() {
+      var _this = this;
+      this.form.add_listener('close', function() {
+        _this.form.hide();
+        if (_this.marker) return _this.marker.hide();
+      });
+      this.form.add_listener('select', function(name, value) {
+        return _this.fire_event('select', name, value);
+      });
+      this.inherit_listener(this.form, 'hover');
+      return this.form.add_listener('toggle', function() {
+        if (_this.hidden) {
+          return _this.show();
+        } else {
+          return _this.hide();
+        }
+      });
+    };
+
+    Suggestion.prototype.hide = function() {
+      this.hidden = true;
+      this.form.hide();
+      if (this.marker) return this.marker.hide();
+    };
+
+    Suggestion.prototype.show = function() {
+      this.hidden = false;
+      this.form.show();
+      if (this.marker) return this.marker.show();
+    };
+
+    Suggestion.prototype.build_marker = function() {
+      var position;
+      position = this.form.get_position();
+      if (position) {
+        this.marker = new SellLocationsReviews.Marker(this.gmap, position);
+        return this.marker.draggable(false);
+      } else {
+        return this.marker = null;
+      }
+    };
+
+    Suggestion.prototype.unhighlight = function() {
+      if (this.marker) return this.marker.unhighlight();
+    };
+
+    Suggestion.prototype.highlight = function() {
+      if (this.marker) return this.marker.highlight();
+    };
+
+    return Suggestion;
+
+  })(Utils.Eventable);
+
+}).call(this);
+(function() {
+  var __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+  SellLocationsReviews.SuggestionForm = (function(_super) {
+
+    __extends(SuggestionForm, _super);
+
+    function SuggestionForm(element) {
+      this.element = element;
+      this.find_elements();
+      this.bind_elements();
+    }
+
+    SuggestionForm.prototype.find_elements = function() {
+      this.selectable_values = this.element.find('.selectable-values');
+      this.values = this.selectable_values.find('li');
+      this.reviewed_checkbox = this.element.find('[name*="reviewed"]');
+      this.position_element = this.values.filter('.position');
+      return this.title_element = this.element.find('.user-info');
+    };
+
+    SuggestionForm.prototype.bind_elements = function() {
+      var _this = this;
+      this.values.click(function(e) {
+        var element, lat, lng, name, value, _ref;
+        element = $(e.currentTarget);
+        name = element.attr('class');
+        value = element.find('.value').text();
+        if (name === 'position') {
+          _ref = value.split(','), lat = _ref[0], lng = _ref[1];
+          lat = parseFloat(lat);
+          lng = parseFloat(lng);
+          _this.send_value('lat', lat);
+          return _this.send_value('lng', lng);
+        } else {
+          if (value === 'true') value = true;
+          if (value === 'false') value = false;
+          return _this.send_value(name, value);
+        }
+      });
+      this.reviewed_checkbox.change(function(e) {
+        if (_this.reviewed_checkbox.is(":checked")) {
+          return _this.fire_event('close');
+        }
+      });
+      this.element.mouseover(function() {
+        return _this.fire_event('hover');
+      });
+      return this.title_element.click(function() {
+        return _this.fire_event('toggle');
+      });
+    };
+
+    SuggestionForm.prototype.get_position = function() {
+      var element, lat, lng, value, _ref;
+      element = this.position_element.find('.value');
+      if (element.length > 0) {
+        value = this.position_element.find('.value').text();
+        _ref = value.split(','), lat = _ref[0], lng = _ref[1];
+        lat = parseFloat(lat);
+        lng = parseFloat(lng);
+        return $LatLng([lat, lng]);
+      }
+    };
+
+    SuggestionForm.prototype.hide = function() {
+      return this.element.addClass('minimized');
+    };
+
+    SuggestionForm.prototype.show = function() {
+      return this.element.removeClass('minimized');
+    };
+
+    SuggestionForm.prototype.send_value = function(name, value) {
+      return this.fire_event('select', name, value);
+    };
+
+    return SuggestionForm;
 
   })(Utils.Eventable);
 

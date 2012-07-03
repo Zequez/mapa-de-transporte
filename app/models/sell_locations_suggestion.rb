@@ -14,6 +14,7 @@ class SellLocationsSuggestion < ActiveRecord::Base
                   :ticket_selling,
                   :removed,
                   :visibility,
+                  :comment,
                   :reviewed
 
   attr_accessible :lat,
@@ -29,6 +30,7 @@ class SellLocationsSuggestion < ActiveRecord::Base
                   :ticket_selling,
                   :removed,
                   :visibility,
+                  :comment,
                   as: :user
 
   #validates :address, presence: true
