@@ -1,12 +1,19 @@
 class MDC.Interface.UrlRewriter
-  constructor: (@buses, @sell_locations_manager)->
+  constructor: ->
     if window.history.replaceState
+      @enabled = true
       @set_base_url()
-      @bind_buses()
-      @bind_sell_locations()
+#      @bind_buses()
+#      @bind_sell_locations()
+    else
+      @enabled = false
 
   set_base_url: ->
     @base_url = location.pathname.match(/\/[^/]+/)
+
+  set_url: (value)->
+    new_url = "#{@base_url}/#{value}"
+    window.history.replaceState(false, false, new_url)
 
   bind_buses: ->
     for bus in @buses

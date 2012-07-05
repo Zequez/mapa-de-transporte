@@ -1,104 +1,117 @@
 class MDC.Directions.Manager
-  constructor: (map, buses)->
+  constructor: (@map, @buses_manager, @buses)->
     @map     = map
     @buses   = buses
 
     @directions  = []
     @shown_directions  = []
     @hidden_directions  = []
+    @binded_directions  = []
 
     @create_checkpoints_manager()
     @bind_checkpoints_manager()
 
-    @create_directions_interface()
-    @bind_directions_interface()
-#    @create_filter_interface()
-#    @create_bus_paths_interface()
+    @create_controls()
+    
+    @bind_settings()
 
-#  create_bus_directions_interface: ->
-#    @bus_directions_interface = new BusDirectionsInterface
-
-#  create_filter_interface: ->
-#    @filter_interface = new PathFilterInterface
-#    @filter_instructions = new PathFilterInstructions
-
+    @create_directions_listing()
 
   create_checkpoints_manager: ->
-    @checkpoints_manager = new MDC.Directions.CheckpointsManager(@map)
+    @checkpoints_manager = new MDC.Directions.Checkpoints.Manager(@map)
 
   bind_checkpoints_manager: ->
     @checkpoints_manager.add_listener 'checkpoint_added checkpoint_removed checkpoint_changed', =>
       @calculate_buses()
 
-  create_directions_interface: ->
-    @directions_interface = new MDC.Interface.Directions.Manager
+  create_controls: ->
+    @controls = new MDC.Directions.Controls.Builder()
 
-  bind_directions_interface: ->
-    @directions_interface.add_listener 'options_updated', =>
-      @handle_directions() if @directions.length > 0
+  bind_settings: ->
+    MDC.SETTINGS.add_listener 'change_max_walking_distance', =>
+      @calculate_visible_directions() if @directions.length > 0
+
+  create_directions_listing: ->
+    @directions_listing = new MDC.Directions.DirectionsListing
 
   calculate_buses: ->
     @remove_directions()
     
     if @checkpoints_manager.count() > 0
-      routes_directions = []
+      unsorted_directions = []
       
       for bus in @buses
-        route_direction = bus.direction_to_checkpoints(@checkpoints_manager.checkpoints)
-        routes_directions.push route_direction
+        unsorted_directions.push bus.direction_to_checkpoints(@checkpoints_manager.checkpoints)
 
-      @directions = routes_directions.sort (bus_direction_a, bus_direction_b)->
-        bus_direction_a.walking_distance - bus_direction_b.walking_distance
+      @directions = unsorted_directions.sort (direction_a, direction_b)->
+        direction_a.walk_distance - direction_b.walk_distance
 
-      @handle_directions()
+      @directions_listing.set_directions @directions
+
+      @calculate_visible_directions()
     else
-      @update_directions_interface()
+      @directions_listing.set_state(-1)
 
 
-  handle_directions: ->
+  calculate_visible_directions: ->
     @shown_directions = []
     @hidden_directions = []
 
     max_distance = MDC.SETTINGS.read["max_walking_distance"]
-    
+
     for direction in @directions
-      if direction.real_walking_distance <= max_distance
+      if direction.walk_distance <= max_distance
+        direction.show()
+#        direction.bus.highlight direction.bus_route
         @shown_directions.push direction
       else
+        direction.hide()
         @hidden_directions.push direction
 
-#    if @shown_directions.length == 0
-#      @shown_directions.push @hidden_directions.shift()
-    
-    for direction in @hidden_directions
-      direction.route_bus.hide()
-      direction.route_bus.hide_direction()
+    @directions_listing.set_state @shown_directions.length
+    @bind_shown_directions()
+    @set_buses_state()
+    @bind_shown_directions()
 
+
+  bind_shown_directions: ->
     for direction in @shown_directions
-      direction.route_bus.show()
-      direction.route_bus.set_direction(direction)
+      if @binded_directions.indexOf(direction) == -1
+        @bind_direction(direction)
+    null
 
-    @update_directions_interface()
+  bind_direction: (direction)->
+    direction.add_listener "mouseover", =>
+      @buses_manager.shift_state(direction.buses_routes, "direction_hover")
+
+    direction.add_listener "mouseout", =>
+      @buses_manager.unshift_state(direction.buses)
+      
+    @binded_directions.push direction
+
+  set_buses_state: ->
+    shown_buses   = []
+    hidden_buses  = []
+    
+    for direction in @shown_directions
+      shown_buses   = shown_buses.concat direction.buses_routes
+
+    for direction in @hidden_directions
+      hidden_buses  = hidden_buses.concat  direction.buses
+      
+    @buses_manager.set_state(hidden_buses, "direction_deactivated")
+    @buses_manager.set_state(shown_buses, "direction_activated")
+
 
   remove_directions: ->
     for direction in @directions
-      direction.route_bus.remove_direction()
-      direction.remove()
+      direction.destroy()
+#      direction.route_bus.remove_direction()
+#      direction.remove()
       
     @directions = []
     @shown_directions = []
     @hidden_directions = []
-
-  update_directions_interface: ->
-#    if @directions.length > 0
-#      min = @directions[0].real_walking_distance
-#      max = _.last(@directions).real_walking_distance
-#    else
-    min = max = false
-
-    @directions_interface.set_directions @shown_directions, min, max
-
-
-    
+    @binded_directions = []
 
   

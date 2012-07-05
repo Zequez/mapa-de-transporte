@@ -14,10 +14,3 @@
 //= require ./feedbacks
 
 
-
-
-
-
-
-
-

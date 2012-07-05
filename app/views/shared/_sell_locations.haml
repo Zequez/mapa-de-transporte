@@ -1,3 +1,4 @@
+.separator
 #sell-locations-list.toggleable.toggled
   %div{title: t('views.sell_locations.show_hide')}
     = toolbar_toggler
@@ -8,5 +9,3 @@
         %li{title: sell_location.info}
           %span.address= sell_location.clean_address
           %span.name= sell_location.name
-
-  .separator

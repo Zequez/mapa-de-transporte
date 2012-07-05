@@ -1,4 +1,7 @@
-#buses-directions
+#buses-directions.barsection
+  .separator
+  %h3.barsection-title Cálculo de rutas
+  
   #buses-directions-slider
     .slider-rail
     .slider{title: t('views.buses.directions.slider_title')}
@@ -16,19 +19,13 @@
     .route-distance{title: t('views.buses.directions.route_distance')}
       .direction-legend-background= t('views.buses.directions.walking_distance')
   #buses-directions-tooltip
-    != t('views.buses.directions.help')
+    != t('views.buses.directions.tooltip')
+  #buses-directions-tooltip-no-buses
+    != t('views.buses.directions.tooltip_no_buses')
   #list-of-directions
-    #bus-direction-template.bus-direction
-      .bus-name.bus-name-value! &nbsp;
-      .walking-distance
-        %span.walking-distance-value>
-        m
-      .route-distance
-        %span.route-distance-value>
-        km
-
-  #add-remove-buses-directions
-    %span.plus{title: t('views.buses.directions.show_another_route')}> +
-    %span.minus{title: t('views.buses.directions.show_one_less_route')} -
-
-  .separator
+  #bus-direction-template.bus-direction
+    .bus-name.bus-name-value! &nbsp;
+    .walking-distance{"data-title-start" => "Metros a caminar hasta la parada",
+                      "data-title-middle" => "Metros a caminar desde la parada hasta la otra parada",
+                      "data-title-end" => "Metros a caminar desde la parada"}
+    .route-distance

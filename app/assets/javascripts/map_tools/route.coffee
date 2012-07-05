@@ -1,7 +1,10 @@
 class MapTools.Route
-  constructor: (map, coordinates, options)->
-    @m = @map = map
-    @gmap = @m.gmap
+  constructor: (gmap, coordinates, options)->
+    if gmap.gmap
+      @gmap = gmap.gmap
+    else
+      @gmap = gmap
+      
     @coordinates = coordinates
     @options = options
     @process_points()
@@ -47,6 +50,9 @@ class MapTools.Route
     @options = _.extend @options, options
     @options.visible = @poly.getVisible()
     @poly.setOptions @polyline_options()
+
+  set_options: (options)->
+    @poly.setOptions options
 
   show: ->
     @poly.setVisible(true)

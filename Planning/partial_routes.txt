@@ -1,0 +1,13 @@
+Partial Routes!
+Crear MDC.Directions.Direction
+MDC.Directions.Direction.Builder
+  > (walk_segments, route_segments)
+  - buses: colectivos que toman exáctamente la misma ruta (por ahora solo de a uno, pero prepararlo para varios)
+  - add_bus()
+MDC.Directions.Direction.Route # Ruta que toma el colectivo.
+  - distance: suma de las distancias.
+MDC.Directions.Direction.Walk # Línea que indica la salida desde los destinos a las paradas.
+  - distance: suma de las distancias.
+  - distances: distancia por segmentos.
+MDC.Directions.Direction.InfoBox # Interface encargada de mostrar la información en la lista.
+  > (buses, walk_distances, route_distance)

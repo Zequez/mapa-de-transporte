@@ -42,7 +42,7 @@ Mdc::Application.configure do
   config.assets.debug = false
   config.assets.compile = true
   config.assets.compress = false
-  config.serve_static_assets = true
+  config.serve_static_assets = false
   # Expands the lines which load the assets
 
 

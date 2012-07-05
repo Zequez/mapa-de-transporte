@@ -55,6 +55,7 @@ class UserSettings extends Utils.Eventable
       @settings[setting_name] = value
       @save()
       @fire_event("change", setting_name, value)
+      @fire_event("change_#{setting_name}", setting_name, value)
 
   save: ->
     $.cookie MDC.CONFIG.settings_cookie, null

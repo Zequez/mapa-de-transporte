@@ -5,27 +5,19 @@ class MapTools.Segment
   latlng1: null
   latlng2: null
 
-  constructor: (p1, p2, latlng1, latlng2)->
-    @p1 = p1
-    @p2 = p2
-
-    if latlng1
-      @latlng1 = latlng1
-      @latlng2 = latlng2
-
+  constructor: (@p1, @p2, @latlng1, @latlng2)->
+    @create_latlng()
     @calculate_vars()
+
+  create_latlng: ->
+    @latlng1 ||= $LatLng @p1
+    @latlng2 ||= $LatLng @p2
 
   calculate_vars: ->
     @x1 = @p1[0]
     @y1 = @p1[1]
     @x2 = @p2[0]
     @y2 = @p2[1]
-
-
-    ### IF_QUICK_POISON
-      [@x1, @x2] = @p2
-      [@y1, @y2] = @p1
-    ###
 
     @dx = @x2-@x1
     @dy = @y2-@y1
@@ -36,8 +28,8 @@ class MapTools.Segment
     @distance = Math.sqrt(@dx*@dx + @dy*@dy)
 
   mapize: ->
-    @latlng1 ||= $LatLng @p1
-    @latlng2 ||= $LatLng @p2
+    console.log "MapTools.Segment#mapize DEPRECATED, use #create_latlng instead"
+    @create_latlng()
 
   interpolate: (fraction)->
     [@dx*fraction + @x1, @dy*fraction + @y1]
@@ -62,6 +54,8 @@ class MapTools.Segment
 
   middle_point: -> @interpolate(0.5)
 
+  middle_latlng: -> $LatLng @middle_point()
+
   closest_point: (p)->
     p1 = @p1
     p2 = @p2
@@ -84,40 +78,12 @@ class MapTools.Segment
 
     return new MapTools.Segment(p3, closest)
 
-#    a = @p1
-#    b = @p2
-#
-#    ap = [p[0]-a[0], p[1]-a[1]]
-#    ab = [b[0]-a[0], b[1]-a[1]]
-#
-#    ab2   = ab[0]*ab[0] + ab[1]*ab[1]
-#    ap_ab = ap[0]*ab[0] + ap[1]*ab[1]
-#
-#    if ab2 != 0
-#      t     = ap_ab / ab2
-#      if t < 0
-#        t = 0
-#      else if t > 1
-#        t = 1
-#    else
-#      t = 1
-#
-#    ab_m_t = [ab[0]*t, ab[1]*t]
-#    point = [a[0]+ab_m_t[0], a[1]+ab_m_t[1]] # Closest
-#
-#    ### POISON ###
-#    if MDC.SegmentCalculator.segment.distance < MDC.SegmentCalculator.pefeto-1
-#      point = [a[1]+ab_m_t[1], a[0]+ab_m_t[0]]
-#
-#    new MapTools.Segment(p, point)
 
   distance_in_meters: ->
     return @_distance_in_meters if @_distance_in_meters
-    @mapize()
     @_distance_in_meters = $G.geometry.spherical.computeDistanceBetween(@latlng1, @latlng2)
 
   path: ->
-    @mapize()
     [@latlng1, @latlng2]
 
 #class MapTools.Point

@@ -49,15 +49,14 @@
         %span.bus-price-icon #{t('views.buses.header_bar.ticket_price', city: @city.name)}:
         %span.bus-price-money= monetize @city.bus_card
 
-    .separator
-
     #tooltips
+      .separator
       - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses close_help}.each do |tooltip|
         %div{id: "tooltip-#{tooltip}"}
           = raw t("views.buses.tooltips.#{tooltip}")
       .close &times;
 
-      .separator
+
 
     - if @bus
       = render partial: 'shared/bus_info', locals: {bus: @bus}
@@ -69,45 +68,17 @@
     = render partial: 'shared/directions'
 
 
-    #buses-groups
-      - @city.bus_groups.each do |bus_group|
-        - if bus_group.visible_buses?
-          .buses-group-container
-            .bus-group.slot{id: "bus-group-#{bus_group.id}"}= bus_group.name
-            .buses-container
-              - bus_group.buses_batches(7) do |buses_batch|
-                .buses-batch
-                  .buses-batch-rail
-                  .buses-batch-slots
-                    - buses_batch.each do |bus|
-                      - if bus
-                        = render partial: 'shared/bus-link', locals: {bus: bus}
+    = render partial: "shared/buses-groups"
 
 
     = render partial: "/elements/follow-us"
 
     = render partial: "/elements/share-box"
 
-    #toolbar-google-adsense.barsection
-      .separator
-      %h3.barsection-title= t('views.toolbar_ads.title')
-      .ad-container
-        <script type="text/javascript"><!--
-        google_ad_client = "ca-pub-1533958540786809";
-        /* MapaDeColectivosToolbar */
-        google_ad_slot = "1317037293";
-        google_ad_width = 250;
-        google_ad_height = 250;
-        //-->
-        </script>
-        <script type="text/javascript"
-        src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-        </script>
+    = render partial: "/elements/adsense"
 
       
     .separator
-
-
     #copyright{title: t('views.toolbar.copyright.title')}
       %p= t('views.toolbar.copyright.first_line')
       %p= t('views.toolbar.copyright.second_line')

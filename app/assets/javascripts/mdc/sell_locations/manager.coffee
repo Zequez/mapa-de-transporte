@@ -1,6 +1,5 @@
 class MDC.SellLocations.Manager extends Utils.Eventable
-  constructor: (data, @map)->
-    @gmap = @map.gmap
+  constructor: (data, @url_helper, @gmap)->
     @build_ui()
     @build_displayer(data)
     @bind_displayer()
@@ -37,6 +36,7 @@ class MDC.SellLocations.Manager extends Utils.Eventable
     @ui.add_listener 'activated', =>
       @displayer.show()
       @fire_event('activated')
+      @update_url()
 
     @ui.add_listener 'deactivated', =>
       @displayer.hide()
@@ -50,6 +50,10 @@ class MDC.SellLocations.Manager extends Utils.Eventable
     # If it started activated it means that there is a list...
     if @ui.activated
       @list = new MDC.SellLocations.ToolbarList
+
+  update_url: ->
+    # TODO: Change to puntos-de-venta if the city doesn't have magnetic cards.
+    @url_helper.set_url("puntos-de-carga")
 
 #$ ->
 #  start = ->

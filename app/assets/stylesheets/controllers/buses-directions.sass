@@ -79,14 +79,19 @@
     .route-distance>.direction-legend-background
       @extend .sprite-route-distance
 
-  >#buses-directions-tooltip
+  >#buses-directions-tooltip, >#buses-directions-tooltip-no-buses
     text-align: center
 
+  >#buses-directions-tooltip-no-buses
+    display: none
+
+  >#bus-direction-template
+    display: none
+
   >#list-of-directions
-    #bus-direction-template
-      display: none
 
     >.bus-direction
+      display: none
       +clearfix
       margin-bottom: $m/2
 
@@ -94,18 +99,20 @@
 
       +box-shadow(0px 0px 3px rgba($black, 0.5))
 
-      font-size: 1.2em
       text-align: center
 
       > *
         +box-sizing(border-box)
         float: left
-        padding: 2px 0px
         width: 33.33333333%
+        height: 20px
 
         background: $blue
         +box-shadow(inset 0px 0px 5px rgba(#000, 0.2))
         +linear-shadow(0.1)
+
+        font-size: 1.2em
+        line-height: 20px
 
       &:hover
         > *
@@ -117,33 +124,10 @@
         color: $black
 
       .walking-distance
+        font-size: 1em
 
 
       .route-distance
         border-radius: 0px 2px 2px 0px
-
-  >#add-remove-buses-directions
-    display: none
-    margin-top: $m
-    text-align: center
-
-    span
-      @extend .base-button
-      display: inline-block
-      //padding: 0px $m
-
-      width: 16.666%
-
-      font-size: 1.5em
-      line-height: 1.5em
-
-    .plus
-      border-radius: 2px 0px 0px 2px
-
-    .minus
-      border-radius: 0px 2px 2px 0px
-
-    &.solo > span
-      border-radius: 2px
 
 

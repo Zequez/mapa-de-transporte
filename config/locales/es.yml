@@ -185,7 +185,9 @@ es:
         route_distance: Distancia total que recorrerías en colectivo
         show_another_route: Mostrar otra ruta
         show_one_less_route: Mostrar una ruta menos
-        help:
-          Haz click en el mapa para mostrar rutas de colectivos a menos de <span class='max_walking_distance'></span> metros.
+        tooltip:
+          Haz click en el mapa para mostrar rutas de colectivos a menos de <span class='max_walking_distance'>1000</span> metros.
+        tooltip_no_buses:
+          No hay rutas de colectivos a menos de <span class='max_walking_distance'>1000</span> metros.
 
 

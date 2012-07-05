@@ -17,6 +17,8 @@ class MDC.Directions.RouteDirection extends Utils.Eventable
   ready_to_display: false
 
   constructor: (route, walking_segments, route_segments)->
+    @direction = new MDC.Directions.Direction.Builder(walking_segments, route_segments, route.bus, route.map.gmap)
+
     @route = route
     @route_bus = route.bus
     @map = route.map
@@ -62,6 +64,7 @@ class MDC.Directions.RouteDirection extends Utils.Eventable
     if not @ready_to_display
       @prepare_for_displaying() # Because I'm going to be displayed in an interface element soon.
     direction.show() for direction in @directions
+    @direction.show()
 
   hide: ->
     direction.hide() for direction in @directions

@@ -1,6 +1,6 @@
 defaults: &defaults
   country: Argentina
-  gmaps_url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyC7A78b33qd7zjvK0S_5Z7WR86vS74s4LM&sensor=false&v=3.9&libraries=geometry"
+  gmaps_url: "http://maps.googleapis.com/maps/api/js?key=AIzaSyC7A78b33qd7zjvK0S_5Z7WR86vS74s4LM&sensor=false&v=3.9&libraries=geometry,adsense"
   jquery_url: "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
 
   bus_icon_path: "public/buses_images/:id.png"
@@ -9,6 +9,7 @@ defaults: &defaults
   build_buses_sprite_on_demand: true
   facebook_page_url: https://www.facebook.com/pages/Mapa-de-Transporte/141373665998093
   google_analytics_id: "UA-32695596-1"
+  google_adsense_id: "pub-1533958540786809"
 
   social:
     facebook: https://www.facebook.com/MapaDeTransporte

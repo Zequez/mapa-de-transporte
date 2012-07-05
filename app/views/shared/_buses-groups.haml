@@ -1,0 +1,15 @@
+#buses-groups.barsection
+  .separator
+  %h3.barsection-title
+  - @city.bus_groups.each do |bus_group|
+    - if bus_group.visible_buses?
+      .buses-group-container
+        .bus-group.slot{id: "bus-group-#{bus_group.id}"}= bus_group.name
+        .buses-container
+          - bus_group.buses_batches(7) do |buses_batch|
+            .buses-batch
+              .buses-batch-rail
+              .buses-batch-slots
+                - buses_batch.each do |bus|
+                  - if bus
+                    = render partial: 'shared/bus-link', locals: {bus: bus}
