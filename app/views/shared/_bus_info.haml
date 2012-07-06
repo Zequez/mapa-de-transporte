@@ -1,13 +1,8 @@
-.separator
-#bus-info.toggleable.toggled
-  -#.bus-info{id: "bus-info-#{bus.id}"}
-  %div{title: t("views.buses.bus_info.line_toggle", bus: bus.name)}
-    = toolbar_toggler
-    %h2
-      = bus.name
-
-  -#= render partial: "/shared/bus-data", locals: {bus: bus}
-  -#.bus-pictures
+#bus-info.toggleable.toggled.barsection
+  .toggler
+    .separator
+    %h3.barsection-title{title: t("views.buses.bus_info.line_toggle", bus: bus.name)}= bus.name
+    =toolbar_toggler
   .bus-routes
     - if bus.circular_route?
       - if bus.route

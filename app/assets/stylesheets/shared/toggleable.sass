@@ -1,22 +1,30 @@
 .toggleable
-  >*:first-child
-    cursor: pointer
-    opacity: 0.5
+  opacity: 0.25
 
-    &:hover
-      opacity: 1
+  &:hover
+    opacity: 1
 
   .toggle
     float: right
+    margin-top: -22px
 
     z-index: 1
 
     line-height: $m + $m/2 - 1
     text-align: center
 
+  .toggler
+    +clearfix
+    cursor: pointer
+
+  .toggleable-data
+    display: none
+
   &.toggled
-    >*:first-child
-      opacity: 1
+    opacity: 1
 
     .toggle
       +transform(rotate(180deg))
+
+    .toggleable-data
+      display: block

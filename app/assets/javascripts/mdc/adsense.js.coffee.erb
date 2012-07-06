@@ -1,21 +1,22 @@
 class MDC.Adsense
   constructor: (@gmap)->
-#    @find_elements()
-    @build_ad_unit()
+    @find_elements()
+    if @container.length > 0
+      @build_ad_unit()
 
-#  find_elements: ->
-#    @container = $$("toolbar-google-adsense")
-#    @div       = $$("ad-container")
+  find_elements: ->
+    @container = $$("toolbar-google-adsense")
+    @div       = $$("ad-container")
 
   build_ad_unit: ->
-    @div = $(document.createElement('div'))
+#    @div = $(document.createElement('div'))
     @ad_unit = new $G.adsense.AdUnit @div[0], @ad_unit_options()
 #    console.log @div.parent()
 
   ad_unit_options: ->
     {
       format: $G.adsense.AdFormat.HALF_BANNER
-      position: $G.ControlPosition.BOTTOM
+#      position: $G.ControlPosition.BOTTOM
       map: @gmap
       visible: false
       publisherId: "<%= CONFIG[:google_adsense_id] %>"

@@ -1,23 +1,22 @@
 #feedback
   z-index: 1
   position: absolute
-  right: $toolbar-width - 200px
-  top: 50%
-  margin-top: -150px
+  bottom: -300px
+  left: 50%
+  margin-left: -150px
 
   height: 300px
   width: 200px
 
   background-color: $blueDark
 
-  +transition-property(right)
+  +transition-property(bottom)
   +transition-duration(0.5s)
-  +transition-delay(0.5s)
 
   +text-shadow($black)
 
   &:hover
-    right: $toolbar-width
+    bottom: 0px
 
   #feedback-paledator
     z-index: 1
@@ -38,73 +37,18 @@
   #thanks-feedback
     text-align: center
 
-  //form
-  //  .errors, .inline-errors
-  //    color: $red
-  //
-  //  li
-  //    +clearfix
-  //    margin-bottom: $m
-  //
-  //  .inputs
-  //    label
-  //      display: block
-  //      float: left
-  //
-  //    input, textarea
-  //      +box-sizing(border-box)
-  //
-  //      padding: 5px
-  //
-  //      border: none
-  //      border-radius: 2px
-  //
-  //      +box-shadow(inset 0px 0px 3px 1px rgba(#000, 0.5))
-  //      +reverse-linear-shadow
-  //
-  //      color: #333
-  //      font-family: inherit
-  //
-  //    .inline-errors
-  //      float: left
-  //
-  //
-  //    .stringish
-  //      label
-  //        width: 30%
-  //      input
-  //        float: right
-  //        width: 70%
-  //
-  //    .text
-  //      label
-  //        margin-bottom: $m
-  //      textarea
-  //        height: 100px
-  //        width: 100%
-  //
-  //  .action input
-  //    @extend .base-button
-  //    float: right
-  //
-  //    padding: 5px
-  //
-  //    border: none
-  //
-  //    font-weight: bold
-
   #feedback-button
     @extend .base-color
 
     position: absolute
-    right: 100%
-    bottom: 100%
+    left: 0%
+    top: -25px
 
     height: 25px
-    width: 300px
+    width: 100%
 
-    +transform(rotate(-90deg))
-    +transform-origin(right bottom)
+    //+transform(rotate(-90deg))
+    //+transform-origin(right bottom)
 
     border-radius: 2px 2px 0px 0px
 

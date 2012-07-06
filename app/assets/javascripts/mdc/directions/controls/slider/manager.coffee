@@ -19,6 +19,7 @@ class MDC.Directions.Controls.Slider.Manager extends Utils.Eventable
     @slider_e  = @container.find('.slider')
     @window    = $(window)
 
+
   build_slider: (initial_value)->
     @slider = new MDC.Directions.Controls.Slider.Element(@slider_options())
 

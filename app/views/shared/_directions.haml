@@ -1,31 +1,34 @@
-#buses-directions.barsection
-  .separator
-  %h3.barsection-title Cálculo de rutas
-  
-  #buses-directions-slider
-    .slider-rail
-    .slider{title: t('views.buses.directions.slider_title')}
-      %span.slider-title= t('views.buses.directions.slider_title')
-      %span.slider-number> 0
-      m
-      
+#buses-directions.barsection.toggleable.toggled
+  .toggler
+    .separator
+    %h3.barsection-title Calculadora de rutas
+    =toolbar_toggler
+
+  .toggleable-data
+    #buses-directions-slider
+      .slider-rail
+      .slider{title: t('views.buses.directions.slider_title')}
+        %span.slider-title= t('views.buses.directions.slider_title')
+        %span.slider-number> 0
+        m
 
 
-  #buses-directions-legend
-    .bus-name{title: t('views.buses.directions.line_name')}
-      .direction-legend-background= t('views.buses.directions.line_name')
-    .walking-distance{title: t('views.buses.directions.walking_distance')}
-      .direction-legend-background= t('views.buses.directions.walking_distance')
-    .route-distance{title: t('views.buses.directions.route_distance')}
-      .direction-legend-background= t('views.buses.directions.walking_distance')
-  #buses-directions-tooltip
-    != t('views.buses.directions.tooltip')
-  #buses-directions-tooltip-no-buses
-    != t('views.buses.directions.tooltip_no_buses')
-  #list-of-directions
-  #bus-direction-template.bus-direction
-    .bus-name.bus-name-value! &nbsp;
-    .walking-distance{"data-title-start" => "Metros a caminar hasta la parada",
-                      "data-title-middle" => "Metros a caminar desde la parada hasta la otra parada",
-                      "data-title-end" => "Metros a caminar desde la parada"}
-    .route-distance
+
+    #buses-directions-legend
+      .bus-name{title: t('views.buses.directions.line_name')}
+        .direction-legend-background= t('views.buses.directions.line_name')
+      .walking-distance{title: t('views.buses.directions.walking_distance')}
+        .direction-legend-background= t('views.buses.directions.walking_distance')
+      .route-distance{title: t('views.buses.directions.route_distance')}
+        .direction-legend-background= t('views.buses.directions.walking_distance')
+    #buses-directions-tooltip
+      != t('views.buses.directions.tooltip')
+    #buses-directions-tooltip-no-buses
+      != t('views.buses.directions.tooltip_no_buses')
+    #list-of-directions
+    #bus-direction-template.bus-direction
+      .bus-name.bus-name-value! &nbsp;
+      .walking-distance{"data-title-start" => "Metros a caminar hasta la parada",
+                        "data-title-middle" => "Metros a caminar desde la parada hasta la otra parada",
+                        "data-title-end" => "Metros a caminar desde la parada"}
+      .route-distance

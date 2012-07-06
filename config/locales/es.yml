@@ -96,7 +96,7 @@ es:
       thank_you: Gracias! Los datos serán revisados por un equipo de monos inteligentes antes de ser públicos.
 
     follow_us:
-      follow: ¿Nos seguís?
+      follow: Social
 
       social_buttons:
         google: "¡Agreganos a tus círculos!"
@@ -110,7 +110,7 @@ es:
       share_google: Compartir en Google+
 
     toolbar_ads:
-      title: Publicidad (1 café)
+      title: Publicidad <i><span title='Ok, probablemente no. Pero cada click es un café. Y tomo 2 cafés por día.'>super relevante</span></i>
 
     toolbar:
       copyright:
@@ -141,7 +141,7 @@ es:
         sell_locations: Puntos de venta o carga de tarjeta o boletos
 
       bus_info:
-        line_toggle: Mostrar/Ocultar información extra sobre la línea %{bus}
+        line_toggle: Mostrar/Ocultar información adicional sobre la línea %{bus}
         line: Línea %{bus}
         departure: Ida
         return: Vuelta
@@ -164,7 +164,7 @@ es:
         more_buses:
           Mueve el deslizador para seleccionar la <b>distancia que estás dispuesto a caminar</b>.
           Se mostrarán todos los colectivos que estén dentro de la distancia seleccionada.
-        close_help: Haz click en la cruz roja en la esquina superior derecha para <b>ocultar esta ayuda</b>.
+        close_help: Haz <b>click en cualquier título</b> para ocultarlo. Por ejemplo, puedes hacer click en <i>Instrucciones</i> para ocultar esto.
         silly:
           - Si estás leyendo esto ya es demasiado tarde,
             Bob Esponja va a entrar a tu habitación durante la

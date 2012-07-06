@@ -25,9 +25,19 @@
   background-color: $red
 
 #tooltips
-  &:hover
-    > .close
+  //&:hover
+  //  > .close
+  //    display: block
+
+  b
+    color: $red
+
+  ul
+    display: none
+  
+  &.toggled
+    ul
       display: block
 
-  > div
+  li
     margin-bottom: $m

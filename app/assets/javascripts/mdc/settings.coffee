@@ -23,6 +23,10 @@ user_settings = {
   "max_routes_suggestions": 1
   "show_bus_info": false
   "show_sell_locations_list": false
+  "show_social": true
+  "show_adsense": true
+  "show_directions": true
+  "show_buses_buttons": true
   "user_name": ""
   "user_email": ""
 }

@@ -34,8 +34,13 @@ class SellLocationsSuggestion < ActiveRecord::Base
                   as: :user
 
   #validates :address, presence: true
+  validates :user_email, presence: true,
+                         format: { with: /[^ ]+@[^ ]+\.[^ ]+/ },
+                         length: { maximum: 200 }
 
   delegate :city, to: :sell_location, allow_nil: true
+
+  after_validation :remove_other_errors_if_blank_error
 
   def removed=(value)
     value = to_boolean(value)
@@ -59,6 +64,17 @@ class SellLocationsSuggestion < ActiveRecord::Base
 
   def to_boolean(val)
     ActiveRecord::ConnectionAdapters::Column.value_to_boolean(val)
+  end
+
+  def remove_other_errors_if_blank_error
+    if errors.count > 0
+      errors.messages.each_pair do |key, messages|
+        if messages.index { |k| k =~ /blanco|blank/ }
+          L.l errors.messages
+          errors.messages[key].delete_if {|k| ! (k =~ /blanco|blank/)}
+        end
+      end
+    end
   end
 
   #def lat=(val)

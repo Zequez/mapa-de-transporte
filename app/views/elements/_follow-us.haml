@@ -1,9 +1,13 @@
-#follow-us.barsection
-  .separator
-  %h3.barsection-title= t('views.follow_us.follow')
-  #facebook-like-box
-    <div class="fb-like-box" data-href="#{CONFIG[:facebook_page_url]}" data-width="310" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
-  #social-buttons
-    = social_button :google
-    = social_button :twitter
-    = social_button :facebook
+#follow-us.toggleable.toggled.barsection
+  .toggler
+    .separator
+    %h3.barsection-title= t('views.follow_us.follow')
+    =toolbar_toggler
+
+  .toggleable-data
+    #facebook-like-box
+      <div class="fb-like-box" data-href="#{CONFIG[:facebook_page_url]}" data-width="310" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
+    #social-buttons
+      = social_button :google
+      = social_button :twitter
+      = social_button :facebook

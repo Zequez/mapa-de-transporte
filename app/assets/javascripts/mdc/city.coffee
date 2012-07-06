@@ -5,6 +5,7 @@ class MDC.City
     #@data = data # (Don't save all the data in a variable, better for obfuscation...)
     @find_element()
 
+    @build_toggleables()
     @build_map(data)
     @build_help_bar()
     @build_url_rewriter()
@@ -19,6 +20,11 @@ class MDC.City
 
   find_element: ->
     @element = @e = $$('map')
+
+  build_toggleables: ->
+    @social_toggle = new MDC.Interface.Toggleable($$("follow-us"), "show_social")
+    @social_toggle = new MDC.Interface.Toggleable($$("toolbar-google-adsense"), "show_adsense")
+
 
   build_map: (data)->
     @map = new MapTools.Map(@element, data["viewport"])

@@ -3,11 +3,18 @@
 
 class MDC.Buses.Manager extends Utils.Eventable
   constructor: (data, @url_helper, @gmap)->
+    @find_elements()
+    @build_toggle()
     @build_bus_groups(data)
     @bind_bus_groups()
     @bind_buses()
     @set_states_actions()
 
+  find_elements: ->
+    @buttons_container = $$("buses-groups")
+
+  build_toggle: ->
+    @toggle = new MDC.Interface.Toggleable(@buttons_container, "show_buses_buttons")
 
   build_bus_groups: (data)->
     @buses = []
@@ -106,8 +113,6 @@ class MDC.Buses.Manager extends Utils.Eventable
     buses_names = []
     for bus in @buses
       buses_names.push bus.perm() if bus.is_activated()
-
-    console.log buses_names
 
     @url_helper.set_url buses_names.join('+')
       

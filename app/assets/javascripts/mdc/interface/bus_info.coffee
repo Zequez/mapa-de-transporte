@@ -1,9 +1,7 @@
-class MDC.Interface.BusInfo extends MDC.Interface.Toggleable
+class MDC.Interface.BusInfo
   constructor: ->
-    @settings_var = "show_bus_info"
-    @element      = "#bus-info"
-    super()
-#
+    @toggle = new MDC.Interface.Toggleable($$("bus-info"), "show_bus_info")
+
 #    @visible = MDC.SETTINGS.read["show_bus_info"]
 #    @find_elements()
 #    @bind_elements()

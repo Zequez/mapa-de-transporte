@@ -40,23 +40,15 @@
           %image{src: "/assets/header.png", alt: t('views.buses.header.logo_title', city: @city.name)}
 
     #header-bar
-      #toggle-help{title: t('views.buses.header_bar.help')}= t('views.buses.header_bar.help')
+      -##toggle-help.toggler{title: t('views.buses.header_bar.help')}= t('views.buses.header_bar.help')
       - if @city.sell_points_visibility?
-
         #toggle-sell-locations{title: t('views.buses.header_bar.sell_locations'), class: ("toggled" if sell_locations_in_url?)}
           = t('views.buses.header_bar.sell_locations')
       #city-bus-price{title: t('views.buses.header_bar.ticket_price', city: @city.name)}
         %span.bus-price-icon #{t('views.buses.header_bar.ticket_price', city: @city.name)}:
         %span.bus-price-money= monetize @city.bus_card
 
-    #tooltips
-      .separator
-      - %w{map_click many_clicks remove_checkpoint move_checkpoint invert_checkpoints more_buses close_help}.each do |tooltip|
-        %div{id: "tooltip-#{tooltip}"}
-          = raw t("views.buses.tooltips.#{tooltip}")
-      .close &times;
-
-
+    = render partial: "/elements/tooltips"
 
     - if @bus
       = render partial: 'shared/bus_info', locals: {bus: @bus}
@@ -64,24 +56,13 @@
     - if sell_locations_in_url?
       = render partial: 'shared/sell_locations', locals: {sell_locations: @city.visible_sell_locations}
 
-
     = render partial: 'shared/directions'
-
-
     = render partial: "shared/buses-groups"
-
-
     = render partial: "/elements/follow-us"
-
-    = render partial: "/elements/share-box"
-
+    -#= render partial: "/elements/share-box"
     = render partial: "/elements/adsense"
+    = render partial: "/elements/footer"
 
-      
-    .separator
-    #copyright{title: t('views.toolbar.copyright.title')}
-      %p= t('views.toolbar.copyright.first_line')
-      %p= t('views.toolbar.copyright.second_line')
 
 #feedback
   #feedback-paledator

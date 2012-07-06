@@ -2,10 +2,10 @@ class SellLocationsSuggestionsController < ApplicationController
   layout false
 
   def create
-    @sell_locations_suggestions = SellLocationsSuggestion.new params[:sell_locations_suggestion], as: :user
-    @sell_locations_suggestions.user_address = request.ip
+    @sell_locations_suggestion = SellLocationsSuggestion.new params[:sell_locations_suggestion], as: :user
+    @sell_locations_suggestion.user_address = request.ip
 
-    if @sell_locations_suggestions.save
+    if @sell_locations_suggestion.save
       render 'thank_you'
     else
       render 'new'

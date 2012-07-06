@@ -49,7 +49,7 @@ class MDC.SellLocations.Manager extends Utils.Eventable
   build_interface_list: ->
     # If it started activated it means that there is a list...
     if @ui.activated
-      @list = new MDC.SellLocations.ToolbarList
+      @list = new MDC.Interface.Toggleable($$("sell-locations-list"), "show_sell_locations_list")
 
   update_url: ->
     # TODO: Change to puntos-de-venta if the city doesn't have magnetic cards.
