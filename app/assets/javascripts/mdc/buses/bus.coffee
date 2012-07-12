@@ -53,17 +53,17 @@ class MDC.Buses.Bus extends Utils.Eventable
   build_state_handler: ->
     @state_handler = {}
 
-    @state_handler.button = (boolean)=>
-      return @button.activate()   if boolean
-      return @button.deactivate() if !boolean
+    @state_handler.button = (bool)=>
+      return @button.activate()   if bool
+      return @button.deactivate() if !bool
 
-    @state_handler.popup = (boolean)=>
-      return @popup.show() if boolean
-      return @popup.hide() if !boolean
+    @state_handler.popup = (bool)=>
+      return @popup.show() if bool
+      return @popup.hide() if !bool
 
-    @state_handler.highlight_ui = (boolean)=>
-      return @button.highlight() if boolean
-      return @button.unhighlight() if !boolean
+    @state_handler.highlight_ui = (bool)=>
+      return @button.highlight() if bool
+      return @button.unhighlight() if !bool
 
     for route in @routes
       do (route)=>

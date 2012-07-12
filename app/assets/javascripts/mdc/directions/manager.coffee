@@ -36,9 +36,8 @@ class MDC.Directions.Manager
     @directions_listing = new MDC.Directions.DirectionsListing
 
   calculate_buses: ->
-    @remove_directions()
-
     if @checkpoints.length > 0
+      @remove_directions()
       unsorted_directions = @buses_manager.find_closest_route @checkpoints
 
       @directions = unsorted_directions.sort (direction_a, direction_b)->
@@ -49,6 +48,8 @@ class MDC.Directions.Manager
       @calculate_visible_directions()
     else
       @directions_listing.set_state(-1)
+      @set_buses_state_to_normal()
+      @remove_directions()
 
 
   calculate_visible_directions: ->
@@ -100,6 +101,12 @@ class MDC.Directions.Manager
     @buses_manager.set_state(hidden_buses, "direction_deactivated")
     @buses_manager.set_state(shown_buses, "direction_activated")
 
+  set_buses_state_to_normal: ->
+    buses = []
+    for direction in @shown_directions
+      buses = buses.concat direction.buses_routes
+
+    @buses_manager.set_state(buses, "activated")
 
   remove_directions: ->
     for direction in @directions

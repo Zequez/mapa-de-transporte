@@ -1,5 +1,5 @@
 class NumberIcons
-  url: MDC.CONFIG["sprites_path"]
+  url: MDC.CONFIG.sprites_path
 
   images: {}
 

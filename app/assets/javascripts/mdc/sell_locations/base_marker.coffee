@@ -54,6 +54,6 @@ MDC.SellLocations.BaseMarker.create_image = (number)->
   sprites_positions = [[125, 194], [153, 194], [181, 194]]
   size   = new $G.Size(w, h)
   origin = new $G.Point(sprites_positions[number][0], sprites_positions[number][1])
-  url    = MDC.CONFIG["sprites_path"]
+  url    = MDC.CONFIG.sprites_path
 
   new $G.MarkerImage url, size, origin

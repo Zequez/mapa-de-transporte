@@ -1,6 +1,6 @@
 // require jquery_ujs
 //= require ./copyright
- 
+
 //= require_directory ./libraries
 
 //= require gmaps_animations_crack
@@ -15,3 +15,4 @@
 
 
 
+ 

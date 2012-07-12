@@ -5,7 +5,7 @@ class ArrowsIcons
 
 #  angles: [0, 45, 90, 135, 180, 225, 270, 315]
 
-  url: MDC.CONFIG["sprites_path"]
+  url: MDC.CONFIG.sprites_path
 
   sprite_positions: [
     {

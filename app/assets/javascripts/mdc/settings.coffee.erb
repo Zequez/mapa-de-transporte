@@ -16,7 +16,10 @@ MDC.CONFIG = {
   max_walking_distance_min: 0
   max_walking_distance_max: 2980
 
-  sprites_path: "<%= asset_path('sprites.png') %>"
+  sprites_path: "<%= path_to_asset("sprites", :ext => 'png') %>"
+
+  
+  
 }
 
 user_settings = {

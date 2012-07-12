@@ -1606,35 +1606,35 @@
       catch (error) { return error; }}());
 
   // encoder
-//  window.btoa || (
-//  window.btoa = function (string) {
-//    var
-//      a, b, b1, b2, b3, b4, c, i = 0,
-//      len = string.length, max = Math.max, result = '';
-//
-//    while (i < len) {
-//      a = string.charCodeAt(i++) || 0;
-//      b = string.charCodeAt(i++) || 0;
-//      c = string.charCodeAt(i++) || 0;
-//
-//      if (max(a, b, c) > 0xFF) {
-//        throw INVALID_CHARACTER_ERR;
-//      }
-//
-//      b1 = (a >> 2) & 0x3F;
-//      b2 = ((a & 0x3) << 4) | ((b >> 4) & 0xF);
-//      b3 = ((b & 0xF) << 2) | ((c >> 6) & 0x3);
-//      b4 = c & 0x3F;
-//
-//      if (!b) {
-//        b3 = b4 = 64;
-//      } else if (!c) {
-//        b4 = 64;
-//      }
-//      result += characters.charAt(b1) + characters.charAt(b2) + characters.charAt(b3) + characters.charAt(b4);
-//    }
-//    return result;
-//  });
+  window.btoa || (
+  window.btoa = function (string) {
+    var
+      a, b, b1, b2, b3, b4, c, i = 0,
+      len = string.length, max = Math.max, result = '';
+
+    while (i < len) {
+      a = string.charCodeAt(i++) || 0;
+      b = string.charCodeAt(i++) || 0;
+      c = string.charCodeAt(i++) || 0;
+
+      if (max(a, b, c) > 0xFF) {
+        throw INVALID_CHARACTER_ERR;
+      }
+
+      b1 = (a >> 2) & 0x3F;
+      b2 = ((a & 0x3) << 4) | ((b >> 4) & 0xF);
+      b3 = ((b & 0xF) << 2) | ((c >> 6) & 0x3);
+      b4 = c & 0x3F;
+
+      if (!b) {
+        b3 = b4 = 64;
+      } else if (!c) {
+        b4 = 64;
+      }
+      result += characters.charAt(b1) + characters.charAt(b2) + characters.charAt(b3) + characters.charAt(b4);
+    }
+    return result;
+  });
 
   // decoder
   window.atob || (
@@ -2553,16 +2553,16 @@ InfoBox.prototype.remove = function () {
       */
       values = [
         {
-          "hc": this.build_gmap,
-          "fh": this.build_gmap,
-          "c": this.make_bounds
+          "hc": this.map_settings,
+          "fh": this.make_bounds,
+          "c": this.build_gmap
         }, {
-          "dc": this.make_bounds,
-          "bb": this.calculate_center,
+          "dc": this.get_bounds,
+          "bb": this.map_settings,
           "gf": this.calculate_center
         }, {
-          "ce": this.make_bounds,
-          "gh": this.get_bounds,
+          "ce": this.calculate_center,
+          "gh": this.map_settings,
           "ii": this.map_settings
         }
       ];
@@ -2644,9 +2644,12 @@ InfoBox.prototype.remove = function () {
 
   MapTools.Route = (function() {
 
-    function Route(map, coordinates, options) {
-      this.m = this.map = map;
-      this.gmap = this.m.gmap;
+    function Route(gmap, coordinates, options) {
+      if (gmap.gmap) {
+        this.gmap = gmap.gmap;
+      } else {
+        this.gmap = gmap;
+      }
       this.coordinates = coordinates;
       this.options = options;
       this.process_points();
@@ -2714,6 +2717,10 @@ InfoBox.prototype.remove = function () {
       return this.poly.setOptions(this.polyline_options());
     };
 
+    Route.prototype.set_options = function(options) {
+      return this.poly.setOptions(options);
+    };
+
     Route.prototype.show = function() {
       return this.poly.setVisible(true);
     };
@@ -2742,22 +2749,22 @@ InfoBox.prototype.remove = function () {
     function Segment(p1, p2, latlng1, latlng2) {
       this.p1 = p1;
       this.p2 = p2;
-      if (latlng1) {
-        this.latlng1 = latlng1;
-        this.latlng2 = latlng2;
-      }
+      this.latlng1 = latlng1;
+      this.latlng2 = latlng2;
+      this.create_latlng();
       this.calculate_vars();
     }
+
+    Segment.prototype.create_latlng = function() {
+      this.latlng1 || (this.latlng1 = $LatLng(this.p1));
+      return this.latlng2 || (this.latlng2 = $LatLng(this.p2));
+    };
 
     Segment.prototype.calculate_vars = function() {
       this.x1 = this.p1[0];
       this.y1 = this.p1[1];
       this.x2 = this.p2[0];
       this.y2 = this.p2[1];
-      /* IF_QUICK_POISON
-        [@x1, @x2] = @p2
-        [@y1, @y2] = @p1
-      */
       this.dx = this.x2 - this.x1;
       this.dy = this.y2 - this.y1;
       this.slope = this.dy / this.dx;
@@ -2767,8 +2774,8 @@ InfoBox.prototype.remove = function () {
     };
 
     Segment.prototype.mapize = function() {
-      this.latlng1 || (this.latlng1 = $LatLng(this.p1));
-      return this.latlng2 || (this.latlng2 = $LatLng(this.p2));
+      console.log("MapTools.Segment#mapize DEPRECATED, use #create_latlng instead");
+      return this.create_latlng();
     };
 
     Segment.prototype.interpolate = function(fraction) {
@@ -2798,6 +2805,10 @@ InfoBox.prototype.remove = function () {
       return this.interpolate(0.5);
     };
 
+    Segment.prototype.middle_latlng = function() {
+      return $LatLng(this.middle_point());
+    };
+
     Segment.prototype.closest_point = function(p) {
       var closest, p1, p2, p3, u, xd, yd;
       p1 = this.p1;
@@ -2822,12 +2833,10 @@ InfoBox.prototype.remove = function () {
 
     Segment.prototype.distance_in_meters = function() {
       if (this._distance_in_meters) return this._distance_in_meters;
-      this.mapize();
       return this._distance_in_meters = $G.geometry.spherical.computeDistanceBetween(this.latlng1, this.latlng2);
     };
 
     Segment.prototype.path = function() {
-      this.mapize();
       return [this.latlng1, this.latlng2];
     };
 
