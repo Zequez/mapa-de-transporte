@@ -1,8 +1,6 @@
 class MDC.Directions.Manager
-  constructor: (@map, @buses_manager, @buses)->
-    @map     = map
-    @buses   = buses
-
+  constructor: (@city, @buses_manager, @url_helper)->
+    @gmap = @city.gmap
     @directions  = []
     @shown_directions  = []
     @hidden_directions  = []
@@ -17,11 +15,14 @@ class MDC.Directions.Manager
 
     @create_directions_listing()
 
+    @checkpoints_manager.initial_check()
+
   create_checkpoints_manager: ->
-    @checkpoints_manager = new MDC.Directions.Checkpoints.Manager(@map)
+    @checkpoints_manager = new MDC.Directions.Checkpoints.Manager(@city, [], @url_helper)
 
   bind_checkpoints_manager: ->
-    @checkpoints_manager.add_listener 'checkpoint_added checkpoint_removed checkpoint_changed', =>
+    @checkpoints_manager.add_listener 'change', (checkpoints)=>
+      @checkpoints = checkpoints
       @calculate_buses()
 
   create_controls: ->
@@ -36,12 +37,9 @@ class MDC.Directions.Manager
 
   calculate_buses: ->
     @remove_directions()
-    
-    if @checkpoints_manager.count() > 0
-      unsorted_directions = []
-      
-      for bus in @buses
-        unsorted_directions.push bus.direction_to_checkpoints(@checkpoints_manager.checkpoints)
+
+    if @checkpoints.length > 0
+      unsorted_directions = @buses_manager.find_closest_route @checkpoints
 
       @directions = unsorted_directions.sort (direction_a, direction_b)->
         direction_a.walk_distance - direction_b.walk_distance

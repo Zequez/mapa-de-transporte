@@ -14,11 +14,12 @@ class MDC.Directions.Direction.Walk extends Utils.Eventable
   calculate_values: ->
     @distance  = 0
     @distances = []
+    
     for segment in @segments
       distance = segment.distance_in_meters()
       @distance += distance
       @distances.push parseInt(distance)
-    @distance = parseInt(distance)
+    @distance = parseInt(@distance)
 
     null
 

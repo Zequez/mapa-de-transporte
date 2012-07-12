@@ -11,6 +11,118 @@
 //    background-color: lighten($blue, 5%)
 
 #buses-directions
+  #directions-checkpoints
+    +clearfix
+    z-index: 1
+
+    #checkpoint-1
+      z-index: 1
+
+    #checkpoint-2
+      z-index: 0
+    
+    .checkpoint-input
+      +clearfix
+      float: left
+      margin-bottom: $m
+
+      height: $input-height
+      width: 85%
+      
+      h4
+        float: left
+        width: 25%
+        line-height: $input-height
+
+      input
+        float: right
+        padding-right: 20px
+        width: 75%
+
+      .empty-input
+        @extend .cross
+        position: absolute
+        right: 5px
+        top: 4px
+        opacity: .25
+
+        &:hover, &:active
+          opacity: 1
+
+      .checkpoint-service-unavailable, .checkpoint-not-found
+        display: none
+        
+        position: absolute
+        top: 0px
+        right: 0px
+
+        width: 75%
+        height: $input-height
+
+        border-radius: 2px
+
+        background: $red
+
+        text-align: center
+        line-height: $input-height
+
+      .checkpoint-autocomplete
+        display: none
+        position: absolute
+        right: 0px
+        top: $input-height
+        width: 75%
+        
+        li
+          +box-sizing(border-box)
+          padding-left: $m
+          height: $input-height
+
+          border: solid 1px darken(lighten($blueDark, 5%), 5%)
+            top: none
+
+          +box-shadow(0px 0px 5px rgba($black, 0.3))
+          background-color: lighten($blueDark, 5)
+
+          line-height: $input-height - 1px
+
+          cursor: pointer
+
+          &:hover, &:active, &.active
+            background-color: $blue
+
+          &:last-child
+            border-radius: 0px 0px 2px 2px
+        
+
+    #checkpoints-tools
+      float: right
+      height: $input-height*2
+      width: 15%
+      text-align: center
+      > *
+        @extend .base-button
+        @extend .sprite
+        
+        display: inline-block
+        margin-bottom: $m
+        padding: 0px
+
+        width: $input-height
+        height: $input-height
+
+        text-indent: -9999px
+        cursor: pointer
+        
+      #current-position-checkpoint
+        @extend .sprite-direction-switch
+      #switch-checkpoints
+        @extend .sprite-direction-current-location
+
+
+
+
+
   #buses-directions-slider
     margin-bottom: $m
     
@@ -79,7 +191,7 @@
     .route-distance>.direction-legend-background
       @extend .sprite-route-distance
 
-  #buses-directions-tooltip, >#buses-directions-tooltip-no-buses
+  #buses-directions-tooltip, #buses-directions-tooltip-no-buses
     text-align: center
 
   #buses-directions-tooltip-no-buses

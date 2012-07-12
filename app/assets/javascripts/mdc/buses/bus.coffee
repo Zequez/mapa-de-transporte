@@ -19,8 +19,10 @@ class MDC.Buses.Bus extends Utils.Eventable
 
 
   constructor: (@data, @bus_group, @gmap)->
-    @states_stack = []
     @state = {}
+    @hard_state  = {}
+    @shifted_state = {}
+    @current_state = {}
 
     @build_button()
     @build_routes()
@@ -68,16 +70,20 @@ class MDC.Buses.Bus extends Utils.Eventable
         @state_handler[route.id] = (mode)=>
           route.set_mode(mode)
 
+  # hard_state    does not get changed by shifted states
+  # shited_state  exists only then there is a shifted state
+  # state         changes always, and has the ultimate word
+
   shift_state: (new_state)->
-    @last_state = _.clone @state
-    @apply_state(@parse_state new_state)
+    @shifted_state = @parse_state(new_state)
+    @apply_state(@shifted_state, true)
 
   unshift_state: ->
-    @apply_state @last_state
+    @shifted_state = false
+    @apply_state @state
 
   set_state: (new_state)->
-    @apply_state(@parse_state new_state)
-    @last_state = @state
+    @apply_state(@parse_state(new_state))
 
 
   parse_state: (new_state)->
@@ -90,13 +96,14 @@ class MDC.Buses.Bus extends Utils.Eventable
 
     new_state
 
-  apply_state: (new_state)->
+  apply_state: (new_state, shifted = false)->
     for i, value of new_state
-      if @state[i] != value
+      if @current_state[i] != value
+        @state[i] = value if not shifted
         @apply_state_value i, value
 
   apply_state_value: (i, value)->
-    @state[i] = value
+    @current_state[i] = value
     @state_handler[i](value) if @state_handler[i]
 
 
@@ -164,6 +171,3 @@ class MDC.Buses.Bus extends Utils.Eventable
       r1.walk_distance > r2.walk_distance
 
     ordered_directions[0]
-
-  direction_to_checkpoints: (checkpoints)->
-    @find_closest_route(checkpoints)

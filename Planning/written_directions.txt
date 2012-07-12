@@ -1,0 +1,80 @@
+Written Directions
+
+Cuando están escribiendo en el input debería ofrecer sugerencias.
+Cuando se saca el focus del input y no se eligió ningún valor
+predeterminado, o sea, cargado localmente, como pueden ser
+puntos de referencia, posición actual, etc. Entonces se envia
+la query a Google Maps.
+Para seleccionar una sugerencia se puede hacer click o bajar con las flechas y apretar tab/enter.
+Apretando tab o enter envia el checkpoint elegido (o la señal para buscar en Google) y te lleva al
+siguiente punto.
+
+Los checkpoints deberían poder ser 1 o 2, perteneciendo a un número fijo, o sea, si se elimina el 1, entonces el 2 queda.
+
+
+MDC.Directions.Checkpoints.Manager(@url_helper, @city, @gmap)
+  - #build_markers
+  - #bind_marker
+      - dragend
+      - middleclick
+      - rightclick
+  - #build_inputs
+  - #bind_inputs
+      - change(Checkpoint)
+  - #build_autocomplete
+      - Autocomplete(reference_points_list, current_location)
+      - Autocomplete#bind_inputs(inputs)
+  - #build_address_query
+      - AddressQuery(city)
+      - AddressQuery#bind_inputs(inputs)
+  - #read_geolocation
+  - #read_url_checkpoints
+      Fijarse si la data es numérica
+      Si la data no es numérica primero buscarla en el autocomplete
+      Luego buscarla en google maps
+      Si la data es numérica usarla directamente como latlng como si viniese
+      de un marker, o sea sin nombre.
+  - #set_url_checkpoints
+
+
+MDC.Directions.Checkpoints.Marker
+ - Es el antiguo Checkpoint renomabrado.
+
+MDC.Directions.Checkpoints.Checkpoint
+Cada Checkpoint tiene:
+  - latlng
+  - name
+
+MDC.Directions.Checkpoints.Input
+ - value
+ - set_checkpoint  # No lanza evento
+ - fill_checkpoint # Lanza evento
+ - Events
+   - blur
+   - keyup
+   - change
+
+ El input tiene los siguientes elementos:
+  - "Origen:/Destino:" a la izquirda.
+  - Cuadro de texto
+  - Cruz para borrar
+  - El primero tiene un botón para poner la posición actual.
+
+MDC.Directions.Checkpoints.Autocomplete
+ - constructor(inputs)
+ # it binds the keyup to search and complete.
+ - add_index(Checkpoints)
+
+MDC.Directions.Checkpoints.AddressQuery
+ - constructor(inputs)
+ # it binds the blur to a google query if the input doesn't have a checkpoint
+
+
+Tasks
+Crear CSS de Input y CSS de Autocomplete y I18n, etc. ##
+Crear MDC.Directions.Checkpoints.Input y cambiar Manager para que lo inicialice.  ##
+Crear MDC.Directions.Checkpoint y renombrar el actual Checkpoint a Marker y hacer los cambios necesarios. #
+Crear Autocomplete y cambiar Manager para que inicialice y bindearlo a Input  ###
+Crear AddressQuery y cambiar Manager para que inicialice y bindearlo a Input  ###
+Crear el lector de la URL.  ##
+Crear el lector de la current position. ##

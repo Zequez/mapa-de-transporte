@@ -28,3 +28,9 @@ class MDC.Buses.Group extends Utils.Eventable
       
     @button.add_listener 'mouseout', =>
       @fire_event "button_out", @buses
+
+  deactivate: ->
+    @button.deactivate()
+
+  activate: ->
+    @button.activate()

@@ -1,30 +1,42 @@
 #buses-directions.barsection.toggleable.toggled
   .toggler
     .separator
-    %h3.barsection-title Calculadora de rutas
+    %h3.barsection-title= t('views.directions.title')
     =toolbar_toggler
 
   .toggleable-data
+    #directions-checkpoints
+      #checkpoints-tools
+        %a#current-position-checkpoint{title: t('views.directions.use_current_position')}= t('views.directions.use_current_position')
+        %a#switch-checkpoints{title: t('views.directions.exchange_origin_destination')}= t('views.directions.exchange_origin_destination')
+
+      - 2.times do |i|
+        .checkpoint-input{id: "checkpoint-#{i+1}"}
+          %h4 #{t("views.directions.#{i == 0 ? "origin" : "destination"}")}:
+          %input{type: "search", autofocus: ("true" if i == 0)}
+          .empty-input &times;
+          .checkpoint-service-unavailable= t('views.directions.service_unavailable')
+          .checkpoint-not-found= t('views.directions.not_found')
+          %ul.checkpoint-autocomplete
+
     #buses-directions-slider
       .slider-rail
-      .slider{title: t('views.buses.directions.slider_title')}
-        %span.slider-title= t('views.buses.directions.slider_title')
+      .slider{title: t('views.directions.slider_title')}
+        %span.slider-title= t('views.directions.slider_title')
         %span.slider-number> 0
         m
 
-
-
     #buses-directions-legend
-      .bus-name{title: t('views.buses.directions.line_name')}
-        .direction-legend-background= t('views.buses.directions.line_name')
-      .walking-distance{title: t('views.buses.directions.walking_distance')}
-        .direction-legend-background= t('views.buses.directions.walking_distance')
-      .route-distance{title: t('views.buses.directions.route_distance')}
-        .direction-legend-background= t('views.buses.directions.walking_distance')
+      .bus-name{title: t('views.directions.line_name')}
+        .direction-legend-background= t('views.directions.line_name')
+      .walking-distance{title: t('views.directions.walking_distance')}
+        .direction-legend-background= t('views.directions.walking_distance')
+      .route-distance{title: t('views.directions.route_distance')}
+        .direction-legend-background= t('views.directions.walking_distance')
     #buses-directions-tooltip
-      != t('views.buses.directions.tooltip')
+      != t('views.directions.tooltip')
     #buses-directions-tooltip-no-buses
-      != t('views.buses.directions.tooltip_no_buses')
+      != t('views.directions.tooltip_no_buses')
     #list-of-directions
     #bus-direction-template.bus-direction
       .bus-name.bus-name-value! &nbsp;

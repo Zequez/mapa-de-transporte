@@ -1,0 +1,22 @@
+#social.toggleable.toggled.barsection
+  .toggler
+    .separator
+    %h3.barsection-title= t('views.social.title')
+    =toolbar_toggler
+
+  .toggleable-data
+    #facebook-like-box
+      <div class="fb-like-box" data-href="#{CONFIG[:facebook_page_url]}" data-width="310" data-height="150" data-colorscheme="dark" data-show-faces="false" data-border-color="#132230" data-stream="true" data-header="false"></div>
+
+    #share-buttons
+      %h4= t("views.social.share")
+      %ul
+        %li= share_button :facebook
+        %li= share_button :twitter
+        %li= share_button :google
+    #follow-buttons
+      %h4= t("views.social.follow")
+      %ul
+        %li= follow_button :google
+        %li= follow_button :twitter
+        %li= follow_button :facebook

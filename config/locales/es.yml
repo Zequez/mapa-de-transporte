@@ -95,13 +95,21 @@ es:
     sell_locations_suggestions:
       thank_you: Gracias! Los datos serán revisados por un equipo de monos inteligentes antes de ser públicos.
 
-    follow_us:
-      follow: Social
+    social:
+      title: Social
 
-      social_buttons:
-        google: "¡Agreganos a tus círculos!"
-        facebook: "¡Mantenete actualizado en Facebook!"
-        twitter: "¡Seguinos en Twitter!"
+      share: Compartir
+      follow: Seguir
+
+      share_buttons:
+        google: "Compartir en Google+!"
+        facebook: "Compartir en Facebook!"
+        twitter: "Twittear! (En Twitter!)"
+
+      follow_buttons:
+        google: "Página de Mapa de Transporte en Google+!"
+        facebook: "Página de Mapa de Transporte en Facebook!"
+        twitter: "Cuenta de Mapa de Transporte en Twitter!"
 
     share_box:
       share: ¿Compartir?
@@ -121,6 +129,48 @@ es:
         real_person:
           Soy un <a href='http://twitter.com/zequez' title='Prefiero Facebook pero mi mamá me dijo que no agregara desconocidos. Así que cualquier cosa Twitteame.'>ser humano</a>.
 
+    tooltips:
+      map_click: <b>Haz click en el mapa</b> para mostrar los colectivos más cercanos.
+      many_clicks: Haz <b>click en otro destino</b> para mostrar los recorridos más cortos entre los dos puntos.
+      remove_checkpoint: Para <b>eliminar un destino</b> haz click secundario sobre este.
+      move_checkpoint: Puedes <b>mover un destino</b> arrastrándolo.
+      invert_checkpoints: Puedes <b>invertir los destinos</b> clickeándolos con el botón del medio.
+      more_buses:
+        Mueve el deslizador para seleccionar la <b>distancia que estás dispuesto a caminar</b>.
+        Se mostrarán todos los colectivos que estén dentro de la distancia seleccionada.
+      close_help: Haz <b>click en cualquier título</b> para ocultarlo. Por ejemplo, puedes hacer click en <i>Instrucciones</i> para ocultar esto.
+      silly:
+        - Si estás leyendo esto ya es demasiado tarde,
+          Bob Esponja va a entrar a tu habitación durante la
+          noche y te va a robar las medias que dejaste tiradas.
+          Comparte esto con setecientas personas para que Bob
+          no te robe las medias.
+        - Sabías que si levantás los brazos en el shopping y gritás
+          "PAPAYA! PAPAYA!" mientras corrés alrededor de una mesa
+          la gente te va a mirar raro?
+        - Si haces click en la esquina inferior derecha de la pantalla
+          no sucede nada.
+        - "Te ganaste <a href='#' onclick='document.body.innerHTML = \"\"'>nada</a>."
+
+    directions:
+      title: Calculadora de ruta
+      origin: Origen
+      destination: Destino
+      use_current_position: Usar posición actual
+      exchange_origin_destination: Intercambiar origen con destino
+      service_unavailable: Servicio no disponible
+      not_found: No encontrado
+      slider_title: Máxima distancia que estás dispuesto a caminar
+      line_name: Nombre de la línea
+      walking_distance: Distancia total que deberías caminar
+      route_distance: Distancia total que recorrerías en colectivo
+      show_another_route: Mostrar otra ruta
+      show_one_less_route: Mostrar una ruta menos
+      tooltip:
+        Haz click en el mapa para mostrar rutas de colectivos a menos de <span class='max_walking_distance'>1000</span> metros.
+      tooltip_no_buses:
+        No hay rutas de colectivos a menos de <span class='max_walking_distance'>1000</span> metros.
+
     buses:
       delay: Demora
       schedule: Horario en el que pasa
@@ -131,6 +181,8 @@ es:
       show_bus_in_map:  Mostrar el recorrido de la línea %{bus} en el mapa.
       hide_bus_in_map:  Ocultar el recorrido de la línea %{bus} en el mapa.
       routes_outdated: Rutas desactualizadas. %{message}
+
+      hide_all: Ocultar todos
 
       header:
         logo_title: "Mapa de Colectivos %{city}"
@@ -155,39 +207,6 @@ es:
           Te pido disculpas por las molestias.
 
 
-      tooltips:
-        map_click: <b>Haz click en el mapa</b> para mostrar los colectivos más cercanos.
-        many_clicks: Haz <b>click en otro destino</b> para mostrar los recorridos más cortos entre los dos puntos.
-        remove_checkpoint: Para <b>eliminar un destino</b> haz click secundario sobre este.
-        move_checkpoint: Puedes <b>mover un destino</b> arrastrándolo.
-        invert_checkpoints: Puedes <b>invertir los destinos</b> clickeándolos con el botón del medio.
-        more_buses:
-          Mueve el deslizador para seleccionar la <b>distancia que estás dispuesto a caminar</b>.
-          Se mostrarán todos los colectivos que estén dentro de la distancia seleccionada.
-        close_help: Haz <b>click en cualquier título</b> para ocultarlo. Por ejemplo, puedes hacer click en <i>Instrucciones</i> para ocultar esto.
-        silly:
-          - Si estás leyendo esto ya es demasiado tarde,
-            Bob Esponja va a entrar a tu habitación durante la
-            noche y te va a robar las medias que dejaste tiradas.
-            Comparte esto con setecientas personas para que Bob
-            no te robe las medias.
-          - Sabías que si levantás los brazos en el shopping y gritás
-            "PAPAYA! PAPAYA!" mientras corrés alrededor de una mesa
-            la gente te va a mirar raro?
-          - Si haces click en la esquina inferior derecha de la pantalla
-            no sucede nada.
-          - "Te ganaste <a href='#' onclick='document.body.innerHTML = \"\"'>nada</a>."
 
-      directions:
-        slider_title: Máxima distancia que estás dispuesto a caminar
-        line_name: Nombre de la línea
-        walking_distance: Distancia total que deberías caminar
-        route_distance: Distancia total que recorrerías en colectivo
-        show_another_route: Mostrar otra ruta
-        show_one_less_route: Mostrar una ruta menos
-        tooltip:
-          Haz click en el mapa para mostrar rutas de colectivos a menos de <span class='max_walking_distance'>1000</span> metros.
-        tooltip_no_buses:
-          No hay rutas de colectivos a menos de <span class='max_walking_distance'>1000</span> metros.
 
 

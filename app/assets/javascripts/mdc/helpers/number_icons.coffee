@@ -1,9 +1,9 @@
 class NumberIcons
-  url: "/assets/sprites.png"
+  url: MDC.CONFIG["sprites_path"]
 
   images: {}
 
-  sprite_positions: [[0, 107], [143, 46], [82, 46]]
+  sprite_positions: [[122, 0], [61, 0], [0, 0]]
 
   width: 50
   height: 50

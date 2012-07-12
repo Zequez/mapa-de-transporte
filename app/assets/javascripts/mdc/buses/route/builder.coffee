@@ -114,6 +114,10 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
     [shortest_path, end_index]
 
   direction_to_checkpoints: (checkpoints)->
+#    @empty_markers()
+#    for checkpoint in checkpoints
+#      @mkmarker checkpoint.latlng
+
     return false if @route.segments.lenght == 0
 
     walking_segments = []
@@ -148,18 +152,19 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
         route_segments[0] = first_segment
         route_segments.push last_segment
 
+
     new MDC.Directions.Direction.Builder(walking_segments, route_segments, @bus, this, @gmap)
 
-#  empty_markers: ->
-#    for marker in @markers
-#      marker.setMap(null)
-#    @markers = []
-#
-#  markers: []
-#  mkmarker: (p)->
-#    if p[0]
-#      p = new $G.LatLng p[0], p[1]
-#    @markers.push new $G.Marker {
-#      map: @map.gmap,
-#      position: p
-#    }
+  empty_markers: ->
+    for marker in @markers
+      marker.setMap(null)
+    @markers = []
+
+  markers: []
+  mkmarker: (p)->
+    if p[0]
+      p = new $G.LatLng p[0], p[1]
+    @markers.push new $G.Marker {
+      map: @gmap,
+      position: p
+    }

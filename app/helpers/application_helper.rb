@@ -51,24 +51,24 @@ module ApplicationHelper
     "<div class='toggle'>&#9660;</div>".html_safe
   end
 
-  def share_button(title, href, width = 600, height = 300, &block)
-    output = ""
-    output += %{<a href="#{h href}"
+  def share_button(target, width = 600, height = 300)
+    @share_urls ||= {
+      facebook: "https://www.facebook.com/sharer.php?u=#{u current_city_url}&t=#{u city_title}",
+      twitter: "https://twitter.com/intent/tweet?text=#{u city_title}&url=#{u current_city_url}%2F&via=#{CONFIG[:twitter_user]}",
+      google: "https://plus.google.com/share?url=#{u current_city_url}"
+    }
+
+    text = h I18n.t("views.social.share_buttons.#{target}")
+
+    %{<a href="#{h @share_urls[target]}" id="share-#{target}"
     onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=#{height},width=#{width}');return false;"
-    title="#{h title}">}
-    if block_given?
-      output += capture(&block)
-    else
-      output += h title
-    end
-    output +=  "</a>"
-    output.html_safe
+    title="#{text}"></a>}.html_safe
   end
 
-  def social_button(target)
-    text = h I18n.t("views.follow_us.social_buttons.#{target}")
+  def follow_button(target)
+    text = h I18n.t("views.social.follow_buttons.#{target}")
     
-    %{<a id="social-#{target}" title="#{text}" target="_blank" href="#{CONFIG[:social][target]}">#{text}</a>}.html_safe
+    %{<a id="follow-#{target}" title="#{text}" target="_blank" href="#{CONFIG[:social][target]}">#{text}</a>}.html_safe
   end
 
   def yes_no_collection
@@ -76,5 +76,13 @@ module ApplicationHelper
       [I18n.t('yep'), true],
       [I18n.t('nope'), false]
     ]
+  end
+
+  def custom_sell_locations_url
+    if @city.show_bus_ticket
+      ticket_locations_city_url
+    else
+      sell_locations_city_url
+    end
   end
 end

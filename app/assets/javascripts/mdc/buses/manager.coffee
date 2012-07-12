@@ -3,15 +3,21 @@
 
 class MDC.Buses.Manager extends Utils.Eventable
   constructor: (data, @url_helper, @gmap)->
+    @active_buses = []
+
     @find_elements()
     @build_toggle()
     @build_bus_groups(data)
     @bind_bus_groups()
     @bind_buses()
+    @bind_hide_buses()
     @set_states_actions()
+    @update_active_buses()
+    @set_hide_buses_state()
 
   find_elements: ->
     @buttons_container = $$("buses-groups")
+    @hide_buses        = $$("hide-buses")
 
   build_toggle: ->
     @toggle = new MDC.Interface.Toggleable(@buttons_container, "show_buses_buttons")
@@ -26,6 +32,7 @@ class MDC.Buses.Manager extends Utils.Eventable
       @bus_groups.push bus_group
       @buses = @buses.concat bus_group.buses
     null
+
 
   bind_bus_groups: ->
     for bus_group in @bus_groups
@@ -43,6 +50,15 @@ class MDC.Buses.Manager extends Utils.Eventable
         bus.add_listener "button_out",         => @unshift_state([bus])
         bus.add_listener "route_hover",        (route)=> @shift_state([[bus, route]], "route_hover")
         bus.add_listener "route_out",          => @unshift_state([bus])
+
+  bind_hide_buses: ->
+    @hide_buses.click =>
+      @set_state @buses, "deactivated"
+      @deactivate_buses_groups()
+
+  deactivate_buses_groups: ->
+    bus_group.deactivate() for bus_group in @bus_groups
+    null
 
   find_closest_route: (checkpoints)->
     for bus in @buses
@@ -65,10 +81,15 @@ class MDC.Buses.Manager extends Utils.Eventable
   set_states_actions: ->
     @states_actions = {}
     
-    @states_actions["activated"] =
+    @states_actions["activated"] = =>
+      @update_active_buses()
+      @update_url()
+      @set_hide_buses_state()
+
     @states_actions["deactivated"] =
     @states_actions["direction_activated"] = =>
-      @update_url()
+      @update_active_buses()
+      @set_hide_buses_state()
 
 
   set_state: (buses, state_name)->
@@ -109,10 +130,22 @@ class MDC.Buses.Manager extends Utils.Eventable
   # States actions
   ################
 
+  update_active_buses: ->
+    @active_buses = []
+    for bus in @buses
+      @active_buses.push bus if bus.is_activated()
+
   update_url: ->
     buses_names = []
-    for bus in @buses
-      buses_names.push bus.perm() if bus.is_activated()
 
-    @url_helper.set_url buses_names.join('+')
-      
+    for bus in @active_buses
+      buses_names.push bus.perm()
+
+    @url_helper.set_buses_city_url(buses_names)
+
+  set_hide_buses_state: ->
+    if @active_buses.length > 0
+      @hide_buses.show()
+    else
+      @hide_buses.hide()
+    

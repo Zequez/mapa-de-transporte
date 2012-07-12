@@ -16,3 +16,5 @@
                   - buses_batch.each do |bus|
                     - if bus
                       = render partial: 'shared/bus-link', locals: {bus: bus}
+    #hide-buses
+      = t "views.buses.hide_all"

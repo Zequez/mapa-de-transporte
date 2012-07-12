@@ -53,7 +53,7 @@ class MDC.SellLocations.Manager extends Utils.Eventable
 
   update_url: ->
     # TODO: Change to puntos-de-venta if the city doesn't have magnetic cards.
-    @url_helper.set_url("puntos-de-carga")
+    @url_helper.set_url(@ui.url)
 
 #$ ->
 #  start = ->
