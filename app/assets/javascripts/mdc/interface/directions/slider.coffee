@@ -1,1 +1,0 @@
-MDC.Interface.Directions.Slider = {}
