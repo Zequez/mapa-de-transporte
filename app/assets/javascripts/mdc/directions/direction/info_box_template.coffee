@@ -26,9 +26,9 @@ class MDC.Directions.Direction.InfoBoxTemplate
       if i == 0
         @generate_walk_distance(walk_distance, @walk_title_start)
       else if i == last
-        @generate_walk_distance(walk_distance, @walk_title_middle)
-      else
         @generate_walk_distance(walk_distance, @walk_title_end)
+      else
+        @generate_walk_distance(walk_distance, @walk_title_middle)
 
       
   generate_walk_distance: (value, title)->

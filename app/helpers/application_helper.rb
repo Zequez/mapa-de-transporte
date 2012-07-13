@@ -16,10 +16,38 @@ module ApplicationHelper
       end
     elsif @bus
       t('views.head.title_bus', bus: @bus.name, city: @city.name)
+    elsif params[:origin] or params[:destination]
+      if named_origin and named_destination
+        t("views.directions.head.two", location_1: named_origin, location_2: named_destination)
+      elsif named_origin
+        t("views.directions.head.one", location: named_origin)
+      elsif named_destination
+        t("views.directions.head.one", location: named_destination)
+      else
+        if params[:origin] and params[:destination]
+          t("views.directions.head.two_unnamed")
+        else
+          t("views.directions.head.one_unnamed")
+        end
+      end
     elsif @city
       city_title
     else
       t('views.head.title')
+    end
+  end
+
+  def named_origin
+    @named_origin ||= named_checkpoint :origin
+  end
+
+  def named_destination
+    @named_destination ||= named_checkpoint :destination
+  end
+
+  def named_checkpoint(hash_key)
+    if params[hash_key] and not (params[hash_key] =~ /^\[.*\]$/)
+      params[hash_key].gsub("-", " ")
     end
   end
 

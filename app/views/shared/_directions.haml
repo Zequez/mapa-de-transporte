@@ -7,13 +7,15 @@
   .toggleable-data
     #directions-checkpoints
       #checkpoints-tools
-        %a#current-position-checkpoint{title: t('views.directions.use_current_position')}= t('views.directions.use_current_position')
-        %a#switch-checkpoints{title: t('views.directions.exchange_origin_destination')}= t('views.directions.exchange_origin_destination')
+        %a#current-position-checkpoint{title: t('views.directions.use_current_position')}<>
+          = t('views.directions.use_current_position')
+        %a#switch-checkpoints{title: t('views.directions.exchange_origin_destination')}
+          = t('views.directions.exchange_origin_destination')
 
-      - 2.times do |i|
-        .checkpoint-input{id: "checkpoint-#{i+1}"}
-          %h4 #{t("views.directions.#{i == 0 ? "origin" : "destination"}")}:
-          %input{type: "search", autofocus: ("true" if i == 0)}
+      - {"1" => :origin, "2" => :destination}.each_pair do |i, checkpoint|
+        .checkpoint-input{id: "checkpoint-#{i}"}
+          %h4 #{t("views.directions.#{checkpoint}")}:
+          %input{type: "search", autofocus: ("true" if checkpoint == :origin), value: named_checkpoint(checkpoint)}
           .empty-input &times;
           .checkpoint-service-unavailable= t('views.directions.service_unavailable')
           .checkpoint-not-found= t('views.directions.not_found')

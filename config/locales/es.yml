@@ -82,7 +82,7 @@ es:
       show_hide_tickets: Mostrar / Ocultar lista de puntos de venta de tickets.
       list_title: Lista de los puntos de carga de la tarjeta de colectivos
       
-
+    
 
     sell_locations_popup:
       address: Dirección
@@ -153,6 +153,12 @@ es:
         - "Te ganaste <a href='#' onclick='document.body.innerHTML = \"\"'>nada</a>."
 
     directions:
+      head:
+        one: Mapa de los colectivos que pasan por %{location}
+        two: Mapa de los colectivos que pasan por %{location_1} y te dejan en %{location_2}
+        one_unnamed: Mapa de los colectivos que pasan por un punto geográfico.
+        two_unnamed: Mapa de los colectivos que pasan por dos puntos geográficos.
+
       title: Calculadora de ruta
       origin: Origen
       destination: Destino

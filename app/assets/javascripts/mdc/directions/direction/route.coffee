@@ -24,6 +24,7 @@ class MDC.Directions.Direction.Route extends Utils.Eventable
       strokeOpacity: 0.75
       cursor: "default"
       visible: false
+      zIndex: @.constructor.get_z_index()
     }
 
   polyline_path: ->
@@ -52,7 +53,7 @@ class MDC.Directions.Direction.Route extends Utils.Eventable
 
   highlight: ->
     if @polyline
-      @polyline.setOptions strokeWeight: 6, strokeOpacity: 1
+      @polyline.setOptions strokeWeight: 6, strokeOpacity: 1, zIndex: @.constructor.get_z_index()
 
   unhighlight: ->
     if @polyline
@@ -62,5 +63,9 @@ class MDC.Directions.Direction.Route extends Utils.Eventable
     if @polyline
       @polyline.setMap null
       $G.event.clearInstanceListeners @polyline
+
+  @z_index: 0
+  @get_z_index: ->
+    ++@z_index
 
  
