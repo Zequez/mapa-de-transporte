@@ -81,9 +81,7 @@ class MDC.Directions.Checkpoints.Manager extends Utils.Eventable
 
   bind_map_events: ->
     $G.event.addListener @gmap, "click", (event)=>
-      console.log "Map Click?", event
       if not @disregard_click
-        console.log "Not disregarded!"
         @insert_checkpoint(event.latLng)
         @fire_change()
         @write_url()

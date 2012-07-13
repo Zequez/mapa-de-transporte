@@ -3,6 +3,9 @@ class MDC.Directions.Checkpoints.Checkpoint
     @value ||= _arg.point
 
     @parse_value_latlng()
+    
+    if @perm
+      @perm = decodeURI(@perm)
 
     # NAME AND VALUE
     if not @perm and @name and @value
@@ -93,6 +96,7 @@ class MDC.Directions.Checkpoints.Checkpoint
     @perm = encodeURI(@name.replace(" ", "-"))
 
   value_from_perm: ->
+    console.log @perm
     @value = @decompress_points(@perm.replace(/\s/g, ""))
     
     if @value and @value[0] and @value[1]
@@ -115,7 +119,7 @@ class MDC.Directions.Checkpoints.Checkpoint
       false
 
   name_from_perm: ->
-    @name = decodeURI(@perm.replace("-", " "))
+    @name = @perm.replace("-", " ")
 
   value_from_autocomplete: ->
     if @autocomplete
