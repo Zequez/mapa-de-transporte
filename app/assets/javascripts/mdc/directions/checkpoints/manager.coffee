@@ -144,20 +144,23 @@ class MDC.Directions.Checkpoints.Manager extends Utils.Eventable
       input.set_from_manager @checkpoints[i]
 
   write_url: ->
+    origin = destination = null
+    
     if @checkpoints[0]
       origin = @checkpoints[0].perm
     if @checkpoints[1]
       destination = @checkpoints[1].perm
 
-    @url_helper.set_directions_city_url origin, destination
+    if origin or destination
+      @url_helper.set_directions_city_url origin, destination
 
   ################
   # Load actions #
   ################
 
   initial_check: ->
-    @set_initial_checkpoints()
-
+    if not @params.buses and not @params.sell_locations
+      @set_initial_checkpoints()
 
   set_initial_checkpoints: ->
     finish = new AsyncronicFinish 2, =>
