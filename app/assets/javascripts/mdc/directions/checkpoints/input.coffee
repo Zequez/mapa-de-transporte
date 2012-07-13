@@ -108,7 +108,9 @@ class MDC.Directions.Checkpoints.Input extends Utils.Eventable
       @empty()
       @fire_empty()
 
-    @marker.add_listener "move", (latlng)=> @set_from_marker(latlng)
+    @marker.add_listener "move", (latlng)=>
+      @fire_event("marker_dragend") # IE workaround
+      @set_from_marker(latlng)
 
   ################
   # Data setters #

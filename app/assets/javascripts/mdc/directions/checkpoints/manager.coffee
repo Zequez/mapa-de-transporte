@@ -14,6 +14,8 @@ class MDC.Directions.Checkpoints.Manager extends Utils.Eventable
     @url_origin       = null
     @url_destin       = null
 
+    @disregard_click = false # IE workaround for the click firing after dragend on marker.
+
     @params = @url_helper.params
 
     @build_autocomplete()
@@ -79,11 +81,21 @@ class MDC.Directions.Checkpoints.Manager extends Utils.Eventable
 
   bind_map_events: ->
     $G.event.addListener @gmap, "click", (event)=>
-      @insert_checkpoint(event.latLng)
-      @fire_change()
-      @write_url()
+      console.log "Map Click?", event
+      if not @disregard_click
+        console.log "Not disregarded!"
+        @insert_checkpoint(event.latLng)
+        @fire_change()
+        @write_url()
 
   bind_input: (i, input)->
+    # IE workaround for the click firing after dragend on marker.
+    input.add_listener "marker_dragend", =>
+      @disregard_click = true
+      setTimeout =>
+        @disregard_click = false
+      , 200
+
     input.add_listener "change", (checkpoint)=>
       @checkpoints[i] = checkpoint
       @fire_change()

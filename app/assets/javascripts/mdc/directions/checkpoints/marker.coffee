@@ -38,10 +38,15 @@ class MDC.Directions.Checkpoints.Marker extends Utils.Eventable
     $G.event.addListener @marker, 'dragend', (e)=>
       @latlng = e.latLng
       @fire_event('move', @latlng)
-      
-    $G.event.addListener @marker, 'rightclick', =>
+
+    # We must bind it separatedly because the click event doesn't fire with right click.
+    $G.event.addListener @marker, 'rightclick', (e)=>
       @fire_event('rightclick')
 
+    $G.event.addListener @marker, "dblclick", (e)=>
+      @fire_event("middleclick")
+
+    # Middle click won't fire click on Firefox, so we have to use mouseup.
     $G.event.addListener @marker, 'mouseup', (e)=>
       if e["b"]["button"] == 1
         @fire_event('middleclick')
