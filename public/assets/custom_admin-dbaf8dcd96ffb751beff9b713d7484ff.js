@@ -2554,16 +2554,16 @@ InfoBox.prototype.remove = function () {
       values = [
         {
           "hc": this.build_gmap,
-          "fh": this.get_bounds,
-          "c": this.map_settings
+          "fh": this.build_gmap,
+          "c": this.calculate_center
         }, {
-          "dc": this.make_bounds,
-          "bb": this.build_gmap,
-          "gf": this.calculate_center
+          "dc": this.map_settings,
+          "bb": this.make_bounds,
+          "gf": this.map_settings
         }, {
-          "ce": this.map_settings,
-          "gh": this.map_settings,
-          "ii": this.map_settings
+          "ce": this.build_gmap,
+          "gh": this.make_bounds,
+          "ii": this.get_bounds
         }
       ];
       if (typeof MDC !== "undefined") {
