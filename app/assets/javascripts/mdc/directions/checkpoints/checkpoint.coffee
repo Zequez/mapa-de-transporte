@@ -96,7 +96,6 @@ class MDC.Directions.Checkpoints.Checkpoint
     @perm = encodeURI(@name.replace(" ", "-"))
 
   value_from_perm: ->
-    console.log @perm
     @value = @decompress_points(@perm.replace(/\s/g, ""))
     
     if @value and @value[0] and @value[1]
@@ -199,7 +198,7 @@ class MDC.Directions.Checkpoints.Checkpoint
       if points.length == 2
         points[0] = parseInt(points[0]) / precision
         points[1] = parseInt(points[1]) / precision
-        console.log points
+        
         return points
 
 #    return null if not encoded.match(/^\[.*\]$/)
