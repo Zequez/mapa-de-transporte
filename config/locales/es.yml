@@ -59,15 +59,15 @@ es:
       title_ticket_locations: Mapa de puntos venta de boletos de colectivos en %{city}
       
       description:
-        Mapas de Colectivos, observá los recorridos de los
+        Descubrí los recorridos de los
         colectivos en un mapa interactivo y descubrir automáticamente las rutas más cortas para llegar a tu
         destino.
       description_city:
-        MapaDeTransporte.com.ar, observá los recorridos de los
+        Descubrí los recorridos de los
         colectivos de %{city} en un mapa interactivo y descubrí automáticamente las rutas más cortas para llegar a tu
         destino.
       description_bus:
-        Mapa interactivo del recorrido del colectivo %{bus} de %{city}.
+        Mapa interactivo del recorrido de la línea de colectivo %{bus} de %{city}.
       description_sell_locations:
         Mapa interactivo con los puntos de carga de la tarjeta de colectivos de %{city}
       description_ticket_locations:
