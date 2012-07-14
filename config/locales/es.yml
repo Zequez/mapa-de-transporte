@@ -59,11 +59,11 @@ es:
       title_ticket_locations: Mapa de puntos venta de boletos de colectivos en %{city}
       
       description:
-        Descubrí los recorridos de los
+        Mirá los recorridos de los
         colectivos en un mapa interactivo y descubrir automáticamente las rutas más cortas para llegar a tu
         destino.
       description_city:
-        Descubrí los recorridos de los
+        Mirá los recorridos de los
         colectivos de %{city} en un mapa interactivo y descubrí automáticamente las rutas más cortas para llegar a tu
         destino.
       description_bus:
