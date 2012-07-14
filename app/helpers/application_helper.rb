@@ -46,7 +46,7 @@ module ApplicationHelper
   end
 
   def named_checkpoint(hash_key)
-    if params[hash_key] and not (params[hash_key] =~ /^\[.*\]$/)
+    if params[hash_key] and not (params[hash_key] =~ /^([+-][0-9]+)([+-][0-9]+)$/)
       params[hash_key].gsub("-", " ")
     end
   end
