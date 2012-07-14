@@ -65,15 +65,15 @@ module BusesHelper
     end
   end
 
-  def city_buses_path(city, buses)
-    if buses.is_a? String
-      param = buses
-    else
-      param = buses.map(&:perm).sort.join('+')
-    end
-    
-    city_url(city) + '/' + param
-  end
+  #def city_buses_path(city, buses)
+  #  if buses.is_a? String
+  #    param = buses
+  #  else
+  #    param = buses.map(&:perm).sort.join('+')
+  #  end
+  #
+  #  city_url(city) + '/' + param
+  #end
 
   #def bus_url_from_current_url(bus)
   #  buses = (bus.is_shown? ? @buses - [bus] : @buses + [bus])
