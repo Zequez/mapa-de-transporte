@@ -136,81 +136,110 @@ class MDC.Directions.Checkpoints.Checkpoint
   #################
 
   compress_points: (points, precision = 5)->
-    oldLat = 0
-    oldLng = 0
-    len = points.length
-    index = 0
-    encoded = ''
-
+    encoded_points = []
+    
     precision = Math.pow(10, precision)
+    for point in points
+      point = parseInt(point * precision)
 
-    while index < len
-      # Round to N decimal places
-      lat = Math.round(points[index++] * precision)
-      lng = Math.round(points[index++] * precision)
+      if point > 0
+        prepend = '+'
+      else
+        prepend = '-'
+        point = -point
 
-      # Encode the differences between the points
-      encoded += @encode_number(lat - oldLat)
-      encoded += @encode_number(lng - oldLng)
+      encoded_points.push(prepend)
+      encoded_points.push(point.toString())
 
-      oldLat = lat
-      oldLng = lng
+    return encoded_points.join("")
 
-    "[#{btoa(encoded).replace(/\=/g, "")}]"
 
-  encode_number: (num)->
-    num = num << 1
+#    oldLat = 0
+#    oldLng = 0
+#    len = points.length
+#    index = 0
+#    encoded = ''
+#
+#    precision = Math.pow(10, precision)
+#
+#    while index < len
+#      # Round to N decimal places
+#      lat = Math.round(points[index++] * precision)
+#      lng = Math.round(points[index++] * precision)
+#
+#      # Encode the differences between the points
+#      encoded += @encode_number(lat - oldLat)
+#      encoded += @encode_number(lng - oldLng)
+#
+#      oldLat = lat
+#      oldLng = lng
+#
+#    "[#{btoa(encoded).replace(/\=/g, "")}]"
 
-    if num < 0
-      num = ~(num)
-
-    encoded = ''
-
-    while num >= 0x20
-      encoded += String.fromCharCode((0x20 | (num & 0x1f)) + 63)
-      num >>= 5
-
-    encoded += String.fromCharCode(num + 63)
+#  encode_number: (num)->
+#    num = num << 1
+#
+#    if num < 0
+#      num = ~(num)
+#
+#    encoded = ''
+#
+#    while num >= 0x20
+#      encoded += String.fromCharCode((0x20 | (num & 0x1f)) + 63)
+#      num >>= 5
+#
+#    encoded += String.fromCharCode(num + 63)
 
   decompress_points: (encoded, precision = 5)->
-    return null if not encoded.match(/^\[.*\]$/)
+    precision = Math.pow(10, precision)
+    
+    points = encoded.match(/^([+-][0-9]+)([+-][0-9]+)$/)
+    if points
+      points.shift()
+      if points.length == 2
+        points[0] = parseInt(points[0]) / precision
+        points[1] = parseInt(points[1]) / precision
+        console.log points
+        return points
 
-    try
-      encoded = atob(encoded.replace(/\[|\]/g, ""))
-
-      precision = Math.pow(10, -precision);
-      len   = encoded.length
-      index = 0
-      lat   = 0
-      lng   = 0
-      array = []
-
-      while index < len
-        shift = 0
-        result = 0
-        loop
-          b = encoded.charCodeAt(index++) - 63;
-          result |= (b & 0x1f) << shift;
-          shift += 5;
-          break if not (b >= 0x20)
-
-        dlat = if (result & 1) then ~(result >> 1) else (result >> 1)
-        lat += dlat
-        shift = 0
-        result = 0
-
-        loop
-          b = encoded.charCodeAt(index++) - 63
-          result |= (b & 0x1f) << shift
-          shift += 5
-          break if not (b >= 0x20)
-
-        dlng = if (result & 1) then ~(result >> 1) else (result >> 1)
-        lng += dlng
-
-        array.push(lat * precision)
-        array.push(lng * precision)
-      return array
-    catch error
-      return null
+#    return null if not encoded.match(/^\[.*\]$/)
+#
+#    try
+#      encoded = atob(encoded.replace(/\[|\]/g, ""))
+#
+#      precision = Math.pow(10, -precision);
+#      len   = encoded.length
+#      index = 0
+#      lat   = 0
+#      lng   = 0
+#      array = []
+#
+#      while index < len
+#        shift = 0
+#        result = 0
+#        loop
+#          b = encoded.charCodeAt(index++) - 63;
+#          result |= (b & 0x1f) << shift;
+#          shift += 5;
+#          break if not (b >= 0x20)
+#
+#        dlat = if (result & 1) then ~(result >> 1) else (result >> 1)
+#        lat += dlat
+#        shift = 0
+#        result = 0
+#
+#        loop
+#          b = encoded.charCodeAt(index++) - 63
+#          result |= (b & 0x1f) << shift
+#          shift += 5
+#          break if not (b >= 0x20)
+#
+#        dlng = if (result & 1) then ~(result >> 1) else (result >> 1)
+#        lng += dlng
+#
+#        array.push(lat * precision)
+#        array.push(lng * precision)
+#      return array
+#    catch error
+#      return null
 
