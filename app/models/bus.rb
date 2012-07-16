@@ -22,7 +22,6 @@ class Bus < ActiveRecord::Base
   before_validation :uppercase_name
   before_save :create_perm
   before_save :set_routes_caches
-  after_save :handle_sprite_generation
 
   validates :name,
             presence: true,
@@ -48,8 +47,6 @@ class Bus < ActiveRecord::Base
     #self.departure_route_addresses = departure_route.addresses
     #self.return_route_addresses = return_route.addresses
   end
-
-  include BusesImages::BusInclude
 
   ### From names search ###
   #########################
