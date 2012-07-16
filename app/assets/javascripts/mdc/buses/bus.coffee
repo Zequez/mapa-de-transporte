@@ -140,7 +140,7 @@ class MDC.Buses.Bus extends Utils.Eventable
   ###############################
 
   build_popup: ->
-    @popup = new MDC.Buses.BusPopup(@data["name"])
+    @popup = new MDC.Buses.BusPopup(@data["perm"])
 
   bind_button: ->
     @button.add_listener 'activated',   => @fire_event("button_activated")

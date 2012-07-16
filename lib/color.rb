@@ -211,7 +211,51 @@ class Color
     col1.blend(col2, amt)
   end
 
+  def self.hsl(hue, saturation, light)
+    saturation /= 100.0
+    light /= 100.0
+
+    if saturation == 0
+      r = g = b = (light * 255)
+    else
+      if light <= 0.5
+        m2 = light * (saturation + 1)
+      else
+        m2 = light + saturation - light * saturation
+      end
+
+      m1 = light * 2 - m2
+      h = hue / 360.0
+
+      r = Color.hue2rgb(m1, m2, h + 1/3.0)
+      g = Color.hue2rgb(m1, m2, h)
+      b = Color.hue2rgb(m1, m2, h - 1/3.0)
+    end
+
+    Color.new(r, g, b)
+  end
+
   protected
+
+  def self.hue2rgb(m1, m2, hue)
+    if (hue < 0)
+      hue += 1
+    elsif (hue > 1)
+      hue -= 1
+    end
+
+    if (6 * hue < 1)
+      v = m1 + (m2 - m1) * hue * 6
+    elsif (2 * hue < 1)
+      v = m2
+    elsif (3 * hue < 2)
+      v = m1 + (m2 - m1) * (2/3.0 - hue) * 6
+    else
+      v = m1
+    end
+
+    (255 * v).to_i
+  end
 
   # Convert int to string hex, eg 255 => 'FF'
   def to_hex(val)

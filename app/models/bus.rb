@@ -26,16 +26,15 @@ class Bus < ActiveRecord::Base
 
   validates :name,
             presence: true,
-            format: { with: /[0-9]{3}[ABCDEFG?+]?/ }
+            format: { with: /[0-9]{3}/ }
 
 
   def uppercase_name
-    L.l self.name
     self.name = name.upcase
   end
 
   def create_perm
-    self.perm = name.sub('?', 'q').sub('+', 'm')
+    self.perm = "#{name}#{division.sub('?', 'q').sub('+', 'm')}"
   end
 
   # These will be delegated to groups and to city
@@ -131,6 +130,7 @@ class Bus < ActiveRecord::Base
   end
 
   def variation
+    raise "Bus#variation DEPRECATED! Use Bus#Division"
     @variation ||= name[3] if name
   end
 

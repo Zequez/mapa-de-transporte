@@ -6,16 +6,17 @@ class MDC.Directions.Direction.WalkBusIcon extends Utils.Eventable
     @bind_marker()
 
   build_marker: ->
-    @marker = new $G.Marker @marker_options()
+    @marker = new MDC.Directions.Direction.BusesIconsOverlay(@bus.data, @bus.color, @latlng, @gmap)
+#    @marker = new $G.Marker @marker_options()
 
-  marker_options: ->
-    {
-      map: @gmap
-      position: @latlng
-      icon: MDC.Helpers.BusesIcons.get(@bus.data["id"])
-      cursor: "default"
-      flat: true
-    }
+#  marker_options: ->
+#    {
+#      map: @gmap
+#      position: @latlng
+#      icon: MDC.Helpers.BusesIcons.get(@bus.data["id"])
+#      cursor: "default"
+#      flat: true
+#    }
 
   bind_marker: ->
     $G.event.addListener @marker, "mouseover", =>
@@ -24,6 +25,8 @@ class MDC.Directions.Direction.WalkBusIcon extends Utils.Eventable
     $G.event.addListener @marker, "mouseout", =>
       @fire_event('mouseout')
 
-  show: -> @marker.setVisible true
-  hide: -> @marker.setVisible false
+#  show: -> @marker.setVisible true
+#  hide: -> @marker.setVisible false
+  show: -> @marker.show()
+  hide: -> @marker.hide()
   destroy: -> @marker.setMap null

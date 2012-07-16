@@ -98,7 +98,7 @@ class City < ActiveRecord::Base
               bus_groups: {
                 only: [:id, :name],
                 include: {
-                  visible_buses: { only: [:id, :name, :perm, :encoded_departure_route, :encoded_return_route, :is_shown] }
+                  visible_buses: { only: [:id, :name, :perm, :division, :division_name, :encoded_departure_route, :encoded_return_route, :is_shown] }
                 }
               },
               visible_sell_locations: {

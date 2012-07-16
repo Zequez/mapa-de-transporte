@@ -10,7 +10,7 @@ class MDC.Directions.Direction.WalkLine
       map: @gmap
       path: @segment.path()
       strokeWeight: 1
-      strokeColor: @color
+      strokeColor: @color.normal
       strokeOpacity: 0.75
       clickable: false
       visible: false

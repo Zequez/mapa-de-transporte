@@ -20,7 +20,7 @@ class MDC.Directions.Direction.Route extends Utils.Eventable
       map: @gmap
       path: @polyline_path()
       strokeWeight: 3
-      strokeColor: @color
+      strokeColor: @color.normal
       strokeOpacity: 0.75
       cursor: "default"
       visible: false

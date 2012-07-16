@@ -23,7 +23,7 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
 
   build_route: ->
     @decode_points()
-    @options = new MDC.Buses.Route.Options(@bus.color)
+#    @options = new MDC.Buses.Route.Options(@bus.color)
     @route = new MapTools.Route(@gmap, @points, @route_options())
 
 #  build_route_markers: ->
@@ -44,7 +44,7 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
   route_options: ->
     {
       strokeWeight: 3,
-      strokeColor: @color,
+      strokeColor: @color.normal,
       strokeOpacity: 0.75,
       cursor: "default"
     }
@@ -62,7 +62,7 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
         @route.set_options visible: true, strokeOpacity: 0.75, strokeWeight: 3
       when 3
         # Highlighted
-        @route.set_options visible: true, strokeOpacity: 1,    strokeWeight: 6
+        @route.set_options visible: true, strokeOpacity: 1, strokeWeight: 6, zIndex: @.constructor.get_z_index()
 
   decode_points: ->
     @points = $G.geometry.encoding.decodePath @encoded
@@ -168,3 +168,7 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
       map: @gmap,
       position: p
     }
+
+  @z_index: 0
+  @get_z_index: ->
+    ++@z_index

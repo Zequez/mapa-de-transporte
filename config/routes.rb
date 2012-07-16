@@ -15,6 +15,11 @@ Mdc::Application.routes.draw do
 
   resources :sell_locations_suggestions, only: [:create]
 
+
+
+  match "css_sandbox" => "sandboxes#css"
+  match "js_sandbox"  => "sandboxes#js"
+
   resources :cities, only: [:show], path: "/" do
     collection do
       get "ciudades" => "cities#index", as: ''
