@@ -10,7 +10,7 @@ Mdc::Application.routes.draw do
   match "/error_500" => "errors#server_error"
 
 
-  get "/buses_images.png" => "buses_images_generator#show", format: 'png'
+  #get "/buses_images.png" => "buses_images_generator#show", format: 'png'
   #get "/wipe_buses_images" => "buses_images_generator#destroy"
 
   resources :sell_locations_suggestions, only: [:create]
