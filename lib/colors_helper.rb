@@ -1,5 +1,5 @@
 class ColorsHelper
-  @@saturations = [100, 80]
+  @@saturations = [100, 60, 80]
   @@lights      = [30, 50, 70]
   @@hues        = [0, 90, 135, 180, 225, 270, 315]
 
