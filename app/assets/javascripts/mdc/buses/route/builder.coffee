@@ -24,6 +24,7 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
   build_route: ->
     @decode_points()
 #    @options = new MDC.Buses.Route.Options(@bus.color)
+    # It also builds the segments
     @route = new MapTools.Route(@gmap, @points, @route_options())
 
 #  build_route_markers: ->

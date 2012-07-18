@@ -1,9 +1,9 @@
 #= require ./route
 
 class BusEditor.Map.BusRoute extends BusEditor.Map.Route
-  constructor: (a, checkpoints, options)->
+  constructor: (_, checkpoints, options)->
     @checkpoints = checkpoints
-    super(a, @checkpoints_to_coordinates(), options)
+    super(_, @checkpoints_to_coordinates(), options)
 
   checkpoints_to_coordinates: ->
     @order_checkpoints()

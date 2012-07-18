@@ -3,8 +3,8 @@ class BusEditor.Map.Route extends MapTools.Route
   point_addition_enabled: true
   reverse_insertion: false
 
-  constructor: (map, coordinates, options)->
-    super(map, coordinates, options)
+  constructor: (gmap, coordinates, options)->
+    super(gmap, coordinates, options)
     @bind_events()
 
   bind_events: ->

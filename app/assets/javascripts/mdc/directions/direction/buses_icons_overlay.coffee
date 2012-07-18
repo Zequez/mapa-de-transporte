@@ -9,7 +9,7 @@ class MDC.Directions.Direction.BusesIconsOverlay
 
   @prototype = new $G.OverlayView()
 
-  onAdd: ->
+  "onAdd": ->
     # Note: an overlay's receipt of onAdd() indicates that
     # the map's panes are now available for attaching
     # the overlay to the map via the DOM.
@@ -43,6 +43,8 @@ class MDC.Directions.Direction.BusesIconsOverlay
 
     @bind()
 
+  
+
   bind: ->
     $G.event.addDomListener @div_, 'mouseover', =>
       google.maps.event.trigger(@, 'mouseover')
@@ -51,7 +53,7 @@ class MDC.Directions.Direction.BusesIconsOverlay
       google.maps.event.trigger(@, 'mouseout')
 
 
-  draw: ->
+  "draw": ->
     # Size and position the overlay. We use a southwest and northeast
     # position of the overlay to peg it to the correct position and size.
     # We need to retrieve the projection from this overlay to do this.
@@ -67,24 +69,24 @@ class MDC.Directions.Direction.BusesIconsOverlay
     div.style.left = position.x + 'px'
     div.style.top  = position.y + 'px'
 
-  onRemove: ->
+  "onRemove": ->
     @div_.parentNode.removeChild(@div_)
     @div_ = null
 
-  hide: ->
+  "hide": ->
     @div_.style.visibility = "hidden" if @div_
 
-  show: ->
+  "show": ->
     @div_.style.visibility = "visible" if @div_
 
-  toggle: ->
+  "toggle": ->
     if @div_
       if @div_.style.visibility == "hidden"
         @show()
       else
         @hide()
 
-  toggleDOM: ->
+  "toggleDOM": ->
     if @getMap()
       @setMap(null)
     else

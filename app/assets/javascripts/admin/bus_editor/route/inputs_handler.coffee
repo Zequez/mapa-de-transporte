@@ -5,7 +5,7 @@ class BusEditor.Route.InputsHandler
     @container = container
 #    @create_elements()
     @read_checkpoints()
-    @route = new BusEditor.Map.BusRoute @map, @checkpoints, options
+    @route = new BusEditor.Map.BusRoute @map.gmap, @checkpoints, options
     @bind_events()
 
 #  create_elements: ->

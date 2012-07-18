@@ -1,10 +1,5 @@
 class MapTools.Route
-  constructor: (gmap, coordinates, options)->
-    if gmap.gmap
-      @gmap = gmap.gmap
-    else
-      @gmap = gmap
-      
+  constructor: (@gmap, coordinates, options)->
     @coordinates = coordinates
     @options = options
     @process_points()
