@@ -52,7 +52,7 @@
 #
 #    _.flatten(colors)
 #
-#}
+#
 
 class Color
   constructor: (@normal, @dark, @light)->
@@ -66,7 +66,7 @@ class Colors
       @colors.push new Color(normal[i], dark[i], light[i])
 
   get: ->
-    @current_color = 0 if @current_color > @colors.length
+    @current_color = 0 if @current_color >= @colors.length
     @colors[@current_color++]
 
 <% colors = ColorsHelper.new %>

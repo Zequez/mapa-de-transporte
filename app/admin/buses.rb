@@ -8,7 +8,6 @@ ActiveAdmin.register Bus do
   filter :name
 
   controller do
-    cache_sweeper :bus_sweeper
     cache_sweeper :city_sweeper
 
     def new
