@@ -14,13 +14,13 @@ class CitiesController < InheritedResources::Base
   def index
     # Redirect to the correct city if the user
     # is located in a city of our database.
-    if params[:root]
-      if (@city = City.get_from_geolocation("127.0.0.1"))
-        if @city.visible?
-          return redirect_to city_path(City.first)
-        end
-      end
-    end
+    #if params[:root]
+    #  if (@city = City.get_from_geolocation("127.0.0.1"))
+    #    if @city.visible?
+    #      return redirect_to city_path(City.first)
+    #    end
+    #  end
+    #end
   end
 
   def show
