@@ -93,7 +93,7 @@ class MDC.Directions.Checkpoints.Checkpoint
     @name = "#{parseInt(@value[0]*1000) / 1000}, #{parseInt(@value[1]*1000) / 1000}"
 
   perm_from_name: ->
-    @perm = encodeURI(@name.replace(" ", "-"))
+    @perm = encodeURI(@name.replace(/\s/g, "-"))
 
   value_from_perm: ->
     @value = @decompress_points(@perm.replace(/\s/g, ""))

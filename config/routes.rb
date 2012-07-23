@@ -29,7 +29,7 @@ Mdc::Application.routes.draw do
       get "puntos-de-carga" => "cities#show", sell_locations: true, as: :sell_locations
       get "puntos-de-venta" => "cities#show", sell_locations: true, ticket_locations: true, as: :ticket_locations
       get "(/origen/:origin)(/destino/:destination)" => "cities#show", as: :directions
-      get "(/colectivos/:buses)" => "cities#show", as: :buses
+      get "(/colectivos/(:buses))" => "cities#show", as: :buses
       get "(/:buses)" => redirect {|p, req| "/#{p[:id]}/colectivos/#{p[:buses]}"}
     end
   end
