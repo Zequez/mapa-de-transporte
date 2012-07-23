@@ -16,7 +16,6 @@ Mdc::Application.routes.draw do
   resources :sell_locations_suggestions, only: [:create]
 
 
-
   match "css_sandbox" => "sandboxes#css"
   match "js_sandbox"  => "sandboxes#js"
 
@@ -31,10 +30,11 @@ Mdc::Application.routes.draw do
       get "puntos-de-venta" => "cities#show", sell_locations: true, ticket_locations: true, as: :ticket_locations
       get "(/origen/:origin)(/destino/:destination)" => "cities#show", as: :directions
       get "(/colectivos/:buses)" => "cities#show", as: :buses
+      get "(/:buses)" => redirect {|p, req| "/#{p[:id]}/colectivos/#{p[:buses]}"}
     end
   end
 
-  root to: 'cities#redirect_to_default'
+  root to: 'cities#index', root: true
 
   match "*a" => "errors#not_found"
 end

@@ -1,3 +1,3 @@
 $ ->
-  if $(document["body"]).is('.edit.admin_cities')
+  if $(document["body"]).is('.edit.admin_cities, .new.admin_cities')
     new CityEditor.City

@@ -1,2 +1,8 @@
-- collection.each do |city|
-  %div= city.name
+%h1#header Mapa de Transporte
+%h2 Ciudades disponibles
+%ul
+  - collection.each do |city|
+    %li
+      %a{href: city_url(city)}= city.name
+
+= render partial: "/elements/footer"

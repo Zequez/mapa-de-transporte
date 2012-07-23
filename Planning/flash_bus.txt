@@ -1,0 +1,31 @@
+mar-del-plata/colectivos = 404 -> Arreglar.
+Cuando la barra de desplazamiento comienza toggleada no funciona.
+Ocultar/mostrar ruta de colectivo #{name}#{division}
+Creare #full_name y usarlo en donde se escribe el nombre del bus. Como en el título del bus.
+Ordenar buses.
+Usar backup de la app en producción para development.
+
+
+Para Juan:
+
+Los 531 y 532 de ida no puede ir por Entre Ríos porque es contramano, no será Corrientes?
+
+
+Y no entendí la parte de "532 de ida seria, desde berruti y errea, x berruti, cetz, bradley, vuelta en bradley y acosta y vuelve x la misma, o sea bradley, cetz, berruti, 180 hacia el centro. a la vuelta tmbn seria, desde 180 y berruti, x berruti, cetz, bradley, bradley y acosta, bradley, cetz, berruti, berruti y errea"
+
+Bradley y Acosta son paralelas. Es más fácil seguirte si solo decís las calles donde dobla, no las que cruza xD.
+
+El 581 tengo entendido que llega hasta el faro solo en temporada alta. Ahí lo puse como 2 recorridos distintos. Después tengo que agregar la nota aclarando.
+
+Con respecto a los 542, ya había puesto una nota diciendo de los distintos ramales, pero ahora actualicé y los puse como distintos recorridos. Por el aeropuerto tengo entendido que pasan todos, y también hasta Camet. Después hay uno que va a Aquasol y otro a los Zorzales (que no tengo ni idea de lo que es jaja). Igual habría que averiguar, porque dada la diferencia de distancia entre Camet y Aquasol o los Zorzales es posible que lo hayan unificado los ramales, como el 441, o algo así.
+
+555 le agrego la nota del servicio escolar.
+
+El 571A es muy probable que vaya por Alsina, ya que Güemes es muy transitada, y ningún otro colectivo va por Güemes.
+
+Entonces queda confirmar sí:
+533-Puerto a la ida hace:
+ - Las Heras - Castelli - Arenales - Quintana - Buenos Aires
+ - Las Heras - Castelli - Buenos Aires
+
+593 la vuelta que hace por la Av. Antártida Argentina.

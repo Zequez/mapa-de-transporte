@@ -33,7 +33,7 @@ class Bus < ActiveRecord::Base
   end
 
   def create_perm
-    self.perm = "#{name}#{division.sub('?', 'q').sub('+', 'm')}"
+    self.perm = "#{name}#{division.sub('?', 'q').sub('+', 'm').sub(' ', '-')}"
   end
 
   # These will be delegated to groups and to city

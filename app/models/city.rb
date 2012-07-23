@@ -18,6 +18,8 @@ class City < ActiveRecord::Base
   serialize :viewport
 
   scope :for_show, includes(bus_groups: [:buses])#: [:departure_route, :return_route]])
+  scope :ordered, order("name ASC")
+  scope :visible, where(visible: true)
 
   scope :domain, lambda{|domain|}
 
@@ -48,6 +50,10 @@ class City < ActiveRecord::Base
 
   def self.get_by_user_location(name)
     find_by_name(name) if not name.blank?
+  end
+
+  def self.get_from_geolocation(ip)
+    first
   end
 
   def json_viewport

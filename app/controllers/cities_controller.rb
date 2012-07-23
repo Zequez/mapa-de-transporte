@@ -11,6 +11,18 @@ class CitiesController < InheritedResources::Base
     redirect_to city_path(City.first)
   end
 
+  def index
+    # Redirect to the correct city if the user
+    # is located in a city of our database.
+    if params[:root]
+      if (@city = City.get_from_geolocation("127.0.0.1"))
+        if @city.visible?
+          return redirect_to city_path(City.first)
+        end
+      end
+    end
+  end
+
   def show
     @feedback = Feedback.new city: resource
     @buses = resource.set_shown_buses(params[:buses])
@@ -37,13 +49,17 @@ class CitiesController < InheritedResources::Base
     "cities/#{params[:id]}/qps"
   end
 
-  private
+  protected
 
   #def redirect_to_user_city
   #  if params[:redirect] and user_city
   #    return redirect_to city_url(user_city)
   #  end
   #end
+
+  def collection
+    @city ||= end_of_association_chain.ordered.visible
+  end
 
   def resource
     @city ||= begin
