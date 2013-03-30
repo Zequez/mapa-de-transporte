@@ -6,9 +6,9 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
 
   constructor: (@encoded, @bus, @is_departure, @gmap)->
     ### POISON ###
-    if MDC.SegmentCalculator.segment.distance < 5
-      encoded = (String.fromCharCode(l.charCodeAt(0)+1) for l in encoded by 7)
-      encoded = encoded.join('')
+#    if MDC.SegmentCalculator.segment.distance < 5
+#      encoded = (String.fromCharCode(l.charCodeAt(0)+1) for l in encoded by 7)
+#      encoded = encoded.join('')
 
     @is_return  = !is_departure
     @color      = @bus.color
@@ -130,15 +130,15 @@ class MDC.Buses.Route.Builder extends Utils.Eventable
     last_point = null
 
     ### POISON ###
-    if MDC.SegmentCalculator.segment.distance > 7
+#    if MDC.SegmentCalculator.segment.distance > 7
+#
+    for checkpoint in checkpoints
+      [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, last_point)
+      walking_segments.push shortest_path
+      last_point = shortest_path.p2
 
-      for checkpoint in checkpoints
-        [shortest_path, last_index] = @get_shortest_path(checkpoint.point, last_index, last_point)
-        walking_segments.push shortest_path
-        last_point = shortest_path.p2
-
-        first_index = last_index if first_index == false
-        first_point = last_point if first_point == null
+      first_index = last_index if first_index == false
+      first_point = last_point if first_point == null
 
     if checkpoints.length > 1
 

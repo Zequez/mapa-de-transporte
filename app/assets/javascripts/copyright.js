@@ -1,23 +1,14 @@
 /**
  * @license
- * Copyright 2012, Ezequiel Schwartzman.
- * Todos los derechos reservables reservados. No robar.
- * No, no es una licencia pu`blica si eso es lo que esperabas.
- * Y tampoco es Open Source. No por ahora.
+ * Copyright 2013, Ezequiel Schwartzman.
+ * Todos los derechos reservables reservados. No robar con fines malévolos.
  *
  *
  * Nota: Perdo`n por no poner ninguna tilde, pero si tengo que
  * codificarlo en UTF-8 se hace ma`s grande. Asi` que... ` = tilde, y [ni] = e[ni]e
  *
  *
- * El co`digo de abajo esta` comple`tamente minificado por Closure Compiler
- * con el nivel de ADVANCED_OPTIMIZATIONS.
- *
- * Si todavi`a esta`s dispuesto a crackearlo, te deseo suerte. No mucha eh?
- * Igual, si tene`s alguna razo`n legi`tima para querer el co`digo fuente
- * se pude discutir.
- *
- * Por otro lado, aqui` va la lista de agradecimiento, no solo para la parte en JavaScript
+ * Aqui` va la lista de agradecimiento, no solo para la parte en JavaScript
  * si no para todo el proyecto en general.
  *
  * Al Internet por ser la cosa ma`s genial que existe entre las cosas ma`s geniales que existen.
@@ -72,6 +63,9 @@
  * A Pablo porque en realidad no nos vemos nunca, pero legalmente sigue siendo mi amigo.
  * A Bruno por ser un histe`rico.
  * A Aili`n por ser una puta.
+ * A Guido por tener barba
+ * A Nacho por ser Nacho
+ * A Fede porque nunca se conecta
  * A vos porque te leiste todo, sos lo más.
  *
  * Me fui a la mierda con los agradecimientos.

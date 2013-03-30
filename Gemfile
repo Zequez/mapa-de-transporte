@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 #gem 'mysql2'
 gem 'pg'
+gem 'sqlite3'
 gem 'thin'
 
 gem 'inherited_resources'

@@ -14,7 +14,7 @@ class MDC.Interface.HelpBar
 
   build_toggle: ->
     ### POISON ###
-    MDC.SegmentCalculator.distance()
+#    MDC.SegmentCalculator.distance()
     
     @toggle = new MDC.Interface.Toggleable(@tooltips, "help_tips")
 

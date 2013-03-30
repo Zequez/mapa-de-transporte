@@ -48,8 +48,13 @@ class MDC.Directions.Checkpoints.Marker extends Utils.Eventable
 
     # Middle click won't fire click on Firefox, so we have to use mouseup.
     $G.event.addListener @marker, 'mouseup', (e)=>
-      if e["b"]["button"] == 1
-        @fire_event('middleclick')
+      for key, val of e
+        if val and val['button']
+          if val['button'] == 1
+            @fire_event('middleclick')
+      #@fire_event('middleclick')
+#      if e["b"]["button"] == 1
+#        @fire_event('middleclick')
 
 
   set_latlng: (@latlng)->

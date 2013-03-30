@@ -8,12 +8,12 @@ Mdc::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  require 'closure-compiler'
-
-  closure_externs = Dir.glob("#{config.root}/closure_externs/*")
-
-  config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
-                                                        externs: closure_externs)
+  #require 'closure-compiler'
+  #
+  #closure_externs = Dir.glob("#{config.root}/closure_externs/*")
+  #
+  #config.assets.js_compressor = Closure::MyCompiler.new(compilation_level: 'ADVANCED_OPTIMIZATIONS',
+  #                                                      externs: closure_externs)
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_assets = true
