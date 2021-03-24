@@ -1,7 +1,7 @@
 # Mapa de Transporte
 
-![Screenshot of the client interface](./screenshot.jpg?raw=true "Screenshot of the client interface")
-![Screenshot of the backend interface](./screenshot-backend.jpg?raw=true "Screenshot of the backend interface")
+![Screenshot of the client interface](./screenshot.png?raw=true "Screenshot of the client interface")
+![Screenshot of the backend interface](./screenshot-backend.png?raw=true "Screenshot of the backend interface")
 
 This was my first full stack application made with Ruby on Rails, it was
 developed for my city of Mar del Plata to be able to visualize all the public
